@@ -1,11 +1,9 @@
 'use client'
 
 import { Button } from "@/components/ui/button"
-import { AuthenticatedTemplate, UnauthenticatedTemplate, useIsAuthenticated, useMsal } from "@azure/msal-react"
-import { callMsGraph } from "@/service/msal/graph"
+import { AuthenticatedTemplate, UnauthenticatedTemplate } from "@azure/msal-react"
 import { handleLogin } from "@/service/msal/msal"
 import React from "react";
-import { call } from "@mdxeditor/editor"
 
 function AccountArea() {
   return (
