@@ -11,9 +11,20 @@
   "dependencies": {
     "@azure/msal-browser": "^3.6.0",
     "@azure/msal-react": "^2.0.8",
+    "@mdxeditor/editor": "^2.9.1",
+    "@radix-ui/react-navigation-menu": "^1.1.4",
+    "@radix-ui/react-slot": "^1.0.2",
+    "class-variance-authority": "^0.7.0",
+    "clsx": "^2.1.0",
+    "geist": "^1.2.2",
+    "lucide-react": "^0.341.0",
+    "mathlive": "^0.98.6",
     "next": "14.0.4",
     "react": "^18",
-    "react-dom": "^18"
+    "react-dom": "^18",
+    "styled-components": "^6.1.8",
+    "tailwind-merge": "^2.2.1",
+    "tailwindcss-animate": "^1.0.7"
   },
   "devDependencies": {
     "@types/node": "^20",

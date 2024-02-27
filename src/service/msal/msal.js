@@ -1,6 +1,6 @@
 import { AuthenticationResult, EventType, PublicClientApplication } from "@azure/msal-browser";
-import { getCurrentToken } from "@/msal/tokenFetcher";
-import { msalConfig, loginRequest } from "@/msal/authConfig";
+import { getCurrentToken } from "@/service/msal/tokenFetcher";
+import { msalConfig, loginRequest } from "@/service/msal/authConfig";
 
 export const msalInstance = new PublicClientApplication(msalConfig);
 
@@ -14,10 +14,12 @@ export function initializeMsal() {
 
   msalInstance.addEventCallback(async (event) => {
     if (event.eventType === EventType.LOGIN_SUCCESS && event.payload) {
-      const payload = event.payload as AuthenticationResult;
+      const payload = event.payload;
       const account = payload.account;
       msalInstance.setActiveAccount(account);
     }
+
+  
   });
 }
 
@@ -42,7 +44,7 @@ export const handleLogin = (loginType = "redirect") => {
 
 export const handleLogout = (logoutType = "redirect") => {
   if (logoutType === "popup") {
-    msalInstance.logoutPopup().catch((e: any) => {
+    msalInstance.logoutPopup().catch((e) => {
       console.error(`logoutPopup failed: ${e}`);
     });
   } else if (logoutType === "redirect") {

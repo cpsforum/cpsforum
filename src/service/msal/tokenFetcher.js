@@ -1,7 +1,6 @@
-import { PublicClientApplication } from "@azure/msal-browser";
-import { API_SCOPE } from "@/msal/authConfig";
+import { API_SCOPE } from "@/service/msal/authConfig";
 
-export async function getCurrentToken(msalInstance: PublicClientApplication): Promise<string | null> {
+export async function getCurrentToken(msalInstance){
     const acquireAccessToken = async () => {
         const activeAccount = msalInstance.getActiveAccount(); // This will only return a non-null value if you have logic somewhere else that calls the setActiveAccount API
         const accounts = msalInstance.getAllAccounts();
