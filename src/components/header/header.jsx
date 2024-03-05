@@ -66,7 +66,7 @@ const RowSpan3 = styled.li`
 
 const NavigationImageAnchor = styled.div`
     padding: 1.5rem;
-    background-image: url("forumnavbanner.png");
+    background-image: url(/forumnavbanner.png);
     justify-content: flex-start;
     flex-direction: column;
     height: 100%;

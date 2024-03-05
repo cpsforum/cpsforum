@@ -52,7 +52,7 @@ const SideBarLink = React.forwardRef(({ links, isCollapsed, className, variant, 
             <Tooltip key={index} delayDuration={0}>
               <TooltipTrigger asChild>
                 <Link
-                  href={link.slug}
+                  href={`/forum/${link.slug}`}
                   className={cn(
                     buttonVariants({ variant: link.variant == "default" || slug == link.slug ? "default" : "ghost", size: "icon" }),
                     "h-9 w-9 justify-center",
@@ -74,7 +74,7 @@ const SideBarLink = React.forwardRef(({ links, isCollapsed, className, variant, 
           ) : (
             <Link
               key={index}
-              href={link.slug}
+              href={`/forum/${link.slug}`}
               className={cn(
                 buttonVariants({ variant: link.variant == "default" || slug == link.slug ? "default" : "ghost", size: "sm" }),
                 "justify-start"
@@ -116,7 +116,7 @@ const SideBarSectionLink = React.forwardRef(({ links, isCollapsed, className, va
                 <Tooltip key={index} delayDuration={0}>
                   <TooltipTrigger asChild>
                     <Link
-                      href={link.slug}
+                      href={`/forum/${link.slug}`}
                       className={cn(
                         buttonVariants({ variant: link.variant, size: "icon" }),
                         "h-9 w-9 inline-flex w-full items-center align-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50"
@@ -156,7 +156,7 @@ const SideBarSectionLink = React.forwardRef(({ links, isCollapsed, className, va
                     )}
                   </span>
                   {link.sections.map((section, sindex) =>
-                    <Link href={section.slug}
+                    <Link href={`/forum/${section.slug}`}
                       key={index+'-'+sindex}
                       className={
                         cn(

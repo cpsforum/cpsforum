@@ -1,9 +1,5 @@
-import Image from "next/image";
-import { Topic } from "@/components/data/topic-data";
-import { Feed } from "@/components/feed/feed";
+import { redirect } from "next/navigation";
 
-export default function Home() {
-  return (
-    <Feed items={Topic} />
-  );
+export default function RootPage() {
+  redirect('/forum')
 }
