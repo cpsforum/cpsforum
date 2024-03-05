@@ -2,7 +2,7 @@
 
 import { Button } from "@/components/ui/button"
 import { AuthenticatedTemplate, UnauthenticatedTemplate } from "@azure/msal-react"
-import { handleLogin } from "@/service/msal/msal"
+import { handleLogin, handleLogout } from "@/service/msal/msal"
 import React from "react";
 
 function AccountArea() {
@@ -14,9 +14,9 @@ function AccountArea() {
         </Button>
       </UnauthenticatedTemplate>
       <AuthenticatedTemplate>
-        <div>
-          Logado
-        </div>
+      <Button onClick={() => handleLogout("popup")}>
+          Sair
+        </Button>
       </AuthenticatedTemplate>
     </>
   )

@@ -4,14 +4,14 @@ import { GeistSans } from 'geist/font/sans';
 import { GeistMono } from 'geist/font/mono';
 import Header from "../components/header/header";
 import StyledComponentsRegistry from "@/lib/registry";
+import MainLayout from '@/components/layout/mainlayout';
 
 export const metadata = {
-  title: 'MSAL with Next.Js 14',
-  description: 'Created by Mazen Alsenih (https://mazensenih.com | mazen.el.senih@gmail)',
+  title: 'Fórum',
+  description: 'Fórum',
 }
 
-export default function RootLayout({children}) {
-
+export default function RootLayout({ children }) {
   return (
     <MyMsalProvider>
       <html lang="en">
@@ -20,7 +20,9 @@ export default function RootLayout({children}) {
             <header>
               <Header />
             </header>
-            {children}
+            <MainLayout>
+              {children}
+              </MainLayout>
           </StyledComponentsRegistry>
         </body>
       </html>
