@@ -9,7 +9,7 @@ export const metadata = {
   description: 'Fórum',
 }
 
-export default function RootLayout({ children }) {
+export default function ForumLayout({ children }) {
   return (
     <MyMsalProvider>
       <html lang="pt-br">
