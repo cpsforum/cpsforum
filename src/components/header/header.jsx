@@ -43,6 +43,11 @@ const RightHeader = styled.div`
 const LogoDiv = styled.div`
     margin-right: 1rem;
     margin-bottom: 5px;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
     `
 
 const NavigationGrid = styled.ul`
