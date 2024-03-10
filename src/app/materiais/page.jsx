@@ -42,7 +42,7 @@ export default function Home() {
                                 </span>
                             )}
                             <button id={`toggle-btn-${index}`} className="mt-4 text-blue-500 focus:outline-none" onClick={() => expandedItem === index ? handleViewLess() : handleViewMore(index)}>
-                                {expandedItem === index ? 'Hide' : 'Ler mais'}
+                                {expandedItem === index ? 'Ler Menos' : 'Ler mais'}
                             </button>
                         </div>
                             <div class="flex flex-col items-left mt-2.5 mb-5 text-gray-600">
