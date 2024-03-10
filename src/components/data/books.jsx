@@ -316,3 +316,36 @@ export const NatureSciences = [
         editor: 'Moderna',
     },    
 ]
+
+export const SocialScienceAndMath = [
+    {
+        title: 'Moderna Plus - Ciências Humanas e Sociais',
+        desc: 'lorem ipsum dolor amet',
+        author: 'BETO PAIVA, EWERTON PAIVA, MANOEL PAIVA E RODRIGO PAIVA',
+        release: 2020,
+        src: 'https://www.calameo.com/read/002899327e702d415f458',
+        cover: '#',
+        category: 'Ciências Sociais e Matemática',
+        editor: 'Moderna',
+    },
+    {
+        title: 'Identidade em Ação - Ciências Humanas e Sociais e Matemática',
+        desc: 'lorem ipsum dolor amet',
+        author: 'PAULO FERRAZ DE CAMARGO OLIVEIRA',
+        release: 2020,
+        src: 'https://www.calameo.com/read/0028993277dcce61832ee',
+        cover: '#',
+        category: 'Ciências Sociais e Matemática',
+        editor: 'Moderna',
+    },
+    {
+        title: 'Conexões - Ciências Humanas e Sociais e Matemática',
+        desc: 'lorem ipsum dolor amet',
+        author: 'JOÃO FELIPE SALOMÃO',
+        release: 2020,
+        src: 'https://www.calameo.com/read/0028993274ef23cab4ac3',
+        cover: '#',
+        category: 'Ciências Sociais e Matemática',
+        editor: 'Moderna',
+    },
+]
