@@ -15,7 +15,7 @@ export default function Home() {
         setExpandedItem(null);
     }
 
-   
+
     return (
         <>
             <div className="grid grid-rows-4 grid-flow-col gap-4">
@@ -33,18 +33,19 @@ export default function Home() {
                                 <h6 className="text-gray-900"> {book.category}</h6>
                             </a>
                             <div class="flex flex-col items-left mt-2.5 mb-5 text-gray-600">
-                            <p className="leading-relaxed">
-                                {expandedItem === index ? book.desc : book.desc.slice(0, 150)+'...'}
-                            </p>
-                            {book.desc.length > 150 && (
-                                <span id={`more-text-${index}`} className={expandedItem === index ? '' : 'hidden'}>
-                                    {book.desc.slice(150)}
-                                </span>
-                            )}
-                            <button id={`toggle-btn-${index}`} className="mt-4 text-blue-500 focus:outline-none" onClick={() => expandedItem === index ? handleViewLess() : handleViewMore(index)}>
-                                {expandedItem === index ? 'Ler Menos' : 'Ler mais'}
-                            </button>
-                        </div>
+
+                                <p className="leading-relaxed">
+                                    {expandedItem === index ? book.desc : book.desc.slice(0, 150) + '... '}
+                                </p>
+                                {book.desc.length > 150 && (
+                                    <span id={`more-text-${index}`} className={expandedItem === index ? '' : 'hidden'}>
+                                        {book.desc.slice(150,0)}
+                                    </span>
+                                )}
+                                <button id={`toggle-btn-${index}`} className="text-blue-500 focus:outline-none" onClick={() => expandedItem === index ? handleViewLess() : handleViewMore(index)}>
+                                        {expandedItem === index ? 'Ler Menos' : 'Ler mais'}
+                                    </button>
+                            </div>
                             <div class="flex flex-col items-left mt-2.5 mb-5 text-gray-600">
                                 {/* <p>Autor: {book.author}</p>
                                 <p>Ano: {book.release}</p> */}

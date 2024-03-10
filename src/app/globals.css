@@ -101,3 +101,14 @@
     transition: opacity 0.2s ease-in-out;
   }
 }
+
+.current{
+  background-color: hsl(var(--primary));
+  color: #eee
+}
+
+.current:hover{
+  opacity: 0.7;
+  background-color: hsl(var(--primary)) !important;
+  color: #eee !important;
+}

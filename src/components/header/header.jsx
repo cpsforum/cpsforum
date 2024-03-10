@@ -14,6 +14,8 @@ import {
 import styled from 'styled-components'
 import AccountArea from "./accountArea/accountArea"
 import Image from "next/image";
+import React, { useState } from 'react';
+import { usePathname } from 'next/navigation'
 
 const Logo = () => {
     return (
@@ -100,9 +102,11 @@ const MoreButton = styled.div`
     right: 0;
     margin: 10px;
     color: hsl(var(--muted-foreground));
-`
+` 
 
 function Header() {
+    const pathname = usePathname()
+
     return (
         <ShadowHeader>
             <LeftHeader>
@@ -256,7 +260,7 @@ function Header() {
                                 </NavigationMenuContent>
                             </NavigationMenuItem>
                             <NavigationMenuItem>
-                                <NavigationMenuLink href="materiais" id="mtls-btn" className={navigationMenuTriggerStyle()}>
+                                <NavigationMenuLink href="materiais" className={`${navigationMenuTriggerStyle()} ${pathname == '/materiais' ? 'current' : ''}`}>
                                     Materiais
                                 </NavigationMenuLink>
                             </NavigationMenuItem>
