@@ -1,6 +1,5 @@
 'use client'
 
-// import './header.css';
 import {
     NavigationMenu,
     NavigationMenuContent,
@@ -14,12 +13,14 @@ import {
 } from "@/components/ui/navigation-menu"
 import styled from 'styled-components'
 import AccountArea from "./accountArea/accountArea"
-import Image from "next/image"
+import Image from "next/image";
 
 const Logo = () => {
     return (
-        <Image width={125} height={125} alt="Logo" src='/logo.svg' />
-    )
+        <a href="/">
+            <Image width={125} height={125} alt="Logo" src='/logo.svg' />
+        </a>
+        )
 }
 
 const ShadowHeader = styled.div`
@@ -255,7 +256,7 @@ function Header() {
                                 </NavigationMenuContent>
                             </NavigationMenuItem>
                             <NavigationMenuItem>
-                                <NavigationMenuLink href="materiais" className={navigationMenuTriggerStyle()}>
+                                <NavigationMenuLink href="materiais" id="mtls-btn" className={navigationMenuTriggerStyle()}>
                                     Materiais
                                 </NavigationMenuLink>
                             </NavigationMenuItem>
