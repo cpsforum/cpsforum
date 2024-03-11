@@ -3,7 +3,7 @@ import MyMsalProvider from '@/service/msal/MyMsalProvider'
 import { GeistSans } from 'geist/font/sans';
 import Header from "../components/header/header";
 import StyledComponentsRegistry from "@/lib/registry";
-import { GeistMono }from 'geist/font/mono';
+import { ThemeProvider } from "@/components/theme-provider/theme-provider"
 
 export const metadata = {
   title: 'Fórum',
@@ -16,10 +16,17 @@ export default function RootLayout({ children }) {
       <html lang="pt-br">
         <body className={GeistSans.className}>
           <StyledComponentsRegistry>
-            <header>
-              <Header />
-            </header>
+            <ThemeProvider
+              attribute="class"
+              defaultTheme="system"
+              enableSystem
+              disableTransitionOnChange
+            >
+              <header>
+                <Header />
+              </header>
               {children}
+            </ThemeProvider>
           </StyledComponentsRegistry>
         </body>
       </html>

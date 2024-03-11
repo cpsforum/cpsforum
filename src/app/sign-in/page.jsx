@@ -6,7 +6,7 @@ import UserForm from "@/components/authUser/user-auth-form"
 
 export default function SignIn() {
     return (
-        <div className="relative h-screen md:grid lg:max-w-none lg:px-0 grid-cols-[70%_minmax(30%,_1fr)] bg-stone-800">
+        <div className="max-h-[calc(100vh-3.5rem)] md:grid lg:max-w-none lg:px-0 grid-cols-[70%_minmax(30%,_1fr)] bg-stone-800">
             <div className="relative hidden h-full flex-col bg-muted p-10 text-white lg:flex dark:border-r">
                 <div className="absolute inset-0 bg-cover bg-center bg-origin-content bg-[url(/rose-petals.svg)]" />
             </div>
