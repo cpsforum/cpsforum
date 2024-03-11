@@ -29,7 +29,7 @@ import {
 }
     from '@mdxeditor/editor';
 import '@mdxeditor/editor/style.css'
-import InsertMathLive from '@/components/editor/insertmathlive';
+import { InsertMathLive } from '@/components/editor/insertmathlive';
 import EnterFullScreen from '@/components/editor/enterfullscreen';
 import '@/components/editor/editor.css'
 import { CloudUploadIcon, CloudIcon } from 'lucide-react';
