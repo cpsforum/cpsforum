@@ -4,16 +4,12 @@ import * as React from "react"
 
 import Spinner from '@/components/ui/spinner'
 import { Button } from "@/components/ui/button"
-import { z } from "zod"
+import { useRouter } from 'next/navigation'
 
-const FormSchema = z.object({
-  username: z.string().min(2, {
-    message: "Username must be at least 2 characters.",
-  }),
-})
 
 export default function UserForm({ ...props }) {
   const [isLoading, setIsLoading] = React.useState(false)
+  const router = useRouter()
 
   const onSubmit = async (event) => {
     event.preventDefault()
@@ -27,8 +23,8 @@ export default function UserForm({ ...props }) {
   return (
     <div {...props}>
       <form onSubmit={onSubmit}>
-        <div className="grid ">
-          <Button disabled={isLoading}>
+        <div className="grid">
+          <Button onClick={() => router.push('/forum')} disabled={isLoading}>
             {isLoading ? (
               <Spinner className="mr-2 h-4 w-4 animate-spin" />
             ) : (
