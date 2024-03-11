@@ -13,7 +13,7 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <MyMsalProvider>
-      <html lang="pt-br">
+      <html lang="pt-br" suppressHydrationWarning>
         <body className={GeistSans.className}>
           <StyledComponentsRegistry>
             <ThemeProvider

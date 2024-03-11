@@ -8,9 +8,6 @@ const config = {
   ],
   prefix: "",
   theme: {
-    fontSize: {
-      '3xl': '1rem'
-    },
     container: {
       center: true,
       padding: "2rem",
