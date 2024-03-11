@@ -5,7 +5,6 @@ import { msalConfig, loginRequest } from "@/service/msal/authConfig";
 export const msalInstance = new PublicClientApplication(msalConfig);
 
 export function initializeMsal() {
-  console.log("=> msal initialization..");
   // Account selection logic is app dependent. Adjust as needed for different use cases.
   const accounts = msalInstance.getAllAccounts();
   if (accounts.length > 0) {

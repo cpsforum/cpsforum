@@ -1,0 +1,61 @@
+#editor{
+    border: 1px solid hsl(var(--border));
+    border-radius: 6px;
+}
+
+.cm-line, .cm-line * {
+    font-family: var(--font-mono);
+}
+
+.mdxeditor{
+    border-bottom: 1px solid #d3d3d3;
+    min-height: 400px;
+    background-color: hsl(var(--background));
+    border-radius: 6px 6px 0px 0px;
+}
+
+.mdxeditor-toolbar{
+    background-color: hsl(var(--background)) !important; 
+    border-radius: 6px 6px 0px 0px !important;
+    border-bottom: 1px solid #d3d3d3;
+}
+
+math-field{
+    outline: 1px solid hsl(var(--border));
+    font-size: 1.2rem;
+    background-color: hsl(var(--background));
+    padding: 1rem;
+    border-radius: 10px;
+    --contains-highlight-background-color: hsl(var(--secondary));
+}
+
+math-field:focus{
+    outline: 1px solid #0d65ff;
+}
+
+._multiFieldForm_19o4e_1144, ._dialogContent_19o4e_556, ._linkDialogPopoverContent_19o4e_554{
+    background-color: hsl(var(--background)) !important;
+}
+
+.fullscreen_editor{
+    height: 100%;
+    width: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;;
+    z-index: 51;
+}
+
+.fullscreen_editor .mdxeditor{
+    height: calc(100% - 15px);
+    width:  100%;
+    overflow-y: auto;
+}
+
+._popupContainer_19o4e_1170{
+    z-index: 51 !important;
+}
+
+._selectTrigger_19o4e_281{
+    background-color: hsl(var(--secondary));
+}

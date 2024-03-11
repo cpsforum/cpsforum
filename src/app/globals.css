@@ -2,6 +2,38 @@
 @tailwind components;
 @tailwind utilities;
 
+._contentEditable_19o4e_352 a {
+  color: #0d6efd;
+  text-decoration: underline;
+}
+
+._contentEditable_19o4e_352 ul{
+  display: block;
+  list-style-type: disc;
+  margin-block-start: 1em;
+  margin-block-end: 1em;
+  margin-inline-start: 0px;
+  margin-inline-end: 0px;
+  padding-inline-start: 40px;
+  padding-left: 2rem
+}
+
+._contentEditable_19o4e_352 ol{
+  display: block;
+  list-style-type: decimal;
+  margin-block-start: 1em;
+  margin-block-end: 1em;
+  margin-inline-start: 0px;
+  margin-inline-end: 0px;
+  padding-inline-start: 40px;
+}
+
+._contentEditable_19o4e_352 dl, ._contentEditable_19o4e_352 ol, ._contentEditable_19o4e_352 ul{
+  margin-top: 0;
+  margin-bottom: 1rem;
+  padding-left: 2rem
+} 
+
 @layer base {
   :root {
     --background: 0 0% 100%;
@@ -57,13 +89,12 @@
     --accent: 217.2 32.6% 17.5%;
     --accent-foreground: 210 40% 98%;
 
-    --destructive: 0 62.8% 30.6%;
+    --destructive: 0 84.2% 70%;
     --destructive-foreground: 210 40% 98%;
 
     --border: 240 3.7% 15.9%;
     --input: 240 3.7% 15.9%;
     --ring: 240 4.9% 83.9%;
-
   }
 }
 
