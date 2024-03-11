@@ -9,12 +9,12 @@ function AccountArea() {
   return (
     <>
       <UnauthenticatedTemplate>
-        <Button onClick={() => handleLogin("redirect")}>
+        <Button size={"sm"} onClick={() => handleLogin("redirect")}>
           Entrar
         </Button>
       </UnauthenticatedTemplate>
       <AuthenticatedTemplate>
-      <Button onClick={() => handleLogout("popup")}>
+        <Button size="sm" onClick={() => handleLogout("redirect")}>
           Sair
         </Button>
       </AuthenticatedTemplate>

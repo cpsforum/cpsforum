@@ -1,10 +1,9 @@
 import './globals.css'
 import MyMsalProvider from '@/service/msal/MyMsalProvider'
 import { GeistSans } from 'geist/font/sans';
-import { GeistMono } from 'geist/font/mono';
 import Header from "../components/header/header";
 import StyledComponentsRegistry from "@/lib/registry";
-import MainLayout from '@/components/layout/mainlayout';
+import { GeistMono }from 'geist/font/mono';
 
 export const metadata = {
   title: 'Fórum',

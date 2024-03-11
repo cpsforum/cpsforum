@@ -34,9 +34,9 @@ export const Topic = ({ item }) => {
             </div>
             {item.labels.length ? (
                 <div className="flex items-center gap-2">
-                    {item.labels.map((label) => (
-                        <Badge key={label} variant={getBadgeVariantFromLabel(label)}>
-                            {label}
+                    {item.labels.map((label, i) => (
+                        <Badge key={i} variant={getBadgeVariantFromLabel(label)}>
+                            {label} 
                         </Badge>
                     ))}
                 </div>
