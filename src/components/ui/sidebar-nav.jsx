@@ -110,10 +110,10 @@ const SideBarSectionLink = React.forwardRef(({ links, isCollapsed, className, va
     >
       <nav className="grid gap-1 group-[[data-collapsed=true]]:justify-center group-[[data-collapsed=true]]:px-2">
         {links.map((link, index) =>
-          <div className="py-2">
+          <div key={index} className="py-2">
             {
               isCollapsed ? (
-                <Tooltip key={index} delayDuration={0}>
+                <Tooltip delayDuration={0}>
                   <TooltipTrigger asChild>
                     <Link
                       href={`/forum/${link.slug}`}
@@ -138,7 +138,6 @@ const SideBarSectionLink = React.forwardRef(({ links, isCollapsed, className, va
               ) : (
                 <div>
                   <span
-                    key={index}
                     className={cn(
                       "inline-flex w-full items-center justify-start align-center whitespace-wrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50",
                       "justify-start px-3 py-1"
@@ -179,6 +178,7 @@ const SideBarSectionLink = React.forwardRef(({ links, isCollapsed, className, va
   );
 })
 
-SideBarLink.displayName = "Button"
+SideBarLink.displayName = "Button";
+SideBarSectionLink.displayName = "Button";
 
 export { SideBarLink, SideBarSectionLink, buttonVariants }
