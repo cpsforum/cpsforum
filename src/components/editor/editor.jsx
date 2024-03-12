@@ -33,10 +33,122 @@ import InsertMathLive from '@/components/editor/insertmathlive';
 import EnterFullScreen from '@/components/editor/enterfullscreen';
 import '@/components/editor/editor.css'
 import { CloudUploadIcon, CloudIcon } from 'lucide-react';
+import i18next from 'i18next';
+
+//Localizador para o editor
+i18next.init({
+    lng: 'pt',
+    debug: true,
+    resources: {
+        pt: {
+            translation: {
+                "frontmatterEditor": {
+                    "title": "Editar frontmatter do documento",
+                    "key": "Chave",
+                    "value": "Valor",
+                    "addEntry": "Adicionar entrada"
+                },
+                "dialogControls": {
+                    "save": "Salvar",
+                    "cancel": "Cancelar"
+                },
+                "uploadImage": {
+                    "uploadInstructions": "Enviar uma imagem do seu dispotivo:",
+                    "addViaUrlInstructions": "Ou adicionar uma imagem a partir de um URL:",
+                    "autoCompletePlaceholder": "Insira um link de imagem",
+                    "alt": "Texto alternativo:",
+                    "title": "Título:"
+                },
+                "imageEditor": {
+                    "editImage": "Editar imagem"
+                },
+                "createLink": {
+                    "url": "URL",
+                    "urlPlaceholder": "Insira um URL",
+                    "title": "Título",
+                    "saveTooltip": "Definir URL",
+                    "cancelTooltip": "Cancelar"
+                },
+                "linkPreview": {
+                    "open": "Abrir {{url}} em uma nova janela",
+                    "edit": "Editar URL",
+                    "copyToClipboard": "Copiar para a área de transferência",
+                    "copied": "Copiado para a área de transferência!",
+                    "remove": "Remover link"
+                },
+                "table": {
+                    "deleteTable": "Deletar tabela",
+                    "columnMenu": "Opções da coluna",
+                    "textAlignment": "Alinhamento do texto",
+                    "alignLeft": "Alinhar à esquerda",
+                    "alignCenter": "Centralizar",
+                    "alignRight": "Alinhar à direita",
+                    "insertColumnLeft": "Inserir uma coluna à esquerda desta",
+                    "insertColumnRight": "Inserir uma coluna à direita desta",
+                    "deleteColumn": "Deletar esta coluna",
+                    "rowMenu": "Opções de linha",
+                    "insertRowAbove": "Inserir uma linha acima desta",
+                    "insertRowBelow": "Inserir uma linha abaixo desta",
+                    "deleteRow": "Deletar esta linha"
+                },
+                "toolbar": {
+                    "blockTypes": {
+                        "paragraph": "Parágrafo",
+                        "quote": "Citação",
+                        "heading": "Cabeçalho {{level}}"
+                    },
+                    "blockTypeSelect": {
+                        "selectBlockTypeTooltip": "Selecione o tipo de bloco de texto",
+                        "placeholder": "Bloco de texto"
+                    },
+                    "removeBold": "Remover negrito",
+                    "bold": "Negrito",
+                    "removeItalic": "Remover itálico",
+                    "italic": "Itálico",
+                    "underline": "Sublinhado",
+                    "removeUnderline": "Remover sublinhado",
+                    "removeInlineCode": "Remover linha de código",
+                    "inlineCode": "Linha de código",
+                    "link": "Criar link",
+                    "richText": "Modo rich text",
+                    "diffMode": "Modo de diferença",
+                    "source": "Modo código fonte",
+                    "admonition": "Inserir aviso",
+                    "codeBlock": "Inserir bloco de código",
+                    "editFrontmatter": "Editar frontmatter",
+                    "insertFrontmatter": "Inserir frontmatter",
+                    "image": "Inserir imagem",
+                    "insertSandpack": "Inserir Sandpack",
+                    "table": "Inserir tabela",
+                    "thematicBreak": "Inserir quebra de seção",
+                    "bulletedList": "Lista com marcadores",
+                    "numberedList": "Lista numerada",
+                    "checkList": "Checklist",
+                    "deleteSandpack": "Deletar esse bloco de código",
+                    "undo": "Desfazer {{shortcut}}",
+                    "redo": "Refazer {{shortcut}}"
+                },
+                "admonitions": {
+                    "note": "Nota",
+                    "tip": "Dica",
+                    "danger": "Perigo",
+                    "info": "Informação",
+                    "caution": "Cuidado",
+                    "changeType": "Selecionar tipo de aviso",
+                    "placeholder": "Tipo de aviso"
+                },
+                "codeBlock": {
+                    "language": "Linguagem do bloco de código",
+                    "selectLanguage": "Selecionar linguagem do bloco de código"
+                }
+            }
+        }
+    }
+})
 
 export var ref
 
-var [autoSaveState, setAutoSaveState] = [0, <CloudIcon size={12} fill='hsl(var(--muted-foreground))' />, 'Alterações salvas']
+var [autoSaveState, setAutoSaveState] = ""
 
 async function imageUploadHandler(media) {
     const formData = new FormData()
@@ -50,38 +162,48 @@ async function imageUploadHandler(media) {
 }
 
 const AutoSaveState = () => {
-    [autoSaveState, setAutoSaveState] = React.useState([0, <CloudIcon size={12} fill='hsl(var(--muted-foreground))' />, 'Alterações salvas'])
+    [autoSaveState, setAutoSaveState] = React.useState([0])
     return (
         <div className='flex px-1 text-muted-foreground'>
-            <div className='me-1'>
-                {autoSaveState[1]}
-            </div>
-            <span style={{ fontSize: '10px' }}>{autoSaveState[2]}</span>
+                {autoSaveState == 0 ?
+                    <>
+                        <div className='me-1'>
+                            <CloudIcon size={12} fill='hsl(var(--muted-foreground))' />
+                        </div>
+                        <span className='text-[10px]'>Alterações salvas</span>
+                    </>
+                    :
+                    <>
+                        <CloudUploadIcon size={12} />
+                        <span className='text-[10px]'>Armazenando suas alterações...</span>
+                    </>
+                }
         </div>
     )
 }
 
 var timeoutID
-const autoSave = () => {   
-    if (autoSaveState[0] == 0) {
-        setAutoSaveState([1, <CloudUploadIcon size={12} />, 'Armezenando suas alterações...'])
+const autoSave = () => {
+    if (autoSaveState == 0) {
+        setAutoSaveState([1])
     }
     clearTimeout(timeoutID)
     timeoutID = setTimeout(() => {
-        localStorage.setItem('editor-auto-saved-content', ref.current?.getMarkdown());
-        setAutoSaveState([0, <CloudIcon size={12} fill='hsl(var(--muted-foreground))' />, 'Alterações salvas'])
+        typeof window !== "undefined" ? window.localStorage.setItem('editor-auto-saved-content', ref.current?.getMarkdown()) : null;
+        setAutoSaveState([0])
     }, 3000);
 }
 
-export default function Editor({disabled, field}) {
+export default function Editor({ disabled, field }) {
     ref = React.useRef(null);
-    const onChangeHandler = () =>{
+    const onChangeHandler = () => {
         field.onChange()
         autoSave()
     }
     return (
         <div id='editor'>
             <MDXEditor
+                translation={(key, defaultValue, interpolations) => { return i18next.t(key, defaultValue, interpolations) }}
                 className={`!font-mono prose max-w-none prose-p:my-1 ${disabled ? 'pointer-events-none' : ''}`}
                 markdown={field.value}
                 onChange={onChangeHandler}

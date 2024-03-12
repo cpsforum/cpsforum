@@ -28,12 +28,14 @@ import {
     SelectLabel,
 } from "@/components/ui/select"
 import { sectionlinks } from '@/components/data/section-data'
-import Editor from '@/components/editor/editor'
+import dynamic from 'next/dynamic';
 
 
 const Main = styled.main`
     padding: 2rem 1rem 2rem 1rem;
 `
+
+const Editor = dynamic(() => import('@/components/editor/editor'), { ssr: false })
 
 export default function Criar() {
     //Schema para o form
@@ -56,7 +58,7 @@ export default function Criar() {
         })
     })
 
-    const editorAutoSavedValue = localStorage.getItem('editor-auto-saved-content') || '';
+    const editorAutoSavedValue = typeof window !== "undefined" ? window.localStorage.getItem('editor-auto-saved-content') || '' : '';
 
     //Hook do form
     const form = useForm({
@@ -75,8 +77,6 @@ export default function Criar() {
 
     //State para etapas
     const [step, setStep] = React.useState(1);
-
-    console.log("renderizou")
     return (
         <Main>
             <h2 className="scroll-m-20 pb-5 font-medium text-3xl tracking-tight first:mt-0">
