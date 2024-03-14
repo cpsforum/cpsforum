@@ -206,7 +206,7 @@ export default function Editor({ disabled, field }) {
         <div id='editor'>
             <MDXEditor
                 translation={(key, defaultValue, interpolations) => { return i18next.t(key, defaultValue, interpolations) }}
-                className={`!font-mono prose max-w-none prose-p:my-1 ${theme == 'dark' || resolvedTheme == 'dark' ? 'dark-theme dark-editor' : ''} ${disabled ? 'pointer-events-none' : ''}`}
+                className={`!font-mono prose max-w-none dark:prose-invert prose-p:my-1 ${theme == 'dark' || resolvedTheme == 'dark' ? 'dark-theme dark-editor' : ''} ${disabled ? 'pointer-events-none' : ''}`}
                 markdown={field.value}
                 onChange={onChangeHandler}
                 ref={ref}
