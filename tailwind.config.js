@@ -53,7 +53,7 @@ const config = {
       },
       fontFamily: {
         sans: ['var(--font-geist-sans)'],
-        mono: ["Cascadia Mono"],
+        mono: ["Cascadia Mono, var(--font-geist-mono), ui-monospace"],
         geist_mono: ['var(--font-geist-mono)'],
       },
       borderRadius: {
