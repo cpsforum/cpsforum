@@ -15,8 +15,8 @@ export const msalConfig = {
     auth: {
         clientId: process.env.NEXT_PUBLIC_ENTRA_ID_CLIENT_ID,
         authority: `https://login.microsoftonline.com/${process.env.NEXT_PUBLIC_ENTRA_ID_TENANT_ID}`,
-        redirectUri: process.env.NEXT_REDIRECT_URI,
-        postLogoutRedirectUri: process.env.NEXT_REDIRECT_URI
+        redirectUri: process.env.NEXT_PUBLIC_ENTRA_ID_REDIRECT_URI,
+        postLogoutRedirectUri: process.env.NEXT_PUBLIC_ENTRA_ID_REDIRECT_URI
     },
     cache: {
         cacheLocation: "sessionStorage", // This configures where your cache will be stored
