@@ -10,11 +10,11 @@ import {
     NavigationMenuTrigger,
     NavigationMenuViewport,
     navigationMenuTriggerStyle
-} from "@/components/ui/navigation-menu"
+} from "@/components/ui/navigation-menu";
+
 import styled from 'styled-components'
 import AccountArea from "./accountArea/accountArea"
 import Image from "next/image";
-import React, { useState } from 'react';
 import { usePathname } from 'next/navigation'
 
 const Logo = () => {
@@ -23,6 +23,25 @@ const Logo = () => {
             <Image width={125} height={125} alt="Logo" src='/logo.svg' />
         </a>
         )
+}
+
+import { Progress } from "@/components/ui/progress.tsx"
+import React from "react";
+
+const ProgressDemo = () => {
+  const [progress, setProgress] = React.useState(10)
+  const [isShowing, setIsShowing] = React.useState(true);
+ 
+  React.useEffect(() => {
+    const timer = setTimeout(() => {setProgress(100), 0})
+    return () => {
+        clearTimeout(timer)
+        setTimeout(() => {
+            setIsShowing(false);} ,500)
+    }
+  }, [])
+ 
+  return <Progress value={progress} className={`w-[100%] progress ${isShowing ? 'enable' : 'disable'}`} />
 }
 
 const ShadowHeader = styled.div`
@@ -108,6 +127,7 @@ function Header() {
     const pathname = usePathname()
 
     return (
+        <>
         <ShadowHeader>
             <LeftHeader>
                 <LogoDiv>
@@ -272,6 +292,8 @@ function Header() {
                 <AccountArea />
             </RightHeader>
         </ShadowHeader>
+            <ProgressDemo />
+        </>
     )
 }
 

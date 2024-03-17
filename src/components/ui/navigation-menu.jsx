@@ -90,8 +90,9 @@ const NavigationMenuIndicator = React.forwardRef(({ className, ...props }, ref) 
       className="relative top-[60%] h-2 w-2 rotate-45 rounded-tl-sm bg-border shadow-md" />
   </NavigationMenuPrimitive.Indicator>
 ))
+
 NavigationMenuIndicator.displayName =
-  NavigationMenuPrimitive.Indicator.displayName
+NavigationMenuPrimitive.Indicator.displayName
 
 export {
   navigationMenuTriggerStyle,
