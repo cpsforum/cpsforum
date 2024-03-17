@@ -34,6 +34,7 @@ import EnterFullScreen from '@/components/editor/enterfullscreen';
 import '@/components/editor/editor.css'
 import { CloudUploadIcon, CloudIcon } from 'lucide-react';
 import i18next from 'i18next';
+import { useTheme } from 'next-themes';
 
 //Localizador para o editor
 i18next.init({
@@ -200,11 +201,12 @@ export default function Editor({ disabled, field }) {
         field.onChange()
         autoSave()
     }
+    const {theme, resolvedTheme} = useTheme()
     return (
         <div id='editor'>
             <MDXEditor
                 translation={(key, defaultValue, interpolations) => { return i18next.t(key, defaultValue, interpolations) }}
-                className={`!font-mono prose max-w-none prose-p:my-1 ${disabled ? 'pointer-events-none' : ''}`}
+                className={`!font-mono prose max-w-none dark:prose-invert prose-p:my-1 ${theme == 'dark' || resolvedTheme == 'dark' ? 'dark-theme dark-editor' : ''} ${disabled ? 'pointer-events-none' : ''}`}
                 markdown={field.value}
                 onChange={onChangeHandler}
                 ref={ref}
