@@ -1,9 +1,8 @@
 'use client'
 
-import { Button } from "@/components/ui/button"
+import { Button, buttonVariants } from "@/components/ui/button"
 import { useIsAuthenticated } from "@azure/msal-react"
 import { handleLogin, handleLogout } from "@/service/msal/msal"
-import { buttonVariants } from "@/components/ui/button"
 import React from "react";
 import Link from "next/link"
 
@@ -15,7 +14,7 @@ function AccountArea() {
         Sair
       </Button>
     ) : (
-      <Link href={'sign-in'}>
+      <Link className={buttonVariants() + " h-8 px-4 py-2"} href={'sign-in'}>
         Entrar
       </Link>
     )
