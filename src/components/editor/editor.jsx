@@ -28,13 +28,15 @@ import {
     ChangeCodeMirrorLanguage
 }
     from '@mdxeditor/editor';
-import '@mdxeditor/editor/style.css'
 import InsertMathLive from '@/components/editor/insertmathlive';
 import EnterFullScreen from '@/components/editor/enterfullscreen';
-import '@/components/editor/editor.css'
 import { CloudUploadIcon, CloudIcon } from 'lucide-react';
 import i18next from 'i18next';
 import { useTheme } from 'next-themes';
+import dynamic from 'next/dynamic';
+import { useToast } from "@/components/ui/use-toast";
+
+const ClientMDXEditor = dynamic(() => import('@/components/editor/clientMDXEditor'), { ssr: false })
 
 //Localizador para o editor
 i18next.init({
@@ -151,65 +153,63 @@ export var ref
 
 var [autoSaveState, setAutoSaveState] = ""
 
-async function imageUploadHandler(media) {
-    const formData = new FormData()
-    formData.append('media', media)
+async function imageUploadHandler(media) {  
+    const formData = new FormData();
+    formData.append('media', media);
     const response = await fetch('https://forum-php.vercel.app/api', {
         method: 'POST',
         body: formData
-    })
+    });
     const json = (await response.json())
-    return json
+    return (
+        json
+    );
 }
 
 const AutoSaveState = () => {
     [autoSaveState, setAutoSaveState] = React.useState([0])
     return (
         <div className='flex px-1 text-muted-foreground'>
-                {autoSaveState == 0 ?
-                    <>
-                        <div className='me-1'>
-                            <CloudIcon size={12} fill='hsl(var(--muted-foreground))' />
-                        </div>
-                        <span className='text-[10px]'>Alterações salvas</span>
-                    </>
-                    :
-                    <>
-                        <CloudUploadIcon size={12} />
-                        <span className='text-[10px]'>Armazenando suas alterações...</span>
-                    </>
-                }
+            {autoSaveState == 0 ?
+                <>
+                    <div className='me-1'>
+                        <CloudIcon size={12} fill='hsl(var(--muted-foreground))' />
+                    </div>
+                    <span className='text-[10px]'>Alterações salvas</span>
+                </>
+                :
+                <>
+                    <CloudUploadIcon size={12} />
+                    <span className='text-[10px]'>Armazenando suas alterações...</span>
+                </>
+            }
         </div>
     )
 }
 
-var timeoutID
-const autoSave = () => {
-    if (autoSaveState == 0) {
-        setAutoSaveState([1])
-    }
-    clearTimeout(timeoutID)
-    timeoutID = setTimeout(() => {
-        typeof window !== "undefined" ? window.localStorage.setItem('editor-auto-saved-content', ref.current?.getMarkdown()) : null;
-        setAutoSaveState([0])
-    }, 3000);
-}
-
-export default function Editor({ disabled, field }) {
+export default function Editor({ disabled, field }) {       
     ref = React.useRef(null);
-    const onChangeHandler = () => {
-        field.onChange()
-        autoSave()
+    var timeoutID
+    const onChangeHandler = () => { 
+        if (autoSaveState == 0) {
+            setAutoSaveState([1])
+        }
+        clearTimeout(timeoutID)
+        timeoutID = setTimeout(() => {
+            typeof window !== "undefined" ? window.localStorage.setItem('editor-auto-saved-content', ref.current?.getMarkdown()) : null;
+            setAutoSaveState([0])
+        }, 3000);
     }
-    const {theme, resolvedTheme} = useTheme()
+    const { theme, resolvedTheme } = useTheme()
     return (
-        <div id='editor'>
-            <MDXEditor
+        <div id='editor'>            
+            <ClientMDXEditor
                 translation={(key, defaultValue, interpolations) => { return i18next.t(key, defaultValue, interpolations) }}
-                className={`!font-mono prose max-w-none dark:prose-invert prose-p:my-1 ${theme == 'dark' || resolvedTheme == 'dark' ? 'dark-theme dark-editor' : ''} ${disabled ? 'pointer-events-none' : ''}`}
+                className={`!font-mono prose max-w-none dark:prose-invert prose-headings:my-1 prose-p:my-1 ${theme == 'dark' || resolvedTheme == 'dark' ? 'dark-theme dark-editor' : ''} ${disabled ? 'pointer-events-none' : ''}`}
                 markdown={field.value}
                 onChange={onChangeHandler}
-                ref={ref}
+                onBlur={() => field.onChange(ref.current?.getMarkdown())  }
+                innerref={ref}
                 plugins={[
                     //Plugins
                     headingsPlugin(),
@@ -217,7 +217,9 @@ export default function Editor({ disabled, field }) {
                     listsPlugin(),
                     tablePlugin(),
                     linkPlugin(),
-                    imagePlugin({ imageUploadHandler }),
+                    imagePlugin({
+                        imageUploadHandler
+                    }),
                     linkPlugin(),
                     linkDialogPlugin(),
                     thematicBreakPlugin(),

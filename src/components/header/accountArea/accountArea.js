@@ -3,7 +3,9 @@
 import { Button } from "@/components/ui/button"
 import { useIsAuthenticated } from "@azure/msal-react"
 import { handleLogin, handleLogout } from "@/service/msal/msal"
+import { buttonVariants } from "@/components/ui/button"
 import React from "react";
+import Link from "next/link"
 
 function AccountArea() {
   const isAuthenticated = useIsAuthenticated()
@@ -13,9 +15,9 @@ function AccountArea() {
         Sair
       </Button>
     ) : (
-      <Button size={"sm"} onClick={() => handleLogin("redirect")}>
+      <Link href={'sign-in'}>
         Entrar
-      </Button>
+      </Link>
     )
   )
 }

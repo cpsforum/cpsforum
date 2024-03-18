@@ -5,6 +5,7 @@ import { GeistMono } from 'geist/font/mono';
 import Header from "../components/header/header";
 import StyledComponentsRegistry from "@/lib/registry";
 import { ThemeProvider } from "@/components/theme-provider/theme-provider"
+import { Toaster } from "@/components/ui/toaster"
 
 export const metadata = {
   title: 'Fórum',
@@ -27,6 +28,7 @@ export default function RootLayout({ children }) {
                 <Header />
               </header>
               {children}
+              <Toaster />
             </ThemeProvider>
           </StyledComponentsRegistry>
         </body>

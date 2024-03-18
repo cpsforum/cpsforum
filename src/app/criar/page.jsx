@@ -28,14 +28,12 @@ import {
     SelectLabel,
 } from "@/components/ui/select"
 import { sectionlinks } from '@/components/data/section-data'
-import dynamic from 'next/dynamic';
+import Editor from '@/components/editor/editor';
 
 
 const Main = styled.main`
     padding: 2rem 1rem 2rem 1rem;
 `
-
-const Editor = dynamic(() => import('@/components/editor/editor'), { ssr: false })
 
 export default function Criar() {
     //Schema para o form
@@ -53,7 +51,9 @@ export default function Criar() {
         section: z.string({
             required_error: "Selecione uma seção."
         }),
-        body: z.string().min(20, {
+        body: z.string({
+            required_error: "O corpo do tópico é obrigatório."
+        }).min(20, {
             message: "O corpo do tópico deve ter no mínimo 20 caracteres.",
         })
     })
@@ -171,7 +171,7 @@ export default function Criar() {
                                     Escreva aqui o corpo de seu tópico.
                                 </FormDescription>
                                 <FormControl>
-                                    <Editor disabled={step == 4 ? false : true} field={field} />
+                                    <Editor disabled={step >= 4 ? false : true} field={field} />
                                 </FormControl>
                                 <FormMessage />
                             </FormItem>
