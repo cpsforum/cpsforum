@@ -1,13 +1,16 @@
+'use client'
+
 import Image from "next/image"
 import Link from "next/link"
 import SignInButton from "@/components/signin/signinbutton"
-
-export const metadata = {
-    title: "Authentication",
-    description: "Authentication forms built using the components.",
-}
+import { useIsAuthenticated } from "@azure/msal-react"
+import { redirect } from "next/navigation"
 
 export default function AuthenticationPage() {
+    const isAuthenticated = useIsAuthenticated()
+    if(isAuthenticated){
+        redirect('/')
+    }  
     return (
         <div className="container relative h-[calc(100vh-3.5rem)] flex-col items-center lg:justify-center flex column pt-32 lg:pt-0 space-y-6 lg:grid lg:max-w-none lg:grid-cols-2 lg:px-0">
             <div className="relative w-full h-32 lg:h-full flex-col bg-muted lg:p-10 text-white lg:flex dark:border-r">

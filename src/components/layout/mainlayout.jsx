@@ -19,7 +19,7 @@ const MainLayout = ({ children }) => {
                 <LeftSidebar />
                 <ResizableHandle withHandle />
                 <ResizablePanel className="max-h-full" defaultSize={63}>
-                    <ScrollArea className="h-full">
+                    <ScrollArea className="h-full px-4">
                         {children}
                     </ScrollArea>
                 </ResizablePanel>

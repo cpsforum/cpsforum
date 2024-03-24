@@ -144,7 +144,7 @@ export default function Criar() {
                                             <SelectValue placeholder="Selecione a seção" />
                                         </SelectTrigger>
                                         <SelectContent>
-                                            {sectionlinks.map((supersection, i) =>
+                                            {sectionlinks.slice(1).map((supersection, i) =>
                                                 <SelectGroup key={i}>
                                                     <SelectLabel>{supersection.title}</SelectLabel>
                                                     {supersection.sections.map((section, si) =>
