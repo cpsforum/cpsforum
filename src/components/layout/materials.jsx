@@ -16,9 +16,11 @@ const MaterialsLayout = ({ children }) => {
                 className={"max-h-[calc(100vh-3.5rem)]"}
                 direction="horizontal"
             >
-                <LeftSidebar />
+                <ResizablePanel className="max-h-full top-0 left-0 sticky !overflow-y-auto no-scrollbar" minSize={14} defaultSize={17}>
+                    <LeftSidebar />
+                </ResizablePanel>
                 <ResizableHandle withHandle />
-                <ResizablePanel className="max-h-full" defaultSize={63}>
+                <ResizablePanel className="max-h-full" defaultSize={83}>
                     <ScrollArea className="h-full">
                         {children}
                     </ScrollArea>

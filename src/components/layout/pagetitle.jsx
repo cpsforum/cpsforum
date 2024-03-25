@@ -10,14 +10,16 @@ const Title = styled.h1`
     line-height: 1.75rem;    
 `
 
-export default function PageTitle({title, subtitle}) {
+export default function PageTitle({ title, subtitle, ...props }) {
     return (
         <div className="py-4 pb-0">
-            <Title>
-                {title}
-            </Title>
-            {subtitle && <h2 className="text-sm text-muted-foreground">{subtitle}</h2>}
-            <Separator className={'mt-3'} />
+            <div {...props}>
+                <Title>
+                    {title}
+                </Title>
+                {subtitle && <h2 className="text-sm text-muted-foreground">{subtitle}</h2>}
+                <Separator className={'mt-3'} />
+            </div>
         </div>
     )
 }
