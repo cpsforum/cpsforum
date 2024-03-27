@@ -16,6 +16,7 @@ export const LeftSidebar = ({ isMaterials }) => {
                 isCollapsed={false}
                 links={isMaterials ? materialsLinks.slice(1) : sectionlinks.slice(1)} 
             />
+            {/*test*/}
         </>
     )
 }
