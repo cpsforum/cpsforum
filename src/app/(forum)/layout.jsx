@@ -1,10 +1,14 @@
 import MainLayout from "@/components/layout/mainlayout"
+import Header from "@/components/header/header"
 
 export default function ForumLayout({ children }) {
     return (
-        <MainLayout>
-            {children}
-        </MainLayout>
+        <div>
+            <Header />
+            <MainLayout>
+                {children}
+            </MainLayout>
+        </div>
     )
 }
 

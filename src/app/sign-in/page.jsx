@@ -8,38 +8,38 @@ import { redirect } from "next/navigation"
 
 export default function AuthenticationPage() {
     const isAuthenticated = useIsAuthenticated()
-    if(isAuthenticated){
+    if (isAuthenticated) {
         redirect('/')
-    }  
+    }
+
     return (
-        <div className="container relative h-[calc(100vh-3.5rem)] flex-col items-center lg:justify-center flex column pt-32 lg:pt-0 space-y-6 lg:grid lg:max-w-none lg:grid-cols-2 lg:px-0">
-            <div className="relative w-full h-32 lg:h-full flex-col bg-muted lg:p-10 text-white lg:flex dark:border-r">
-                <Image alt="Fórum Centro Paula Souza" width={1280} height={854} className="absolute top-0 left-0 w-full h-full object-cover" src={"https://d2caspv51kzhac.cloudfront.net/forumsigninpagebanner.png"}>
-                </Image>
+        <div className="relative h-screen grid grid-cols-[70%_minmax(30%,_1fr)] bg-stone-800">
+            <div className="relative hidden h-screen lg:flex flex-col">
+                <div className="absolute inset-0 bg-cover bg-center bg-origin-content bg-[url(/auth.webp)]" />
             </div>
-            <div className="lg:p-8">
-                <div className="mx-auto flex w-full flex-col justify-center space-y-6 sm:w-[350px]">
-                    <div className="flex flex-col space-y-2 text-center">
+            <div className="grid lg:p-8">
+                <div className="mx-auto flex w-full flex-col justify-center space-y-6 lg:w-[350px]">
+                    <div className="flex flex-col space-y-2 text-center text-white">
                         <h1 className="text-2xl font-semibold tracking-tight">
                             Entre em sua conta
                         </h1>
-                        <p className="text-sm text-muted-foreground">
+                        <p className="text-sm">
                             Para acessar o fórum, entre com seu e-mail institucional.
                         </p>
                     </div>
                     <SignInButton />
-                    <div className="px-4 text-center text-sm text-muted-foreground">
+                    <div className="px-4 text-center text-sm text-white">
                         Ao clicar em entrar, você concorda com os&nbsp;
                         <Link
                             href="/terms"
-                            className="underline underline-offset-4 hover:text-foreground"
+                            className="hover:text-zinc-300 underline"
                         >
                             Termos de Uso
                         </Link>
                         &nbsp;e a&nbsp;
                         <Link
                             href="/privacy"
-                            className="underline underline-offset-4 hover:text-foreground"
+                            className="hover:text-zinc-300 underline"
                         >
                             Política de Privacidade
                         </Link>
