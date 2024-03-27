@@ -29,6 +29,7 @@ import {
 } from "@/components/ui/select"
 import { sectionlinks } from '@/components/data/section-data'
 import Editor from '@/components/editor/editor';
+import { toast } from 'sonner';
 
 
 const Main = styled.main`
@@ -72,7 +73,9 @@ export default function Criar() {
 
     //onSubmit
     function onSubmit(values) {
-        console.log(values)
+        toast("Tópico criado com sucesso!",{
+            description: JSON.stringify(values),
+        })
     }
 
     //State para etapas

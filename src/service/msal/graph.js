@@ -1,5 +1,3 @@
-'use client'
-
 import { loginRequest, graphConfig } from "./authConfig";
 import { msalInstance } from "@/service/msal/msal";
 

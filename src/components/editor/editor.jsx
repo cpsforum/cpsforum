@@ -34,7 +34,7 @@ import { CloudUploadIcon, CloudIcon } from 'lucide-react';
 import i18next from 'i18next';
 import { useTheme } from 'next-themes';
 import dynamic from 'next/dynamic';
-import { useToast } from "@/components/ui/use-toast";
+import {toast} from 'sonner'
 
 const ClientMDXEditor = dynamic(() => import('@/components/editor/clientMDXEditor'), { ssr: false })
 
@@ -154,12 +154,28 @@ export var ref
 var [autoSaveState, setAutoSaveState] = ""
 
 async function imageUploadHandler(media) {  
+    toast("Enviando imagem", {
+        description: media.name
+    })
     const formData = new FormData();
     formData.append('media', media);
-    const response = await fetch('https://forum-php.vercel.app/api', {
-        method: 'POST',
-        body: formData
-    });
+    try {
+        var response = await fetch('https://forum-php.vercel.app/api', {
+            method: 'POST',
+            body: formData
+        });
+        toast("Imagem enviada com sucesso",{
+            description: "A imagem foi adicionada ao editor.",
+        });
+    } catch (error) {
+        toast("Falha ao enviar imagem", {
+            description: "Um erro pode ter ocorrido ou sua imagem pode conter conteúdo impróprio. Tente novamente mais tarde.",
+            style: {
+                background: 'rgb(127, 29, 29)',
+              },
+              
+        });
+    }
     const json = (await response.json())
     return (
         json
