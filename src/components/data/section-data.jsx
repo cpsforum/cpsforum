@@ -147,22 +147,22 @@ export const materialsLinks = [
         sections: [{
             id: 2,
             title: "Matemática",
-            slug: "materiais/matematica"
+            slug: "/materiais/matematica"
         },
         {
             id: 3,
             title: "Física",
-            slug: "fisica"
+            slug: "/materiais/fisica"
         },
         {
             id: 4,
             title: "Química",
-            slug: "quimica"
+            slug: "/materiais/quimica"
         },
         {
             id: 5,
             title: "Biologia",
-            slug: "biologia"
+            slug: "/materiais/biologia"
         }]
     },
     {
