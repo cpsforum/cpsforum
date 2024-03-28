@@ -9,7 +9,8 @@ import {
   TooltipTrigger,
 } from "@/components/ui/tooltip"
 import { useParams } from "next/navigation";
-
+import { usePathname } from 'next/navigation'
+  
 const buttonVariants = cva(
   "inline-flex whitespace-wrap w-full items-center align-center rounded-md text-sm ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50",
   {
@@ -105,10 +106,12 @@ const SideBarLink = React.forwardRef(({ links, isCollapsed, className, variant, 
 
 const SideBarSectionLink = React.forwardRef(({ links, isCollapsed, className, variant, size, ...props }, ref) => {
   const { slug } = useParams()
+  let pathname = usePathname();
+
   return (
     <div
       data-collapsed={isCollapsed}
-      className="group flex w-full flex-col gap-4 py-6 px-3 data-[collapsed=true]:py-2"
+      className={`group flex w-full flex-col gap-4 py-6 px-3 data-[collapsed=true]:py-2`}
     >
       <nav className="grid gap-1 group-[[data-collapsed=true]]:justify-center group-[[data-collapsed=true]]:px-2">
         {links.map((link, index) =>
