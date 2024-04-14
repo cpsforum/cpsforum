@@ -1,5 +1,5 @@
 import React from 'react';
-import { HumanSciences, Languages, NatureSciences, SocialScienceAndMath } from '../data/books';
+import { HumanSciences, Languages, NatureSciences, SocialScienceAndMath } from '@/components/data/books';
 import './bookRow.css';
 
 const BookRow = ({ slug }) => {
