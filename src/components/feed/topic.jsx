@@ -1,13 +1,19 @@
+'use client'
+
 import { dayjs } from "@/components/data/dayjs"
 import { cn } from "@/lib/utils"
 import { Badge } from "@/components/ui/badge"
 import Link from "next/link"
+import { useRouter } from "next/navigation"
+import { User } from "@/components/data/topic-data"
 
 export const Topic = ({ item }) => {
+    const router = useRouter();
     const regex = /[^\p{L}\p{N}\s.,!?()-[\]]/giu;
     const filteredBody = item.text.replace(regex, '');
+    const author = User.find(user => user.id == item.userid);
     return (
-        <div            
+        <button     
             key={item.id}
             className={cn(
                 "flex flex-col items-start gap-2 rounded-lg border p-3 text-left text-sm transition-all hover:bg-accent"
@@ -33,7 +39,7 @@ export const Topic = ({ item }) => {
                     </div>
                 </Link>
                 {/* PLACEHOLDER */}
-                <Link href={`/perfil/${item.name}`} className="text-xs font-medium">{item.name}</Link>
+                <Link href={`/perfil/${author.id}/${author.slug}`} className="text-xs font-medium">{author.name}</Link>
             </div>
             <div className="line-clamp-2 text-xs text-muted-foreground">
                 {filteredBody.substring(0, 300)}
@@ -42,8 +48,8 @@ export const Topic = ({ item }) => {
                 <div className="flex items-center gap-2">
                     {item.labels.map((label, i) => (
                         //PLACEHOLDER
-                        <Badge variant={getBadgeVariantFromLabel(label)}>
-                            <Link key={i} href={`/tag/${label}`}>
+                        <Badge key={i} variant={getBadgeVariantFromLabel(label)}>
+                            <Link href={`/tag/${label}`}>
                                 {label}
                             </Link>
                         </Badge>
@@ -52,7 +58,7 @@ export const Topic = ({ item }) => {
                 </div>
             ) : null
             }
-        </div >
+        </button >
     )
 }
 

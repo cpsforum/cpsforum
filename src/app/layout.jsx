@@ -8,17 +8,12 @@ import { ThemeProvider } from "@/components/theme-provider/theme-provider"
 import { Toaster } from "@/components/ui/sonner"
 import NextTopLoader from 'nextjs-toploader';
 
-export const metadata = {
-  title: 'Fórum',
-  description: 'Fórum',
-}
-
 export default function RootLayout({ children }) {
   return (
     <MyMsalProvider>
       <html lang="pt-br" suppressHydrationWarning>
         <body className={`${GeistSans.className} ${GeistMono.variable}`}>
-          <NextTopLoader shadow={false}/>
+          <NextTopLoader color='hsl(var(--primary))' shadow={false} showSpinner={false}/>
           <StyledComponentsRegistry>
             <ThemeProvider
               attribute="class"

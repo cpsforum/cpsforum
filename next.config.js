@@ -7,7 +7,7 @@ const nextConfig = {
         remotePatterns: [
           {
             protocol: 'https',
-            hostname: 'd2caspv51kzhac.cloudfront.net',
+            hostname: 'cdn.cpsforum.com.br',
             port: '',
             pathname: '/**',
           },

@@ -17,7 +17,7 @@ export default function RecentTopic({ item }) {
                     <div className="font-semibold">{item.title}</div>
                 </div>
                 <div className="flex items-center">
-                    <div className="font-medium">{item.name}</div>
+                    <div>{item.name}</div>
                     <div
                         title={item.date}
                         className={cn(

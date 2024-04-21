@@ -1,6 +1,6 @@
 export const metadata = {
-    title: "Authentication",
-    description: "Authentication forms built using the components.",
+    title: "Entrar",
+    description: "Entre em sua conta utilizando o e-mail institucional",
 }
 
 export default function Authentication({children}){     

@@ -9,6 +9,8 @@ import Markdown from "react-markdown";
 import remarkGFM from "remark-gfm";
 import { renderMathInElement } from "mathlive";
 import More from "@/components/ui/more";
+import { FlagIcon, PencilIcon } from "lucide-react";
+import { Label } from "@/components/ui/label";
 
 const TopicTitle = styled.h1`
     font-weight: 600;
@@ -27,7 +29,7 @@ const TopicSubtitle = styled.div`
 export default function TopicView({ params }) {
     const id = params.id;
     const slug = params.slug;
-    const topic = Topic.find(topic => topic.id == id && topic.slug == slug);
+    const topic = Topic.find(topic => topic.id == id);
     React.useEffect(() => {
         renderMathInElement("mainbar");
     }
@@ -51,12 +53,21 @@ export default function TopicView({ params }) {
                     </TopicSubtitle>
                 </div>
                 <div className="ml-auto">
-                    <More />
+                    <More>
+                        <div className="flex gap-2">
+                            <PencilIcon size={15} />
+                            <Label>Editar</Label>
+                        </div>
+                        <div className="flex gap-2">
+                            <FlagIcon size={15} />
+                            <Label>Reportar</Label>
+                        </div>
+                    </More>
                 </div>
             </div>
             <Separator className={"my-4"} />
             <div id="mainbar">
-                <Markdown remarkPlugins={[remarkGFM]} className="prose prose-sm max-w-none dark:prose-invert">
+                <Markdown remarkPlugins={[remarkGFM]} className="prose foreground prose-sm max-w-none dark:prose-invert">
                     {topic.text}
                 </Markdown>
             </div>
