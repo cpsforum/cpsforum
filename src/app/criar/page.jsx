@@ -29,6 +29,7 @@ import {
 } from "@/components/ui/select"
 import { sectionlinks } from '@/components/data/section-data'
 import Editor from '@/components/editor/editor';
+import { toast } from 'sonner';
 
 
 const Main = styled.main`
@@ -72,7 +73,9 @@ export default function Criar() {
 
     //onSubmit
     function onSubmit(values) {
-        console.log(values)
+        toast("Tópico criado com sucesso!",{
+            description: JSON.stringify(values),
+        })
     }
 
     //State para etapas
@@ -88,7 +91,7 @@ export default function Criar() {
                         control={form.control}
                         name="title"
                         render={({ field }) => (
-                            <FormItem className={`p-4 rounded-md border`}>
+                            <FormItem className={`p-4 bg-muted rounded-md border`}>
                                 <FormLabel>Título</FormLabel>
                                 <FormDescription className="!mt-0">
                                     Seja conciso e tente resumir seu tópico em uma linha.
@@ -106,7 +109,7 @@ export default function Criar() {
                         control={form.control}
                         name="privacy"
                         render={({ field }) => (
-                            <FormItem className={`p-4 rounded-md border ${step >= 2 ? null:"bg-muted cursor-not-allowed opacity-50"}`}>
+                            <FormItem className={`p-4 bg-muted rounded-md border ${step >= 2 ? null:"cursor-not-allowed opacity-50"}`}>
                                 <FormLabel>Privacidade</FormLabel>
                                 <FormDescription className="!mt-0">
                                     Selecione a visibilidade de seu tópico.
@@ -133,7 +136,7 @@ export default function Criar() {
                         control={form.control}
                         name="section"
                         render={({ field }) => (
-                            <FormItem className={`p-4 rounded-md border ${step >= 3 ? null:"bg-muted cursor-not-allowed opacity-50"}`}>
+                            <FormItem className={`p-4 rounded-md bg-muted border ${step >= 3 ? null:"cursor-not-allowed opacity-50"}`}>
                                 <FormLabel>Seção</FormLabel>
                                 <FormDescription className="!mt-0">
                                     Selecione em qual seção seu tópico será postado.
@@ -165,7 +168,7 @@ export default function Criar() {
                         control={form.control}
                         name="body"
                         render={({ field }) => (
-                            <FormItem className={`p-4 rounded-md border ${step >= 4 ? '':"bg-muted cursor-not-allowed opacity-50"}`}>
+                            <FormItem className={`p-4 rounded-md bg-muted border ${step >= 4 ? '':"cursor-not-allowed opacity-50"}`}>
                                 <FormLabel>Corpo</FormLabel>
                                 <FormDescription className="!mt-0">
                                     Escreva aqui o corpo de seu tópico.

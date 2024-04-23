@@ -1,19 +1,6 @@
-'use client'
+import { graphConfig } from "@/service/msal/authConfig";
 
-import { loginRequest, graphConfig } from "./authConfig";
-import { msalInstance } from "@/service/msal/msal";
-
-export async function callMsGraph() {
-    const account = msalInstance.getActiveAccount();
-    if (!account) {
-        throw Error("No active account! Verify a user has been signed in and setActiveAccount has been called.");
-    }
-
-    const response = await msalInstance.acquireTokenSilent({
-        ...loginRequest,
-        account: account
-    });
-
+export async function callMsGraph(response) {
     const headers = new Headers();
     const bearer = `Bearer ${response.accessToken}`;
 

@@ -5,18 +5,15 @@ import { GeistMono } from 'geist/font/mono';
 import Header from "../components/header/header";
 import StyledComponentsRegistry from "@/lib/registry";
 import { ThemeProvider } from "@/components/theme-provider/theme-provider"
-import { Toaster } from "@/components/ui/toaster"
-
-export const metadata = {
-  title: 'Fórum',
-  description: 'Fórum',
-}
+import { Toaster } from "@/components/ui/sonner"
+import NextTopLoader from 'nextjs-toploader';
 
 export default function RootLayout({ children }) {
   return (
     <MyMsalProvider>
       <html lang="pt-br" suppressHydrationWarning>
         <body className={`${GeistSans.className} ${GeistMono.variable}`}>
+          <NextTopLoader color='hsl(var(--primary))' shadow={false} showSpinner={false}/>
           <StyledComponentsRegistry>
             <ThemeProvider
               attribute="class"
@@ -24,9 +21,6 @@ export default function RootLayout({ children }) {
               enableSystem
               disableTransitionOnChange
             >
-              <header>
-                <Header/>
-              </header>
               {children}
               <Toaster />
             </ThemeProvider>
