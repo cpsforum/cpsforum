@@ -3,17 +3,19 @@ import { SideBarLink, SideBarSectionLink } from "@/components/layout/sidebar-nav
 import {
     ResizablePanel
 } from "@/components/ui/resizable"
-import { links, sectionlinks } from "../data/section-data";
+import { links, materialsLinks, sectionlinks } from "../data/section-data";
 
-export const LeftSidebar = () => {
+export const LeftSidebar = ({ isMaterials }) => {
     return (
         <>
             <SideBarLink
                 isCollapsed={false}
                 links={links} />
             <Separator />
-            <SideBarSectionLink isCollapsed={false}
-                links={sectionlinks.slice(1)} />
+            <SideBarSectionLink
+                isCollapsed={false}
+                links={isMaterials ? materialsLinks.slice(0) : sectionlinks.slice(1)} 
+            />
         </>
     )
 }

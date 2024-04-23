@@ -1,0 +1,33 @@
+.book h5{
+    min-height: 75px;
+}
+
+.book{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    min-height: 40rem;
+    overflow: hidden;
+}
+
+.book img{
+    flex: 1;
+}
+/* 
+.book p{
+    text-align: justify;
+} */
+
+
+.book .text{
+    min-height: 11.5rem;
+}
+
+.book .card-body{
+    flex: 2;
+}
+
+.toggle{
+    margin: 0;
+    padding: 0;
+}
