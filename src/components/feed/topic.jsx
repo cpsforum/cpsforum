@@ -38,7 +38,6 @@ export const Topic = ({ item }) => {
                         {dayjs(item.date).fromNow()}
                     </div>
                 </Link>
-                {/* PLACEHOLDER */}
                 <Link href={`/perfil/${author.id}/${author.slug}`} className="text-xs font-medium">{author.name}</Link>
             </div>
             <div className="line-clamp-2 text-xs text-muted-foreground">

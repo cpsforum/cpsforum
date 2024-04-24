@@ -5,8 +5,8 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import dayjs from "dayjs"
 import { buttonVariants } from "@/components/ui/button"
 import { cn } from "@/lib/utils"
-import { PenBoxIcon } from "lucide-react"
 import Link from "next/link"
+import NewTopicButton from "@/components/general/newtopic"
 
 export default function Home() {
     const forumMessagesTopics = Topic.filter(topic => topic.section === 1);
@@ -22,7 +22,7 @@ export default function Home() {
                         <TabsTrigger value="relevant">Relevantes</TabsTrigger>
                         <TabsTrigger value="recent">Recentes</TabsTrigger>
                     </TabsList>
-                    <Link href={'/criar'} className={cn(buttonVariants())}><PenBoxIcon size={15} className="mr-2"/>Novo tópico</Link>
+                    <NewTopicButton />
                 </div>
                 <TabsContent value="relevant"><Feed items={relevantTopics} /></TabsContent>
                 <TabsContent value="recent"><Feed items={recentTopics} /></TabsContent>

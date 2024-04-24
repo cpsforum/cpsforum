@@ -5,33 +5,44 @@ import { Feed } from "@/components/feed/feed";
 import { Topic } from "@/components/data/topic-data";
 import { sectionlinks } from "@/components/data/section-data";
 import PageTitle from "@/components/layout/pagetitle";
+import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
+import dayjs from "dayjs";
 
-export default function Home() {
-  // Definindo variáveis para usar fora do escopo
-  var items, supersectionname, sectionname;
-  // Capturando o slug da URL
+export default function SectionPage() {
   const { slug } = useParams();
-  // Verificando se há alguma superseção que possui uma seção com o slug capturado
-  const supersectionindex = sectionlinks.findIndex(supersection => supersection.sections.some(section => section.slug === slug));
-  if (supersectionindex !== -1) {
-    supersectionname = sectionlinks[supersectionindex].title;
-    // Verificando qual o index da seção correspondente ao slug
-    const sectionindex = sectionlinks[supersectionindex].sections.findIndex(section => section.slug === slug);
-    if (sectionindex !== -1) {
-      //Caputurando ID, nome e filtrando items mandados para o Feed
-      const sectionid = sectionlinks[supersectionindex].sections[sectionindex].id;
-      sectionname = sectionlinks[supersectionindex].sections[sectionindex].title;
-      items = Topic.filter(topic => topic.section === sectionid);
-    }
-  }else{
-    // 404 se não houver nenhuma seção correspondente
-    return notFound();
-  }
+  // Definindo variáveis para usar fora do escopo
+  const supersection = sectionlinks.find(supersection => supersection.sections.some(section => section.slug === slug));
+  const section = (supersection?.sections || []).find(section => section.slug === slug);
 
+  const supersectionname = (supersection || []).title;
+
+  const sectionid = (section || []).id;
+  const sectionname = (section || []).title;
+  
+  const items = Topic.filter(topic => topic.section === sectionid);
+  const relevantTopics = items
+  const recentTopics = items.sort((a, b) => dayjs(a.date).isBefore(dayjs(b.date)) ? 1 : -1);
   return (
     <>
-      <PageTitle title={sectionname} subtitle={supersectionname} />
-      <Feed items={items} />
+      <PageTitle ntb title={sectionname} subtitle={supersectionname} className="flex justify-between" />
+      <Tabs defaultValue="recent" className="mt-3 w-full">
+        <div className="flex items-center justify-between">
+          <div>
+            <span className="text-sm">
+              Ordenar por:&nbsp;
+            </span>
+            <TabsList>
+              <TabsTrigger value="recent">Recentes</TabsTrigger>
+              <TabsTrigger value="relevant">Relevantes</TabsTrigger>
+            </TabsList>
+          </div>
+          <span className=" font-medium">
+            {items.length} tópicos
+          </span>
+        </div>
+        <TabsContent value="relevant"><Feed items={relevantTopics} /></TabsContent>
+        <TabsContent value="recent"><Feed items={recentTopics} /></TabsContent>
+      </Tabs>
     </>
   );
 }

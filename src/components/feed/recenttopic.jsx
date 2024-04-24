@@ -2,10 +2,12 @@ import { dayjs } from "@/components/data/dayjs"
 import { cn } from "@/lib/utils"
 import { Badge } from "@/components/ui/badge"
 import Link from "next/link"
+import { User } from "@/components/data/topic-data"
 
 export default function RecentTopic({ item }) {
+    const author = User.find(user => user.id == item.userid);
     return (
-        <Link
+        <button
             href={`/topico/${item.id}/${item.slug}`}
             key={item.id}
             className={cn(
@@ -17,7 +19,7 @@ export default function RecentTopic({ item }) {
                     <div className="font-semibold">{item.title}</div>
                 </div>
                 <div className="flex items-center">
-                    <div>{item.name}</div>
+                <Link href={`/perfil/${author.id}/${author.slug}`} className="text-xs font-medium">{author.name}</Link>
                     <div
                         title={item.date}
                         className={cn(
@@ -28,6 +30,6 @@ export default function RecentTopic({ item }) {
                     </div>
                 </div>
             </div>
-        </Link>
+        </button>
     )
 }

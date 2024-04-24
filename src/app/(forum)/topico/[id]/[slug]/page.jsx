@@ -1,16 +1,21 @@
 "use client"
 
 import React from "react";
-import { Topic } from "@/components/data/topic-data";
+import { Topic, User } from "@/components/data/topic-data";
 import dayjs from "dayjs";
 import styled from "styled-components";
 import { Separator } from "@/components/ui/separator";
 import Markdown from "react-markdown";
 import remarkGFM from "remark-gfm";
 import { renderMathInElement } from "mathlive";
+import mathliveStyle from "mathlive/fonts.css"
 import More from "@/components/ui/more";
 import { FlagIcon, PencilIcon } from "lucide-react";
 import { Label } from "@/components/ui/label";
+import Votecell from "@/components/general/votecell";
+import Link from "next/link";
+import Image from "next/image";
+
 
 const TopicTitle = styled.h1`
     font-weight: 600;
@@ -26,10 +31,15 @@ const TopicSubtitle = styled.div`
     display: flex;
 `;
 
+const Mainbar = styled.div`
+    display: grid;
+    grid-template-columns: 1fr 13fr;
+`
+
 export default function TopicView({ params }) {
     const id = params.id;
-    const slug = params.slug;
     const topic = Topic.find(topic => topic.id == id);
+    const author = User.find(user => user.id == topic.userid);
     React.useEffect(() => {
         renderMathInElement("mainbar");
     }
@@ -66,16 +76,20 @@ export default function TopicView({ params }) {
                 </div>
             </div>
             <Separator className={"my-4"} />
-            <div id="mainbar">
+            <Mainbar id="mainbar">
+                <Votecell votesAmount={topic.votes} />
                 <Markdown remarkPlugins={[remarkGFM]} className="prose foreground prose-sm max-w-none dark:prose-invert">
                     {topic.text}
                 </Markdown>
-            </div>
+            </Mainbar>
             <Separator className={"my-4"} />
             <div className="flex">
-                <div className="text-xs text-muted-foreground ml-auto">
+                <div className="text-xs flex flex-col text-muted-foreground ml-auto">
                     <span>Postado por&nbsp;</span>
-                    <span className="font-medium">{topic.name}</span>
+                    <Link href={`/perfil/${author.id}/${author.slug}`} className="font-medium py-1 flex text-primary-foreground">
+                        <Image src={author.pic} width={40} height={40} quality={100} alt="Foto de perfil" className="me-1 rounded" />
+                        <span>{author.name}</span>
+                    </Link>
                 </div>
             </div>
         </div>
