@@ -347,3 +347,32 @@ export const sectionlinks = [
         ]
     }
 ]
+
+
+export const materialsLinks = [
+    {
+        title: "Categorias",
+        sections: [
+            {
+                id: 1,
+                title: 'Ciências Humanas',
+                slug: '/materiais/ciencias-humanas'
+            },
+            {
+                id: 2,
+                title: 'Linguagens',
+                slug: '/materiais/linguagens'
+            },
+            {
+                id: 3,
+                title: 'Ciências da Natureza',
+                slug: '/materiais/ciencias-da-natureza'
+            },
+            {
+                id: 4,
+                title: 'Ciências Sociais e Matemática',
+                slug: '/materiais/ciencias-sociais-e-matematica'
+            },
+        ]
+    }
+]

@@ -17,7 +17,7 @@ const MaterialsLayout = ({ children }) => {
                 direction="horizontal"
             >
                 <ResizablePanel className="max-h-full top-0 left-0 sticky !overflow-y-auto no-scrollbar" minSize={14} defaultSize={17}>
-                    <LeftSidebar />
+                    <LeftSidebar isMaterials={true}/>
                 </ResizablePanel>
                 <ResizableHandle withHandle />
                 <ResizablePanel className="max-h-full" defaultSize={83}>

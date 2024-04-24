@@ -260,7 +260,7 @@ function Header() {
                                 </NavigationMenuContent>
                             </NavigationMenuItem>
                             <NavigationMenuItem>
-                                <NavigationMenuLink href="/materiais" className={`${navigationMenuTriggerStyle()} ${pathname == '/materiais' ? 'current' : ''}`}>
+                                <NavigationMenuLink href="/materiais" className={`${navigationMenuTriggerStyle()} ${pathname.includes('/materiais') ? 'current' : ''}`}>
                                     Materiais
                                 </NavigationMenuLink>
                             </NavigationMenuItem>
