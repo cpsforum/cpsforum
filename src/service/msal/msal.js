@@ -1,10 +1,13 @@
 import { AuthenticationResult, EventType, PublicClientApplication } from "@azure/msal-browser";
 import { getCurrentToken } from "@/service/msal/tokenFetcher";
 import { msalConfig, loginRequest } from "@/service/msal/authConfig";
+import { setInitialized } from "./MyMsalProvider";
 
 export const msalInstance = new PublicClientApplication(msalConfig);
 
-export function initializeMsal() {
+export async function initializeMsal() {
+  await msalInstance.initialize();
+  setInitialized(true)
   // Account selection logic is app dependent. Adjust as needed for different use cases.
   const accounts = msalInstance.getAllAccounts();
   if (accounts.length > 0) {
@@ -17,15 +20,11 @@ export function initializeMsal() {
       const account = payload.account;
       msalInstance.setActiveAccount(account);
     }
-
-  
   });
 }
 
 export async function getToken() {
   const authToken = await getCurrentToken(msalInstance);
-  console.log("AUTH TOKEN:", authToken);
-
   return authToken;
 }
 

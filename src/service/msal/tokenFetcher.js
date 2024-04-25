@@ -1,4 +1,4 @@
-import { API_SCOPE } from "@/service/msal/authConfig";
+import { API_SCOPE, loginRequest } from "@/service/msal/authConfig";
 
 export async function getCurrentToken(msalInstance){
     const acquireAccessToken = async () => {
@@ -13,7 +13,7 @@ export async function getCurrentToken(msalInstance){
             return null;
         }
         const request = {
-            scopes: [API_SCOPE],
+            ...loginRequest,
             account: activeAccount || accounts[0]
         };
 
@@ -21,14 +21,15 @@ export async function getCurrentToken(msalInstance){
             const authResult = await msalInstance.acquireTokenSilent(request);
             return authResult.accessToken;
         } catch (error) {
-            // If silent acquisition fails, try acquiring token through popup or redirect
-            try {
-                const authResult = await msalInstance.acquireTokenPopup(request);
-                return authResult.accessToken;
-            } catch (error) {
-                console.error("Error acquiring token:", error);
-                return null;
-            }
+            console.error(error)
+            // // If silent acquisition fails, try acquiring token through popup or redirect
+            // try {
+            //     const authResult = await msalInstance.acquireTokenPopup(request);
+            //     return authResult.accessToken;
+            // } catch (error) {
+            //     console.error("Error acquiring token:", error);
+            //     return null;
+            // }
         }
     };
 

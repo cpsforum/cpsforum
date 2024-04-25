@@ -1,11 +1,8 @@
-import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
 import {
     Popover,
     PopoverContent,
     PopoverTrigger,
 } from "@/components/ui/popover"
-import { DotIcon, FlagIcon, PencilIcon } from "lucide-react"
 
 export default function More({children}) {
     return (
