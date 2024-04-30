@@ -16,12 +16,13 @@ import AccountArea from "./accountArea/accountArea"
 import Image from "next/image";
 import React, { useState } from 'react';
 import { usePathname } from 'next/navigation'
+import Link from "next/link";
 
 const Logo = () => {
     return (
-        <a href="/">
+        <Link href="/">
             <Image width={125} height={125} alt="Logo" src='/logo2.svg' />
-        </a>
+        </Link>
         )
 }
 

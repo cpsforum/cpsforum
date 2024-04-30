@@ -8,12 +8,9 @@ export const metadata = {
 
 export default function MaterialLayout({ children }) {
     return (
-        <div>
-            <Header />
-            <MaterialsLayout>
-                {children}
-            </MaterialsLayout>
-        </div>
+        <MaterialsLayout>
+            {children}
+        </MaterialsLayout>
     )
 }
 
