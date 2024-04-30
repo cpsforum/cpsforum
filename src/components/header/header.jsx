@@ -20,7 +20,7 @@ import { usePathname } from 'next/navigation'
 const Logo = () => {
     return (
         <a href="/">
-            <Image width={125} height={125} alt="Logo" src='/logo.svg' />
+            <Image width={125} height={125} alt="Logo" src='/logo2.svg' />
         </a>
         )
 }

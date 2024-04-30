@@ -13,11 +13,20 @@ const BookRow = ({ slug }) => {
         setExpandedItem(null);
     }
 
+    // Concatenando os arrays diretamente
+    const allBooks = [
+        ...SocialScienceAndMath,
+        ...Languages,
+        ...HumanSciences,
+        ...NatureSciences,
+    ].sort();
+
     const bookdata = {
         'ciencias-humanas': HumanSciences,
         'linguagens': Languages,
         'ciencias-da-natureza': NatureSciences,
-        'ciencias-sociais-e-matematica': SocialScienceAndMath
+        'ciencias-sociais-e-matematica': SocialScienceAndMath,
+        'home': allBooks,
     }
 
     const books = bookdata[slug];

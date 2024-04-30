@@ -7,7 +7,7 @@ import React from 'react';
 export default function Home() {
     return (
         <>
-            <BookRow slug={'ciencias-humanas'} />
+            <BookRow slug={'home'} />
         </>
     )
 }

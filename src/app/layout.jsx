@@ -14,8 +14,12 @@ export default function RootLayout({ children }) {
   return (
     <MyMsalProvider>
       <html lang="pt-br" suppressHydrationWarning>
+        <head>
+          {/* Corrigindo o caminho do favicon */}
+          <link rel="icon" href="/favicontest2.svg" />
+        </head>
         <body className={`${GeistSans.className} ${GeistMono.variable}`}>
-          <NextTopLoader color='hsl(var(--primary))' shadow={false} showSpinner={false}/>
+          <NextTopLoader color='hsl(var(--primary))' shadow={false} showSpinner={false} />
           <StyledComponentsRegistry>
             <ThemeProvider
               attribute="class"

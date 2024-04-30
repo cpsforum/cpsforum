@@ -1,6 +1,5 @@
 import { HomeIcon, Users, Newspaper } from "lucide-react";
 
-
 const Sections = [
     {
         id: 1,
@@ -348,7 +347,6 @@ export const sectionlinks = [
     }
 ]
 
-
 export const materialsLinks = [
     {
         title: "Categorias",
@@ -356,22 +354,22 @@ export const materialsLinks = [
             {
                 id: 1,
                 title: 'Ciências Humanas',
-                slug: '/materiais/ciencias-humanas'
+                slug: 'materiais/ciencias-humanas',
             },
             {
                 id: 2,
                 title: 'Linguagens',
-                slug: '/materiais/linguagens'
+                slug: 'materiais/linguagens'
             },
             {
                 id: 3,
                 title: 'Ciências da Natureza',
-                slug: '/materiais/ciencias-da-natureza'
+                slug: 'materiais/ciencias-da-natureza'
             },
             {
                 id: 4,
                 title: 'Ciências Sociais e Matemática',
-                slug: '/materiais/ciencias-sociais-e-matematica'
+                slug: 'materiais/ciencias-sociais-e-matematica'
             },
         ]
     }
