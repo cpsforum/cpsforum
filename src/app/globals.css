@@ -141,3 +141,42 @@
   background-color: hsl(var(--primary)) !important;
   color: #fff !important;
 }
+
+.tag-row{
+  display: flex;
+  justify-content: flex-start;
+  width: 100%;
+  max-width: 720px;
+  flex-wrap: wrap;
+}
+
+.tag{
+  margin: 3px 10px 3px 0px;
+  text-transform: capitalize;
+  font-size: 0.725rem;
+  position: relative;
+  min-width: 70px;
+  height: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-radius: 50px;
+}
+
+.tag span{
+  margin-left: 10px;
+}
+
+.close-tag{
+  width: 22px;
+  height: 20px;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 10px;
+}
+
+.close-tag svg{
+  width: 12px;
+}
