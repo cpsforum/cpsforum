@@ -1,5 +1,4 @@
 import * as React from "react"
-import { LucideIcon } from "lucide-react"
 import { cva } from "class-variance-authority";
 import Link from "next/link";
 import { cn } from "@/lib/utils"
@@ -8,8 +7,7 @@ import {
   TooltipContent,
   TooltipTrigger,
 } from "@/components/ui/tooltip"
-import { useParams } from "next/navigation";
-import { usePathname } from 'next/navigation'
+import { useParams, usePathname } from "next/navigation";
   
 const buttonVariants = cva(
   "inline-flex whitespace-wrap w-full items-center align-center rounded-md text-sm ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50",
@@ -42,14 +40,13 @@ const buttonVariants = cva(
 
 const SideBarLink = React.forwardRef(({ links, isCollapsed, className, variant, size, ...props }, ref) => {
   //Caso não haja slug, o valor padrão é '/'
-  var { slug } = useParams();
-  slug == undefined ? slug = '/' : null;
+  let pathname = usePathname();
   return (
     <div
       data-collapsed={isCollapsed}
-      className="group flex w-full flex-col gap-4 py-8 px-3 data-[collapsed=true]:py-2"
+      className="group flex w-full flex-col gap-4 py-8 px-3"
     >
-      <nav className="grid gap-1 group-[[data-collapsed=true]]:justify-center group-[[data-collapsed=true]]:px-2">
+      <nav className="grid gap-1 group-[[data-collapsed=true]]:justify-center">
         {links.map((link, index) =>
           isCollapsed ? (
             <Tooltip key={index} delayDuration={0}>
@@ -57,21 +54,15 @@ const SideBarLink = React.forwardRef(({ links, isCollapsed, className, variant, 
                 <Link
                   href={`/${link.slug}`}
                   className={cn(
-                    buttonVariants({ variant: link.variant == "default" || slug == link.slug ? "default" : "ghost", size: "icon" }),
+                    buttonVariants({ variant: pathname == `/${link.slug}`? "default" : "ghost", size: "icon" }),
                     "h-9 w-9 justify-center",
                   )}
                 >
                   <link.icon className="h-4 w-4" />
-                  <span className="sr-only">{link.title}</span>
                 </Link>
               </TooltipTrigger>
               <TooltipContent side="right" className="flex items-center gap-4">
                 {link.title}
-                {link.label && (
-                  <span className="ml-auto text-muted-foreground">
-                    {link.label}
-                  </span>
-                )}
               </TooltipContent>
             </Tooltip>
           ) : (
@@ -79,23 +70,12 @@ const SideBarLink = React.forwardRef(({ links, isCollapsed, className, variant, 
               key={index}
               href={`/${link.slug}`}
               className={cn(
-                buttonVariants({ variant: link.variant == "default" || slug == link.slug ? "default" : "ghost", size: "sm" }),
+                buttonVariants({ variant: link.variant == "default" || pathname == `/${link.slug}`? "default" : "ghost", size: "sm" }),
                 "justify-start"
               )}
             >
               <link.icon className="mr-2 h-4 w-4" />
               {link.title}
-              {link.label && (
-                <span
-                  className={cn(
-                    "ml-auto",
-                    link.variant === "default" &&
-                    "text-background dark:text-white"
-                  )}
-                >
-                  {link.label}
-                </span>
-              )}
             </Link>
           )
         )}
@@ -106,8 +86,6 @@ const SideBarLink = React.forwardRef(({ links, isCollapsed, className, variant, 
 
 const SideBarSectionLink = React.forwardRef(({ links, isCollapsed, className, variant, size, ...props }, ref) => {
   const { slug } = useParams()
-  let pathname = usePathname();
-
   return (
     <div
       data-collapsed={isCollapsed}
@@ -118,28 +96,7 @@ const SideBarSectionLink = React.forwardRef(({ links, isCollapsed, className, va
           <div key={index} className="py-2">
             {
               isCollapsed ? (
-                <Tooltip delayDuration={0}>
-                  <TooltipTrigger asChild>
-                    <Link
-                      href={`/${link.slug}`}
-                      className={cn(
-                        buttonVariants({ variant: link.variant, size: "icon" }),
-                        "h-9 w-9 inline-flex w-full items-center align-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50"
-                      )}
-                    >
-                      <link.icon className="h-4 w-4" />
-                      <span className="sr-only">{link.title}</span>
-                    </Link>
-                  </TooltipTrigger>
-                  <TooltipContent side="right" className="flex items-center gap-4">
-                    {link.title}
-                    {link.label && (
-                      <span className="ml-auto text-muted-foreground">
-                        {link.label}
-                      </span>
-                    )}
-                  </TooltipContent>
-                </Tooltip>
+                ''
               ) : (
                 <div>
                   <span
