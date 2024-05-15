@@ -38,14 +38,14 @@ export const Group = ({ item }) => {
                         <Link className="hover:text-muted-foreground" href={`/grupos/${item.id}/`}>{messages.length}&nbsp;mensagens não lidas</Link>
                     </div>
                 </div>
-                <div className="flex w-full flex-col">
+                {/* <div className="flex w-full flex-col">
                     {messages.map((msg, i) => 
                     <div>
                         
                     </div>
                     )}
                     
-                </div>
+                </div> */}
             </div>
             <div className={"ml-auto"}>
                 <More>
