@@ -5,15 +5,15 @@ import {
 } from "@/components/ui/resizable"
 import { links, materialsLinks, sectionlinks } from "../data/section-data";
 
-export const LeftSidebar = ({ isMaterials }) => {
+export const LeftSidebar = ({isCollapsed, isMaterials }) => {
     return (
         <>
             <SideBarLink
-                isCollapsed={false}
+                isCollapsed={isCollapsed}
                 links={links} />
-            <Separator />
+            {isCollapsed ? '' : <Separator />}
             <SideBarSectionLink
-                isCollapsed={false}
+                isCollapsed={isCollapsed}
                 links={isMaterials ? materialsLinks.slice(0) : sectionlinks.slice(1)} 
             />
         </>

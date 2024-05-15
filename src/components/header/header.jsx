@@ -16,12 +16,20 @@ import AccountArea from "./accountArea/accountArea"
 import Image from "next/image";
 import React, { useState } from 'react';
 import { usePathname } from 'next/navigation'
+import Link from "next/link";
+
+import { useTheme } from "next-themes"
 
 const Logo = () => {
+    const {systemTheme} = useTheme()
+    const themes = {
+        "dark": '/logo-white.svg',
+        "light": '/logo2.svg', 
+    }
     return (
-        <a href="/">
-            <Image width={125} height={125} alt="Logo" src='/logo2.svg' />
-        </a>
+        <Link href="/">
+            <Image width={125} height={125} alt="Logo" src={themes[systemTheme]} />
+        </Link>
         )
 }
 

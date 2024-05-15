@@ -1,4 +1,5 @@
 import { graphConfig } from "@/service/msal/authConfig";
+import { getToken } from "@/service/msal/msal";
 
 export async function callMsGraph(accessToken) {
     const headers = new Headers();
@@ -28,4 +29,15 @@ export async function callMsGraphPhoto(accessToken) {
 
     return fetch(graphConfig.graphProfilePicEndpoint, options)
         .catch(error => console.log(error));
+}
+
+export async function RequestProfileData() {
+    // Silently acquires an access token which is then attached to a request for MS Graph data
+    const token = await getToken();
+    const graphData = await callMsGraph(token);
+    const photoResponse = await callMsGraphPhoto(token);
+    const blob = await photoResponse.blob();
+    const url = URL.createObjectURL(blob);
+
+    return { graphData, url };
 }
