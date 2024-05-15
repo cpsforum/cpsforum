@@ -18,10 +18,17 @@ import React, { useState } from 'react';
 import { usePathname } from 'next/navigation'
 import Link from "next/link";
 
+import { useTheme } from "next-themes"
+
 const Logo = () => {
+    const {systemTheme} = useTheme()
+    const themes = {
+        "dark": '/logo-white.svg',
+        "light": '/logo2.svg', 
+    }
     return (
         <Link href="/">
-            <Image width={125} height={125} alt="Logo" src='/logo2.svg' />
+            <Image width={125} height={125} alt="Logo" src={themes[systemTheme]} />
         </Link>
         )
 }
