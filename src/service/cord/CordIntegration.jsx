@@ -28,7 +28,7 @@ export default function CordIntegration({groupid}) {
     return (
         clientAuthToken ? (
             <CordProvider clientAuthToken={clientAuthToken}>
-                <Thread composerExpanded className="h-full" threadId="thread" groupId={groupid} />
+                <Thread composerExpanded className="h-full" threadId={groupid} groupId={groupid} />
             </CordProvider>
         )
             :
