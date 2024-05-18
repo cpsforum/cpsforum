@@ -17,7 +17,7 @@ const MainLayout = ({ children }) => {
     return (
         <TooltipProvider delayDuration={0}>
             <ResizablePanelGroup
-                className={"max-h-[calc(100vh-3.5rem)]"}
+                className={"max-h-[calc(100dvh-3.5rem)]"}
                 direction="horizontal"
             >
                 <ResizablePanel className="max-h-full hidden lg:block top-0 left-0 sticky !overflow-y-auto no-scrollbar"
