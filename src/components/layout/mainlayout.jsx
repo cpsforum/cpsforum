@@ -20,7 +20,7 @@ const MainLayout = ({ children }) => {
                 className={"max-h-[calc(100vh-3.5rem)]"}
                 direction="horizontal"
             >
-                <ResizablePanel className="max-h-full top-0 left-0 sticky !overflow-y-auto no-scrollbar"
+                <ResizablePanel className="max-h-full hidden lg:block top-0 left-0 sticky !overflow-y-auto no-scrollbar"
                     onCollapse={() => {
                         setIsCollapsed(true)
                         document.cookie = `left-react-resizable-panels:collapsed=true`
@@ -30,19 +30,23 @@ const MainLayout = ({ children }) => {
                         document.cookie = `left-react-resizable-panels:collapsed=false`
                     }}
                     collapsible
-                    collapsedSize={5}
+                    collapsedSize={4}
                     minSize={14}
+                    maxSize={20}
                     defaultSize={17}>
                     <LeftSidebar isCollapsed={isCollapsed} />
                 </ResizablePanel>
-                <ResizableHandle withHandle />
+                <ResizableHandle className={"hidden lg:flex"} withHandle />
                 <ResizablePanel className="max-h-full" defaultSize={63}>
                     <ScrollArea className="h-full px-4">
                         {children}
                     </ScrollArea>
                 </ResizablePanel>
-                <ResizableHandle withHandle />
-                <ResizablePanel className="max-h-full px-3 top-0 left-0 sticky !overflow-y-auto no-scrollbar" defaultSize={20}>
+                <ResizableHandle className={"hidden lg:flex"} withHandle />
+                <ResizablePanel className="max-h-full hidden lg:block px-3 top-0 left-0 sticky !overflow-y-auto no-scrollbar" 
+                    defaultSize={20}
+                    maxSize={25}
+                    minSize={18}>
                     <RightSidebar />
                 </ResizablePanel>
             </ResizablePanelGroup>
