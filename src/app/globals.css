@@ -180,3 +180,11 @@
 .close-tag svg{
   width: 12px;
 }
+
+.footer-logo{
+  width: 10rem;
+  height: 9rem;
+  margin: 0px;
+  padding: 0px;
+  position: absolute;
+}

@@ -30,6 +30,7 @@ import {
 import { sectionlinks } from '@/components/data/section-data'
 import Editor from '@/components/editor/editor';
 import { toast } from 'sonner';
+import Footer from '@/components/footer/footer';
 
 
 const Main = styled.main`
@@ -248,6 +249,7 @@ export default function Criar() {
                     </form>
                 </Form>
             </Main>
+            <Footer/>
         </div>
 
     )
