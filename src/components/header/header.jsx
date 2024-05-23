@@ -24,7 +24,7 @@ const Logo = () => {
     const {systemTheme} = useTheme()
     const themes = {
         "dark": '/logo-white.svg',
-        "light": '/logo2.svg', 
+        "light": '/logo-black.svg', 
     }
     return (
         <Link href="/">
