@@ -190,7 +190,7 @@
 }
 
 .animated-bg{
-  animation: animateBG 25s linear infinite;
+  animation: animateBG 30s linear infinite;
 }
 
 @keyframes animateBG {
