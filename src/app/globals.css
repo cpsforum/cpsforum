@@ -188,3 +188,25 @@
   padding: 0px;
   position: absolute;
 }
+
+.animated-bg{
+  animation: animateBG 25s linear infinite;
+}
+
+@keyframes animateBG {
+  0%{
+    background-position: 0% 50%;
+  }
+  25%{
+    background-position: 0% 100%;
+  }
+  50%{
+    background-position: 0% 150%;
+  }
+  75%{
+    background-position: 0% 200%;
+  }
+  100%{
+    background-position: 0% 250%;
+  }
+}
