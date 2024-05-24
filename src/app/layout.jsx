@@ -2,7 +2,6 @@ import './globals.css'
 import MyMsalProvider from '@/service/msal/MyMsalProvider'
 import { GeistSans } from 'geist/font/sans';
 import { GeistMono } from 'geist/font/mono';
-import Header from "../components/header/header";
 import StyledComponentsRegistry from "@/lib/registry";
 import { ThemeProvider } from "@/components/theme-provider/theme-provider"
 import { Toaster } from "@/components/ui/sonner"
@@ -15,8 +14,7 @@ export default function RootLayout({ children }) {
     <MyMsalProvider>
       <html lang="pt-br" suppressHydrationWarning>
         <head>
-          {/* Corrigindo o caminho do favicon */}
-          <link rel="icon" href="/favicontest2.svg" />
+          <link rel="icon" href="/favicon-black.svg" />
         </head>
         <body className={`${GeistSans.className} ${GeistMono.variable}`}>
           <NextTopLoader color='hsl(var(--primary))' shadow={false} showSpinner={false} />

@@ -30,6 +30,7 @@ import {
 import { sectionlinks } from '@/components/data/section-data'
 import Editor from '@/components/editor/editor';
 import { toast } from 'sonner';
+import Footer from '@/components/footer/footer';
 import { XIcon } from 'lucide-react';
 
 
@@ -251,7 +252,8 @@ export default function Criar() {
                         </div>
                     </form>
                 </Form>
-            </div>
+            <Footer/>
+          </div>
         </Main>
     )
 }
