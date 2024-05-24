@@ -31,13 +31,23 @@ import { sectionlinks } from '@/components/data/section-data'
 import Editor from '@/components/editor/editor';
 import { toast } from 'sonner';
 import Footer from '@/components/footer/footer';
+import { XIcon } from 'lucide-react';
 
 
 const Main = styled.main`
     padding: 2rem 1rem 2rem 1rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 `
 
 export default function Criar() {
+
+    //State para etapas
+    const [step, setStep] = React.useState(1);
+    const [tags, setTags] = React.useState([]);
+    const [inputTag, setInputTag] = React.useState("");
+
     //Schema para o form
     const formSchema = z.object({
         title: z.string()
@@ -53,7 +63,7 @@ export default function Criar() {
         section: z.string({
             required_error: "Selecione uma seção."
         }),
-        // tags: z.string({required_error: "Insira ao menos uma tag valida."}),
+        // tags: z.string().array().optional(),
         body: z.string({
             required_error: "O corpo do tópico é obrigatório."
         }).min(20, {
@@ -75,40 +85,41 @@ export default function Criar() {
 
     //onSubmit
     function onSubmit(values) {
+        values.tags = tags
         toast("Tópico criado com sucesso!", {
             description: JSON.stringify(values),
         })
     }
 
-    //State para etapas
-    const [step, setStep] = React.useState(1);
-    const [tags, setTags] = React.useState([]);
-    const [inputTag, setInputTag] = React.useState("");
-
-
-    React.useEffect(() => {
-        
-    }, [tags])
     
+
+
+    // React.useEffect(() => {
+
+    // }, [tags])
+
     const handleTags = () => {
         if (inputTag.trim() !== "" && !tags.includes(inputTag) & tags.length < 6) {
             setTags([...tags, inputTag.trim()]);
             setInputTag("");
         }
     }
+
     const removeTag = (tagToRemove) => {
         const updatedTags = tags.filter(tag => tag !== tagToRemove);
         setTags(updatedTags);
-    } 
-    return (
-        <div className='flex flex-col justify-items-center items-center'>
+    }
 
-            <Main className=''>
-                <h2 className="scroll-m-20 pb-5 font-medium text-3xl tracking-tight first:mt-0">
+    return (
+
+
+        <Main>
+            <div className='w-full max-w-[1000px]'>
+                <h2 className="scroll-m-20 pb-5 self-start font-medium text-3xl tracking-tight first:mt-0">
                     Criar tópico
                 </h2>
                 <Form {...form}>
-                    <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-3 max-w-[1000px]">
+                    <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-3">
                         <FormField
                             control={form.control}
                             name="title"
@@ -122,7 +133,7 @@ export default function Criar() {
                                         <Input placeholder="Como resolver essa equação?" {...field} />
                                     </FormControl>
                                     <FormMessage />
-                                    {step == 1 ? <Button size={"sm"} onClick={() => setStep(step + 1)} type="next" id={"next"}>Próximo</Button> : null}
+                                    {step == 1 ? <Button size={"sm"} onClick={() => setStep(step + 1)} type="button" id={"next"}>Próximo</Button> : null}
                                 </FormItem>
                             )}
                         />
@@ -149,7 +160,7 @@ export default function Criar() {
                                         </Select>
                                     </FormControl>
                                     <FormMessage />
-                                    {step == 2 ? <Button size={"sm"} onClick={() => setStep(step + 1)} type="next" id={"next"}>Próximo</Button> : null}
+                                    {step == 2 ? <Button size={"sm"} onClick={() => setStep(step + 1)} type="button" id={"next"}>Próximo</Button> : null}
                                 </FormItem>
                             )}
                         />
@@ -181,11 +192,10 @@ export default function Criar() {
                                         </Select>
                                     </FormControl>
                                     <FormMessage />
-                                    {step == 3 ? <Button size={"sm"} onClick={() => setStep(step + 1)} type="next" id={"next"}>Próximo</Button> : null}
+                                    {step == 3 ? <Button size={"sm"} onClick={() => setStep(step + 1)} type="button" id={"next"}>Próximo</Button> : null}
                                 </FormItem>
                             )}
                         />
-
                         <FormField
                             control={form.control}
                             name="tags"
@@ -193,40 +203,34 @@ export default function Criar() {
                                 <FormItem className={`p-4 bg-muted rounded-md border ${step >= 4 ? null : "cursor-not-allowed opacity-50"}`}>
                                     <FormLabel>Tags</FormLabel>
                                     <FormDescription className="!mt-0">
-                                        Digite as Tags de seu tópico. (Opcional)
+                                        Digite as Tags de seu tópico.&nbsp;(Opcional)
                                     </FormDescription>
                                     <div className='tag-row'>
                                         {tags.map((tag, key) => (
                                             <div key={key} className="tag bg-slate-800">
-                                                <span className='text-blue-500'>{tag}</span>
+                                                <span className='text-primary'>{tag}</span>
                                                 <span onClick={() => removeTag(tag)} className='close-tag bg-slate-700 text-blue-500'>
-                                                    <svg className='fill-blue-500' xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><path d="M342.6 150.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L192 210.7 86.6 105.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L146.7 256 41.4 361.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L192 301.3 297.4 406.6c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L237.3 256 342.6 150.6z" /></svg>
+                                                    <XIcon size={20} />
                                                 </span>
                                             </div>
                                         ))}
                                     </div>
                                     <FormControl>
                                         <FormControl>
-                                            <div>
-                                                <Input
-                                                    c
-                                                    name="tags"
-                                                    placeholder="Exemplos: Frações, Pítagoras, Guerra Fria"
-                                                    {...field}
-                                                    onChange={(e) => setInputTag(e.target.value)}
-                                                />
-                                            </div>
+                                            <Input
+                                                name="tags"
+                                                placeholder="Frações, Pitágoras, Guerra Fria"
+                                                onChange={(e) => setInputTag(e.target.value)}
+                                            />
                                         </FormControl>
 
                                     </FormControl>
                                     <FormMessage className="m-1" />
-                                    <Button size={'sm'} className="mr-3 ml-1" onClick={handleTags}>Add Tag</Button>
-                                    {step == 4 ? <Button size={"sm"} onClick={() => { setStep(step + 1); }} type="next" id={"next"}>Próximo</Button> : null}
+                                    <Button size={'sm'} type="button" id={"tagbutton"} onClick={handleTags} className="mr-3">Adicionar tag</Button>
+                                    {step == 4 && <Button size={"sm"} onClick={() => setStep(step + 1)} type="button" id={"next"}>Próximo</Button>}
                                 </FormItem>
                             )}
                         />
-
-
                         <FormField
                             control={form.control}
                             name="body"
@@ -248,9 +252,8 @@ export default function Criar() {
                         </div>
                     </form>
                 </Form>
-            </Main>
             <Footer/>
-        </div>
-
+          </div>
+        </Main>
     )
 }
