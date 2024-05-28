@@ -376,6 +376,11 @@ export const materialsLinks = [
                 title: 'Ciências Sociais e Matemática',
                 slug: 'materiais/ciencias-sociais-e-matematica'
             },
+            {
+                id: 5,
+                title: 'Obras Literárias',
+                slug: 'materiais/obras-literarias'
+            },
         ]
     }
 ]
