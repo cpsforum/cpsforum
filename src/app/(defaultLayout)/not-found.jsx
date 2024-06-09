@@ -19,8 +19,8 @@ export default function NotFound() {
 
     return (
         <div className='grid items-center justify-center content-center h-screen bg-[url(/bg404.png)] bg-center bg-cover animated-bg overflow-y-hidden absolute w-full'>
-            <Card className='grid p-10 rounded-[1rem] border-none text-white backdrop-blur-md bg-black/20'>
-                <div className='flex justify-center content-start'>
+            <Card className='grid py-16 px-8 rounded-[1rem] border-none text-white backdrop-blur-md bg-black/20 d-flex justify-items-around flex-col'>
+                <div className='flex justify-center content-start d-flex'>
                     <Image
                         src="/favicon-white.png"
                         width={100}
