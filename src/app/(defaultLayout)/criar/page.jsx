@@ -246,8 +246,8 @@ export default function Criar() {
                         </div>
                     </form>
                 </Form>
+            </div>
             <Footer/>
-          </div>
         </Main>
     )
 }

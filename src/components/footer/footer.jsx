@@ -10,10 +10,7 @@ const Footer = () => {
         "light": '/favicon-black.svg',
     }
     return (
-        <>
-
-
-            <footer className={`${systemTheme == "dark" ? 'bg-zinc-950' : 'bg-white'} rounded-lg shadow m-4 w-full pt-4`}>
+            <footer className={`${systemTheme == "dark" ? 'bg-zinc-950' : 'bg-white'} rounded-lg mt-6 shadow w-full pt-6`}>
                 <div className="w-full max-w-screen-xl mx-auto p-4 md:py-4">
                     <div className="sm:flex sm:items-center sm:justify-between">
                         <a href="/" className="flex items-center mb-2 sm:mb-0 space-x-3 rtl:space-x-reverse">
@@ -38,10 +35,7 @@ const Footer = () => {
                     <span className="block text-sm text-gray-500 sm:text-center dark:text-gray-400">© 2023 <a href="/" className="hover:underline">Forum CPS</a>. Todos os direitos Reservados. </span>
                 </div>
             </footer>
-
-
-        </>
-    );
+        );
 }
 
 export default Footer;
