@@ -182,11 +182,15 @@
 }
 
 .footer-logo{
-  width: 4rem;
-  height: 4rem;
+  height: 3rem;
   margin: 0px;
   padding: 0px;
   position: absolute;
+}
+
+.footer-logo.dark{
+  height: 3.3rem;
+  width: 3.3rem;
 }
 
 .animated-bg{

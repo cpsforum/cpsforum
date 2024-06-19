@@ -17,7 +17,7 @@ import { zodResolver } from "@hookform/resolvers/zod"
 import { z } from "zod"
 import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
-import styled from 'styled-components'
+import styled, { useTheme } from 'styled-components'
 import {
     Select,
     SelectContent,
@@ -47,6 +47,7 @@ export default function Criar() {
     const [step, setStep] = React.useState(1);
     const [tags, setTags] = React.useState([]);
     const [inputTag, setInputTag] = React.useState("");
+    
 
     //Schema para o form
     const formSchema = z.object({
@@ -207,9 +208,9 @@ export default function Criar() {
                                     </FormDescription>
                                     <div className='tag-row'>
                                         {tags.map((tag, key) => (
-                                            <div key={key} className="tag bg-slate-800">
+                                            <div key={key} className="tag dark">
                                                 <span className='text-primary'>{tag}</span>
-                                                <span onClick={() => removeTag(tag)} className='close-tag bg-slate-700 text-blue-500'>
+                                                <span onClick={() => removeTag(tag)} className='close-tag'>
                                                     <XIcon size={20} />
                                                 </span>
                                             </div>
