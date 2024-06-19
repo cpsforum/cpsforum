@@ -92,13 +92,6 @@ export default function Criar() {
         })
     }
 
-    
-
-
-    // React.useEffect(() => {
-
-    // }, [tags])
-
     const handleTags = () => {
         if (inputTag.trim() !== "" && !tags.includes(inputTag) & tags.length < 6) {
             setTags([...tags, inputTag.trim()]);
@@ -208,8 +201,8 @@ export default function Criar() {
                                     </FormDescription>
                                     <div className='tag-row'>
                                         {tags.map((tag, key) => (
-                                            <div key={key} className="tag dark">
-                                                <span className='text-primary'>{tag}</span>
+                                            <div key={key} className="tag text-white bg-primary">
+                                                <span className='text-white'>{tag}</span>
                                                 <span onClick={() => removeTag(tag)} className='close-tag'>
                                                     <XIcon size={20} />
                                                 </span>
