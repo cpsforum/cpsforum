@@ -49,11 +49,23 @@ const BookRow = ({ slug }) => {
                         </a>
                         <div className="text flex flex-col items-left mt-2.5 mb-5 text-secondary-foreground">
                             <p className="leading-relaxed">
-                                {expandedItem === index ? book.desc : book.desc.slice(0, 200) + '...'} &nbsp;
-                                <button id={`toggle-btn-${index}`} className="toggle text-primary focus:outline-none" onClick={() => expandedItem === index ? handleViewLess() : handleViewMore(index)}>
-                                    {expandedItem === index ? 'Ler Menos' : 'Ler mais'}
-                                </button>
+                                {
+                                    book.desc.length > 200 ?
+                                        (
+                                            expandedItem === index ? book.desc : book.desc.slice(0, 200) + '...'
+                                        ) :
+                                        (
+                                            book.desc
+                                        )
+                                } &nbsp;
+                                {
+                                    book.desc.length > 200 &&
+                                    <button id={`toggle-btn-${index}`} className="toggle text-primary focus:outline-none" onClick={() => expandedItem === index ? handleViewLess() : handleViewMore(index)}>
+                                        {expandedItem === index ? 'Ler Menos' : 'Ler mais'}
+                                    </button>
+                                }
                             </p>
+
                             {book.desc.length > 200 && (
                                 <span id={`more-text-${index}`} className={expandedItem === index ? '' : 'hidden'}>
                                     {book.desc.slice(200, 0)}
