@@ -43,6 +43,7 @@
     "lucide-react": "^0.354.0",
     "mathlive": "^0.98.6",
     "next": "^14.2.3",
+    "next-auth": "^5.0.0-beta.19",
     "next-themes": "^0.2.1",
     "nextjs-toploader": "^1.6.11",
     "react": "^18.3.1",

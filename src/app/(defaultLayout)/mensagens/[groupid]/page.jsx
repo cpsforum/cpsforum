@@ -1,11 +1,7 @@
-'use client'
-
 import CordIntegration from "@/service/cord/CordIntegration"
-import { useParams } from "next/navigation"
 
-export default function ChatPage(){
-    const {groupid} = useParams();
+export default function ChatPage({params}){
     return(
-        <CordIntegration groupid={groupid} />
+        <CordIntegration groupid={params.groupid} />
     )
 }

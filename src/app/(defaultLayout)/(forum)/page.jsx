@@ -3,10 +3,9 @@ import { Topic } from "@/components/data/topic-data"
 import PageTitle from "@/components/layout/pagetitle"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import dayjs from "dayjs"
-import { buttonVariants } from "@/components/ui/button"
-import { cn } from "@/lib/utils"
-import Link from "next/link"
 import NewTopicButton from "@/components/general/newtopic"
+import { auth } from "@/../auth"
+
 
 export default function Home() {
     const forumMessagesTopics = Topic.filter(topic => topic.section === 1);

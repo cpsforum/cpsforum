@@ -1,32 +1,24 @@
 'use client'
 
 import { CordProvider, Thread } from "@cord-sdk/react";
-import { RequestProfileData } from "@/service/msal/graph";
 import React from "react";
-import { useIsAuthenticated } from "@azure/msal-react";
-import { initialized } from "@/service/msal/MyMsalProvider";
 import { getCordClientAuthToken } from "@/service/cord/cordTokenFetcher";
 import Spinner from "@/components/ui/spinner";
 import { resources } from "./translation";
+import { useSession } from "next-auth/react";
 
-export default function CordIntegration({ groupid }) {
+export default async function CordIntegration({ groupid }) {
+    
+    const session = useSession()
+
     const [clientAuthToken, setClientAuthToken] = React.useState(false);
     const [notFound, setNotFound] = React.useState(false)
 
     async function setData() {
-        const { graphData, url } = await RequestProfileData();
-        getCordClientAuthToken(graphData).then((token) => {
+        getCordClientAuthToken(session).then((token) => {
             setClientAuthToken(token.clientAuthToken);
         });
     }
-
-    const isAuthenticated = useIsAuthenticated()
-    React.useEffect(() => {
-        if (isAuthenticated && initialized == true) {
-            setData()
-        }
-    }, [isAuthenticated, initialized]);
-
     return (
         clientAuthToken ? (
             notFound ? (

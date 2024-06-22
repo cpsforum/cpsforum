@@ -1,34 +1,13 @@
-'use client'
-
-import { buttonVariants } from "@/components/ui/button"
-import { useIsAuthenticated } from "@azure/msal-react"
 import React from "react";
 import Link from "next/link"
-import { initialized } from "@/service/msal/MyMsalProvider"
 import AccountButton from "./accountBtn"
-import { RequestProfileData } from "@/service/msal/graph"
+import { useSession } from "next-auth/react";
 
 function AccountArea() {
-  const [graphData, setGraphData] = React.useState(null);
-  const [picurl, setPicurl] = React.useState(null);
-
-  async function setData() {
-    const { graphData, url } = await RequestProfileData();
-    setGraphData(graphData);
-    setPicurl(url);
-  }
-
-  const isAuthenticated = useIsAuthenticated()
-
-  React.useEffect(() => {
-    if (isAuthenticated && initialized == true) {
-      setData()
-    }
-  }, [isAuthenticated, initialized]);
-
+  const session = useSession()
   return (
-    isAuthenticated ? (
-      <AccountButton picurl={picurl} graphData={graphData} />
+    session.data ? (
+      <AccountButton />
     ) : (
       <Link title="Entre em sua conta" href={'/sign-in'} className="h-8 w-8">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" stroke="hsl(var(--foreground))">
