@@ -14,8 +14,7 @@ export default function RootLayout({ children }) {
     <SessionProvider>
       <html lang="pt-br" suppressHydrationWarning>
         <head>
-          {/* Corrigindo o caminho do favicon */}
-          <link rel="icon" href="/favicontest2.svg" />
+          <link rel="icon" href="/favicon-black.svg" />
         </head>
         <body className={`${GeistSans.className} ${GeistMono.variable}`}>
           <NextTopLoader color='hsl(var(--primary))' shadow={false} showSpinner={false} />

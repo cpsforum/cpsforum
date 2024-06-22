@@ -17,7 +17,7 @@ import { zodResolver } from "@hookform/resolvers/zod"
 import { z } from "zod"
 import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
-import styled from 'styled-components'
+import styled, { useTheme } from 'styled-components'
 import {
     Select,
     SelectContent,
@@ -30,6 +30,7 @@ import {
 import { sectionlinks } from '@/components/data/section-data'
 import Editor from '@/components/editor/editor';
 import { toast } from 'sonner';
+import Footer from '@/components/footer/footer';
 import { XIcon } from 'lucide-react';
 
 
@@ -46,6 +47,7 @@ export default function Criar() {
     const [step, setStep] = React.useState(1);
     const [tags, setTags] = React.useState([]);
     const [inputTag, setInputTag] = React.useState("");
+    
 
     //Schema para o form
     const formSchema = z.object({
@@ -89,13 +91,6 @@ export default function Criar() {
             description: JSON.stringify(values),
         })
     }
-
-    
-
-
-    // React.useEffect(() => {
-
-    // }, [tags])
 
     const handleTags = () => {
         if (inputTag.trim() !== "" && !tags.includes(inputTag) & tags.length < 6) {
@@ -206,9 +201,9 @@ export default function Criar() {
                                     </FormDescription>
                                     <div className='tag-row'>
                                         {tags.map((tag, key) => (
-                                            <div key={key} className="tag bg-slate-800">
-                                                <span className='text-primary'>{tag}</span>
-                                                <span onClick={() => removeTag(tag)} className='close-tag bg-slate-700 text-blue-500'>
+                                            <div key={key} className="tag text-white bg-primary">
+                                                <span className='text-white'>{tag}</span>
+                                                <span onClick={() => removeTag(tag)} className='close-tag'>
                                                     <XIcon size={20} />
                                                 </span>
                                             </div>
@@ -252,6 +247,7 @@ export default function Criar() {
                     </form>
                 </Form>
             </div>
+            <Footer/>
         </Main>
     )
 }

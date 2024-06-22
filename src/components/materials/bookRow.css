@@ -12,6 +12,8 @@
 
 .book img{
     flex: 1;
+    max-width: 15rem;
+    height: 18rem;
 }
 /* 
 .book p{

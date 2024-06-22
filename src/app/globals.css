@@ -180,3 +180,37 @@
 .close-tag svg{
   width: 12px;
 }
+
+.footer-logo{
+  height: 2.5rem;
+  margin: 0px;
+  padding: 0px;
+  position: absolute;
+}
+
+.footer-logo.dark{
+  height: 2.8rem;
+  width: 2.8rem;
+}
+
+.animated-bg{
+  animation: animateBG 30s linear infinite;
+}
+
+@keyframes animateBG {
+  0%{
+    background-position: 0% 50%;
+  }
+  25%{
+    background-position: 0% 100%;
+  }
+  50%{
+    background-position: 0% 150%;
+  }
+  75%{
+    background-position: 0% 200%;
+  }
+  100%{
+    background-position: 0% 250%;
+  }
+}

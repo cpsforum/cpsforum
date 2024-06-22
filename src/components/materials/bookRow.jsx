@@ -1,5 +1,5 @@
 import React from 'react';
-import { HumanSciences, Languages, NatureSciences, SocialScienceAndMath } from '@/components/data/books';
+import { HumanSciences, Languages, NatureSciences, SocialScienceAndMath, LiteraryWorks } from '@/components/data/books';
 import './bookRow.css';
 
 const BookRow = ({ slug }) => {
@@ -19,6 +19,7 @@ const BookRow = ({ slug }) => {
         ...Languages,
         ...HumanSciences,
         ...NatureSciences,
+        ...LiteraryWorks,
     ].sort();
 
     const bookdata = {
@@ -26,6 +27,7 @@ const BookRow = ({ slug }) => {
         'linguagens': Languages,
         'ciencias-da-natureza': NatureSciences,
         'ciencias-sociais-e-matematica': SocialScienceAndMath,
+        'obras-literarias': LiteraryWorks,
         'home': allBooks,
     }
 

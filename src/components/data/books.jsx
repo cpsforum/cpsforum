@@ -215,7 +215,7 @@ export const NatureSciences = [
         category: 'Ciências da Natureza',
         editor: 'Moderna',
     },
-        
+
 ]
 
 export const SocialScienceAndMath = [
@@ -250,3 +250,133 @@ export const SocialScienceAndMath = [
         editor: 'Moderna',
     },
 ]
+
+export const LiteraryWorks = [
+    {
+        title: 'A melancia quadrada: crônicas',
+        desc: 'Uma coletânea de crônicas que oferece ao leitor um ponto de vista ácido e bem-humorado sobre o nosso tempo',
+        author: 'RUY CASTRO, NIK NEVES',
+        release: 2020,
+        src: 'https://pt.calameo.com/read/006940219c1594e94f0a5',
+        cover: 'https://pnld.moderna.com.br/wp-content/uploads/2022/01/A-melancia-quadrada-2-674x1024.png',
+        category: 'Obras Literárias',
+        editor: 'Moderna',
+    },
+    {
+        title: 'A marca de uma lágrima',
+        desc: 'Uma confusão típica da adolescência: conflitos internos, amores não correspondidos e… um assassinato',
+        author: 'PEDRO BANDEIRA',
+        release: 2020,
+        src: 'https://www.calameo.com/read/00694021960b02cbc50ae',
+        cover: 'https://pnld.moderna.com.br/wp-content/uploads/2022/01/A-marca-de-uma-l%C3%A1grima-2.png',
+        category: 'Obras Literárias',
+        editor: 'Moderna',
+    },
+    {
+        title: 'A morena da estação',
+        desc: 'Crônicas, lendas e curiosidades em torno de estações, trilhos e túneis. Memórias alegres, bem-humoradas, com algum drama e suspense, mostram as mudanças do mundo, dos usos e dos usos costumes',
+        author: 'IGNÁCIO DE LOYOLA BRANDÃO',
+        release: 2020,
+        src: 'https://www.calameo.com/read/006940219a6b6ec0c680f',
+        cover: 'https://pnld.moderna.com.br/wp-content/uploads/2022/01/A-Morena-da-Esta%C3%A7%C3%A3o-2.png',
+        category: 'Obras Literárias',
+        editor: 'Moderna',
+    },
+    {
+        title: 'A megera domada de William Shakespeare',
+        desc: 'Uma comédia hilariante e atemporal sobre a guerra dos sexos. Um rico mercador decide que sua filha mais jovem, a doce Bianca, só se casará depois da mais velha, a terrível Catarina.',
+        author: 'Walcyr Carrasco, Weberson Santiago',
+        release: 2020,
+        src: 'https://www.calameo.com/read/006940219756460c40925',
+        cover: 'https://pnld.moderna.com.br/wp-content/uploads/2022/01/A-Megera-Domada-2.png',
+        category: 'Obras Literárias',
+        editor: 'Moderna',
+    },
+    {
+        title: 'Sonho de uma noite de verão de William Shakespeare',
+        desc: 'Uma adaptação divertida de Walcyr Carrasco para este clássico da literatura e do teatro mundial. Acompanhe essa história de amor repleta de seres especiais, encantamentos e muitas trapalhadas.',
+        author: 'Walcyr Carrasco, Weberson Santiago',
+        release: 2020,
+        src: 'https://pt.calameo.com/read/006940219156ed7bda38f',
+        cover: 'https://pnld.moderna.com.br/wp-content/uploads/2022/01/Sonho-de-uma-noite-de-ver%C3%A3o-2.png',
+        category: 'Obras Literárias',
+        editor: 'Moderna',
+    },
+    {
+        title: 'Antologia de contos indígenas de ensinamento: tempo de histórias',
+        desc: 'Narrativas vivas para um mundo carente de mitos e ritos. Munduruku relata sua experiência como professor no Ensino Médio marcada pela troca afetiva e intelectual.',
+        author: 'Heloisa Prieto, Daniel Munduruku',
+        release: 2020,
+        src: 'https://pt.calameo.com/read/006940219659134756a32',
+        cover: 'https://pnld.moderna.com.br/wp-content/uploads/2022/01/Antologia-de-contos-indigenas-2.png',
+        category: 'Obras Literárias',
+        editor: 'Moderna',
+    },
+    {
+        title: 'Dom Quixote de Miguel de Cervantes',
+        desc: 'Um romance inesquecível da literatura mundial. Apaixonado por histórias de cavalaria, Alonso Quijano passa a acreditar que é um cavaleiro andante. Em seu delírio, muda o nome para Dom Quixote de la Mancha.',
+        author: 'Walcyr Carrasco, Weberson Santiago',
+        release: 2020,
+        src: 'https://pt.calameo.com/read/006940219b1be2b6600ce',
+        cover: 'https://pnld.moderna.com.br/wp-content/uploads/2022/01/Dom-Quixote-2.png',
+        category: 'Obras Literárias',
+        editor: 'Moderna',
+    },
+    {
+        title: 'Nariz de vidro',
+        desc: 'Uma coletânea especial de um dos maiores poetas brasileiros. Um universo poético feito de ternura, lirismo, nostalgia da infância e de um humor irônico e transparente. Simplesmente uma obra para não se perder, da juventude à velhice.',
+        author: 'Mário Quintana, Rogério Borges',
+        release: 2020,
+        src: 'https://www.calameo.com/read/006940219d9d9d80a08b1',
+        cover: 'https://pnld.moderna.com.br/wp-content/uploads/2022/01/Nariz-de-vidro-2.png',
+        category: 'Obras Literárias',
+        editor: 'Moderna',
+    },
+    {
+        title: 'Dois amigos e um chato',
+        desc: 'Um humorista imortal em textos críticos e irreverentes. Crônicas curtas publicadas durante os anos 50/60. Algumas delas são autênticos clássicos da crônica de humor, como A velha contrabandista, Dois amigos e um chato ou Inferno nacional.',
+        author: 'Stanislaw Ponte Preta',
+        release: 2020,
+        src: 'https://www.calameo.com/read/0069402193354538d02ee',
+        cover: 'https://pnld.moderna.com.br/wp-content/uploads/2022/01/Dois-amigos-e-um-chato-2.png',
+        category: 'Obras Literárias',
+        editor: 'Moderna',
+    },
+    {
+        title: 'Mestres da paixão - Aprendendo com quem ama o que faz',
+        desc: 'Nesta obra autobiográfica, o autor relata sua experiência com professores que o ajudaram a compreender o mundo e a si mesmo, a partir do seu amor pela leitura.',
+        author: 'Domingos Pellegrini',
+        release: 2020,
+        src: 'https://www.calameo.com/read/0069402194ce70dc7a1f4',
+        cover: 'https://pnld.moderna.com.br/wp-content/uploads/2022/01/Mestres-da-Paix%C3%A3o-2.png',
+        category: 'Obras Literárias',
+        editor: 'Moderna',
+    },
+    {
+        title: 'A Máquina',
+        desc: 'Nordestina é o cenário do grande amor de Antônio e Karina. É uma terra sem futuro, onde reina o vazio deixado por quem quer ir "para o lado de lá da risca" que a separa do resto do mundo.',
+        author: 'Adriana Falcão',
+        release: 2020,
+        src: 'https://www.calameo.com/read/006940219834921927a05',
+        cover: 'https://pnld.moderna.com.br/wp-content/uploads/2022/01/A-M%C3%A1quina-2.png',
+        category: 'Obras Literárias',
+        editor: 'Moderna',
+    },
+    {
+        title: 'A colina dos suspiros',
+        desc: 'Com humor e sutileza, essa obra trata questões éticas, políticas, sociais, familiares e amorosas para debates necessários em sala de aula.',
+        author: 'Moacyr Scliar',
+        release: 2020,
+        src: 'https://pt.calameo.com/read/006940219e7ba089c051d',
+        cover: 'https://pnld.moderna.com.br/wp-content/uploads/2022/01/A-colina-dos-Suspiros-2.png',
+        category: 'Obras Literárias',
+        editor: 'Moderna',
+    },
+]
+/** 
+ * 
+ * 
+
+
+ * 
+*/
