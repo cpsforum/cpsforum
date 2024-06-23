@@ -33,10 +33,10 @@ export default function SuportPage() {
                         let title = data.title
                         let text = data.text
                         return(
-                            <>
+                            <div key={index}>
                                 <h2 className="my-2">{title}</h2>
                                 <p className="text-xs mb-4">{text}</p>
-                            </>
+                            </div>
                         )
                     })}
                 </div>

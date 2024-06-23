@@ -42,10 +42,24 @@ export const privacyPolitcs = [
         ]
     }
 ]
+
 export const about = [
     {
         title: "Sobre",
         subtitle: "Sobre o forum CPS",
-        content: "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Suscipit saepe voluptatum numquam earum cupiditate impedit maiores ullam repellat quaerat, ea cum veniam recusandae fugit consequatur, culpa quod eaque natus deserunt?",
+        content: [
+            {
+                title: "Nossa Missão",
+                text: "No Forum CPS, nossa missão é aprimorar a comunicação entre alunos, professores e diretores do Centro Paula Souza, elevando a experiência de ensino dos novos alunos e incentivando-os a compartilhar suas experiências, conhecimentos e ajudar os demais. Criado com base na ODS 4, que promove um ensino de qualidade, nosso principal objetivo é transformar o Centro Paula Souza em um ambiente mais agradável e comunicativo. Buscamos não apenas melhorar o ensino, mas também criar uma comunidade onde o aprendizado seja enriquecido pela colaboração e troca de ideias entre todos os membros."
+            },
+            {
+                title: "Nossa História",
+                text: 'O Forum CPS teve seu início em 2023 como um projeto de Trabalho de Conclusão de Curso da equipe "hashmappers", composta por jovens programadores unidos pelo objetivo comum de melhorar o ensino em sua própria instituição. Desde então, evoluímos para nos tornar uma plataforma vital para a comunidade do Centro Paula Souza, promovendo não apenas a interação entre alunos, professores e diretores, mas também a disseminação de conhecimento e a criação de um ambiente mais dinâmico e participativo.'
+            },
+            {
+                title: "Nossos Valores",
+                text: "No Forum CPS, valorizamos a transparência e uma comunicação aberta entre estudantes, docentes e diretores. Promovemos o respeito mútuo e a integridade em todas as interações dentro da nossa plataforma. Nossa equipe é comprometida em criar e manter um ambiente online seguro, agradável e rico em conhecimento para todos os usuários. Acreditamos que ao cultivar esses valores fundamentais, podemos não apenas melhorar a experiência educacional, mas também fortalecer a comunidade do Centro Paula Souza como um todo."
+            }
+        ]
     }
 ]
