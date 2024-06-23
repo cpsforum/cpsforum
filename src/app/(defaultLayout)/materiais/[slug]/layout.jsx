@@ -5,7 +5,6 @@ import { notFound } from "next/navigation";
 export async function generateMetadata({ params }) {
     // Ler parâmetros da rota
     const slug = params.slug;
-
 }
 
 

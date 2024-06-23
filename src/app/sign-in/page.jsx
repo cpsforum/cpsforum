@@ -4,11 +4,11 @@ import SignInButton from "@/components/signin/signinbutton"
 
 export default async function AuthenticationPage() {
     return (
-        <div className="relative h-screen grid grid-cols-[70%_minmax(30%,_1fr)] bg-stone-800  bg-cover bg-center bg-origin-content bg-[url(/bg404.png)] animated-bg">
+        <div className="relative h-screen grid grid-cols-[60%_minmax(30%,_1fr)] bg-cover bg-center bg-origin-content bg-[url(/bg404.png)] animated-bg screen">
             <div className="relative hidden h-screen lg:flex flex-col">
                 <div className="absolute inset-0" />
             </div>
-            <div className="grid lg:p-8 backdrop-blur-md bg-black/20">
+            <div className="grid lg:p-8 backdrop-blur-md bg-black/20 signin-container">
                 <div className="mx-auto flex w-full flex-col justify-center space-y-6 lg:w-[350px]">
                     <div className="flex flex-col space-y-2 text-center text-white">
                         <h1 className="text-2xl font-semibold tracking-tight">
@@ -18,7 +18,9 @@ export default async function AuthenticationPage() {
                             Para acessar o fórum, entre com seu e-mail institucional.
                         </p>
                     </div>
-                    <SignInButton />
+                    <div className="signin-button-container">
+                        <SignInButton />
+                    </div>
                     <div className="px-4 text-center text-sm text-white">
                         Ao clicar em entrar, você concorda com os&nbsp;
                         <Link

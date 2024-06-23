@@ -349,6 +349,21 @@ export const sectionlinks = [
                 slug: 'tcc'
             }
         ]
+    },
+    {
+        title: 'Suporte',
+        sections: [
+            {
+                id: 28,
+                title: "Política de Privacidade",
+                slug: "suporte/politica-de-privacidade",
+            },
+            {
+                id: 29,
+                title: "Sobre",
+                slug: "suporte/sobre",
+            },
+        ]
     }
 ]
 

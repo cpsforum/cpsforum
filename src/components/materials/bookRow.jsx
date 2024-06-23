@@ -13,7 +13,6 @@ const BookRow = ({ slug }) => {
         setExpandedItem(null);
     }
 
-    // Concatenando os arrays diretamente
     const allBooks = [
         ...SocialScienceAndMath,
         ...Languages,
@@ -49,11 +48,23 @@ const BookRow = ({ slug }) => {
                         </a>
                         <div className="text flex flex-col items-left mt-2.5 mb-5 text-secondary-foreground">
                             <p className="leading-relaxed">
-                                {expandedItem === index ? book.desc : book.desc.slice(0, 200) + '...'} &nbsp;
-                                <button id={`toggle-btn-${index}`} className="toggle text-primary focus:outline-none" onClick={() => expandedItem === index ? handleViewLess() : handleViewMore(index)}>
-                                    {expandedItem === index ? 'Ler Menos' : 'Ler mais'}
-                                </button>
+                                {
+                                    book.desc.length > 200 ?
+                                        (
+                                            expandedItem === index ? book.desc : book.desc.slice(0, 200) + '...'
+                                        ) :
+                                        (
+                                            book.desc
+                                        )
+                                } &nbsp;
+                                {
+                                    book.desc.length > 200 &&
+                                    <button id={`toggle-btn-${index}`} className="toggle text-primary focus:outline-none" onClick={() => expandedItem === index ? handleViewLess() : handleViewMore(index)}>
+                                        {expandedItem === index ? 'Ler Menos' : 'Ler mais'}
+                                    </button>
+                                }
                             </p>
+
                             {book.desc.length > 200 && (
                                 <span id={`more-text-${index}`} className={expandedItem === index ? '' : 'hidden'}>
                                     {book.desc.slice(200, 0)}
@@ -61,7 +72,7 @@ const BookRow = ({ slug }) => {
                             )}
                         </div>
                         <div className="flex items-center justify-between">
-                            <a href={book.src} className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 w-full">Ver Mais</a>
+                            <a target='_blank' href={book.src} className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 w-full">Ver Mais</a>
                         </div>
                     </div>
                 </div>

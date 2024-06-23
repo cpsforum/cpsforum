@@ -44,7 +44,7 @@ const SideBarLink = React.forwardRef(({ links, isCollapsed, className, variant, 
   return (
     <div
       data-collapsed={isCollapsed}
-      className="group flex w-full flex-col gap-4 py-8 px-3"
+      className="group flex w-full flex-col gap-4 py-4 px-3"
     >
       <nav className="grid gap-1 group-[[data-collapsed=true]]:justify-center">
         {links.map((link, index) =>

@@ -194,7 +194,7 @@
 }
 
 .animated-bg{
-  animation: animateBG 30s linear infinite;
+  animation: animateBG 30s linear infinite forwards;
 }
 
 @keyframes animateBG {
@@ -212,5 +212,29 @@
   }
   100%{
     background-position: 0% 250%;
+  }
+}
+
+.signin-button-container{
+  display: flex;
+  justify-content: center;
+}
+
+@media only screen and (max-width: 640px){
+  .signin-container{
+    position: absolute;
+    width: 100%;
+    height: 100vh;
+  }
+}
+
+
+@media only screen and (min-width: 1180px){
+  .signin-container{
+    width: 40rem;
+  }
+  .screen{
+    display: flex;
+    justify-content: flex-end;
   }
 }
