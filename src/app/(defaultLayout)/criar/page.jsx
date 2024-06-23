@@ -1,5 +1,4 @@
 'use client'
-
 import React from 'react';
 import {
     useFormField,
@@ -10,14 +9,13 @@ import {
     FormDescription,
     FormMessage,
     FormField,
-}
-    from '@/components/ui/form'
-import { useForm } from "react-hook-form"
-import { zodResolver } from "@hookform/resolvers/zod"
-import { z } from "zod"
-import { Input } from "@/components/ui/input"
-import { Button } from "@/components/ui/button"
-import styled, { useTheme } from 'styled-components'
+} from '@/components/ui/form';
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { z } from "zod";
+import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
+import styled, { useTheme } from 'styled-components';
 import {
     Select,
     SelectContent,
@@ -26,29 +24,93 @@ import {
     SelectValue,
     SelectGroup,
     SelectLabel,
-} from "@/components/ui/select"
-import { sectionlinks } from '@/components/data/section-data'
+} from "@/components/ui/select";
+import { sectionlinks } from '@/components/data/section-data';
 import Editor from '@/components/editor/editor';
 import { toast } from 'sonner';
 import Footer from '@/components/footer/footer';
 import { XIcon } from 'lucide-react';
+import {
+    Command,
+    CommandEmpty,
+    CommandGroup,
+    CommandInput,
+    CommandItem,
+    CommandList,
+    CommandSeparator,
+    CommandShortcut,
+} from "@/components/ui/command";
 
+import { tags } from '@/components/data/tags';
 
 const Main = styled.main`
     padding: 2rem 1rem 2rem 1rem;
     display: flex;
     flex-direction: column;
     align-items: center;
-`
+`;
+
+let text = [];
+
+export const CommandDemo = ({ onTagClick, setTags, value }) => {
+    const handleKeyPress = (e) => {
+        if (e.key.length == 1) {
+            text.push(e.key)
+        }
+        setTags(text.join(''))
+    };
+
+    const handleKeyDown = (e) => {
+        if (e.key === "Backspace") {
+            text.pop()
+            setTags(text.join(""))
+        }
+        if (e.key === 'Enter') {
+            setTags(text.join(""), true)
+        }
+    }
+
+    return (
+        <Command className="rounded-lg border shadow-md">
+            <CommandInput
+                placeholder="Escreva sua tag ou pesquise"
+                onKeyDown={(e) => handleKeyDown(e)}
+                onKeyPress={(e) => handleKeyPress(e)}
+                value={value}
+            />
+            <CommandList>
+                <CommandEmpty>Sem resultados.</CommandEmpty>
+                {tags.map((tag, index) => {
+                    return (
+                        <CommandGroup key={index} heading={tag.title}>
+                            {tag.tags.map((tag, index) => {
+                                return (
+                                    <CommandItem className="cursor-pointer" key={index}>
+                                        <span className='w-full h-full' onClick={() => onTagClick(tag)}>{tag}</span>
+                                    </CommandItem>
+                                )
+                            })}
+                        </CommandGroup>
+                    )
+                })}
+            </CommandList>
+        </Command>
+    );
+}
 
 export default function Criar() {
 
     //State para etapas
     const [step, setStep] = React.useState(1);
     const [tags, setTags] = React.useState([]);
-    const [inputTag, setInputTag] = React.useState("");
-    
+    const [inputTag, setInputTag] = React.useState('');
 
+    const handleInputTag = (tag, isEnter) => {
+        setInputTag(tag)
+        if (isEnter) {
+            handleTags(tag)
+        }
+    }
     //Schema para o form
     const formSchema = z.object({
         title: z.string()
@@ -70,7 +132,7 @@ export default function Criar() {
         }).min(20, {
             message: "O corpo do tópico deve ter no mínimo 20 caracteres.",
         })
-    })
+    });
 
     const editorAutoSavedValue = typeof window !== "undefined" ? window.localStorage.getItem('editor-auto-saved-content') || '' : '';
 
@@ -84,29 +146,29 @@ export default function Criar() {
         }
     });
 
-    //onSubmit
+    // onSubmit
     function onSubmit(values) {
-        values.tags = tags
+        values.tags = tags;
         toast("Tópico criado com sucesso!", {
             description: JSON.stringify(values),
-        })
+        });
     }
 
-    const handleTags = () => {
-        if (inputTag.trim() !== "" && !tags.includes(inputTag) & tags.length < 6) {
-            setTags([...tags, inputTag.trim()]);
-            setInputTag("");
+    // Adicionar tag quando um span é clicado ou quando Enter é pressionado na caixa de pesquisa
+    const handleTags = (tag) => {
+        if (tag.trim() !== '' && !tags.includes(tag) && tags.length < 6) {
+            setTags([...tags, tag.trim()]);
         }
-    }
+        text = []
+        setInputTag("")
+    };
 
     const removeTag = (tagToRemove) => {
         const updatedTags = tags.filter(tag => tag !== tagToRemove);
         setTags(updatedTags);
-    }
+    };
 
     return (
-
-
         <Main>
             <div className='w-full max-w-[1000px]'>
                 <h2 className="scroll-m-20 pb-5 self-start font-medium text-3xl tracking-tight first:mt-0">
@@ -197,7 +259,7 @@ export default function Criar() {
                                 <FormItem className={`p-4 bg-muted rounded-md border ${step >= 4 ? null : "cursor-not-allowed opacity-50"}`}>
                                     <FormLabel>Tags</FormLabel>
                                     <FormDescription className="!mt-0">
-                                        Digite as Tags de seu tópico.&nbsp;(Opcional)
+                                        Digite as Tags de seu tópico.&nbsp; (Max: 6)
                                     </FormDescription>
                                     <div className='tag-row'>
                                         {tags.map((tag, key) => (
@@ -211,17 +273,16 @@ export default function Criar() {
                                     </div>
                                     <FormControl>
                                         <FormControl>
-                                            <Input
-                                                name="tags"
-                                                placeholder="Frações, Pitágoras, Guerra Fria"
-                                                onChange={(e) => setInputTag(e.target.value)}
-                                            />
+                                            <CommandDemo onTagClick={handleTags} setTags={handleInputTag} value={inputTag} />
                                         </FormControl>
 
                                     </FormControl>
                                     <FormMessage className="m-1" />
-                                    <Button size={'sm'} type="button" id={"tagbutton"} onClick={handleTags} className="mr-3">Adicionar tag</Button>
-                                    {step == 4 && <Button size={"sm"} onClick={() => setStep(step + 1)} type="button" id={"next"}>Próximo</Button>}
+                                        <Button className="mr-8 ml-1" size={'sm'} type="button" id={"tagbutton"} onClick={() => handleTags(inputTag)}>Adicionar tag</Button>
+
+                                        {step == 4 && <Button size={"sm"} onClick={() => setStep(step + 1)} type="button" id={"next"}>Próximo</Button>}
+
+                                    
                                 </FormItem>
                             )}
                         />
@@ -247,7 +308,7 @@ export default function Criar() {
                     </form>
                 </Form>
             </div>
-            <Footer/>
+            <Footer />
         </Main>
-    )
+    );
 }
