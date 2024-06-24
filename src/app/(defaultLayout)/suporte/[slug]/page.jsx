@@ -22,20 +22,20 @@ export default function SuportPage() {
             <div className="mx-10 my-6">
                 <p className="my-4">
                     <span className="text-gray-400">Suporte &gt; </span>
-                    <span className="text-white">
+                    <span>
                         <Link href={"#"} className="hover:underline">{page.title}</Link>
                     </span>
                 </p>
-                <h2 className="text-2xl my-2 border-b">{page.title}</h2>
+                <h2 className="text-2xl my-2 border-b max-w-5xl">{page.title}</h2>
                 <h3 className="mb-4">{page.subtitle}</h3>
                 <div className="w-100">
                     {page.content.map((data, index) => {
                         let title = data.title
                         let text = data.text
                         return(
-                            <div key={index}>
+                            <div key={index} className="max-w-5xl">
                                 <h2 className="my-2">{title}</h2>
-                                <p className="text-xs mb-4">{text}</p>
+                                <p className="text-sm mb-4">{text}</p>
                             </div>
                         )
                     })}
