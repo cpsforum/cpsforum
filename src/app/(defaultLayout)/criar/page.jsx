@@ -1,5 +1,5 @@
 'use client'
-import React from 'react';
+import React, { useEffect } from 'react';
 import {
     useFormField,
     Form,
@@ -52,31 +52,14 @@ const Main = styled.main`
 
 let text = [];
 
-export const CommandDemo = ({ onTagClick, setTags, value }) => {
-    const handleKeyPress = (e) => {
-        if (e.key.length == 1) {
-            text.push(e.key)
-        }
-        setTags(text.join(''))
-    };
-
-    const handleKeyDown = (e) => {
-        if (e.key === "Backspace") {
-            text.pop()
-            setTags(text.join(""))
-        }
-        if (e.key === 'Enter') {
-            setTags(text.join(""), true)
-        }
-    }
-
+export const CommandDemo = ({ onTagClick, step}) => {
     return (
         <Command className="rounded-lg border shadow-md">
             <CommandInput
                 placeholder="Escreva sua tag ou pesquise"
-                onKeyDown={(e) => handleKeyDown(e)}
-                onKeyPress={(e) => handleKeyPress(e)}
-                value={value}
+                className={`
+                    ${step >= 4 ? null : "cursor-not-allowed opacity-50 input-disabled"}`}
+                
             />
             <CommandList>
                 <CommandEmpty>Sem resultados.</CommandEmpty>
@@ -85,8 +68,12 @@ export const CommandDemo = ({ onTagClick, setTags, value }) => {
                         <CommandGroup key={index} heading={tag.title}>
                             {tag.tags.map((tag, index) => {
                                 return (
-                                    <CommandItem className="cursor-pointer" key={index}>
-                                        <span className='w-full h-full' onClick={() => onTagClick(tag)}>{tag}</span>
+                                    <CommandItem className={`cursor-pointer${step >= 4 ? null : "cursor-not-allowed opacity-50"}`} key={index}>
+                                        <span 
+                                        className={` w-full h-full ${step >= 4 ? null : "cursor-not-allowed opacity-50"}`}
+                                        onClick={() => {if(step >= 4){onTagClick(tag)}}}>
+                                            {tag}
+                                        </span>
                                     </CommandItem>
                                 )
                             })}
@@ -104,6 +91,8 @@ export default function Criar() {
     const [step, setStep] = React.useState(1);
     const [tags, setTags] = React.useState([]);
     const [inputTag, setInputTag] = React.useState('');
+
+    const [title, setTitle] = React.useState('');
 
     const handleInputTag = (tag, isEnter) => {
         setInputTag(tag)
@@ -126,7 +115,6 @@ export default function Criar() {
         section: z.string({
             required_error: "Selecione uma seção."
         }),
-        // tags: z.string().array().optional(),
         body: z.string({
             required_error: "O corpo do tópico é obrigatório."
         }).min(20, {
@@ -154,7 +142,7 @@ export default function Criar() {
         });
     }
 
-    // Adicionar tag quando um span é clicado ou quando Enter é pressionado na caixa de pesquisa
+    // Adicionar tag quando um span é clicado
     const handleTags = (tag) => {
         if (tag.trim() !== '' && !tags.includes(tag) && tags.length < 6) {
             setTags([...tags, tag.trim()]);
@@ -186,10 +174,21 @@ export default function Criar() {
                                         Seja conciso e tente resumir seu tópico em uma linha.
                                     </FormDescription>
                                     <FormControl>
-                                        <Input placeholder="Como resolver essa equação?" {...field} />
+                                        <Input placeholder="Como resolver essa equação?"
+                                        onChange={(e) => setTitle(e.target.value)}
+                                        />
                                     </FormControl>
                                     <FormMessage />
-                                    {step == 1 ? <Button size={"sm"} onClick={() => setStep(step + 1)} type="button" id={"next"}>Próximo</Button> : null}
+                                    {step == 1 ? 
+                                    <Button 
+                                    className={`${title.length >= 1 ? "" : "input-disabled cursor-not-allowed opacity-50"}`}
+                                    size={"sm"} 
+                                    onClick={() => setStep(step + 1)} 
+                                    type="button" 
+                                    id={"next"}>
+                                        Próximo
+                                    </Button>
+                                    : null}
                                 </FormItem>
                             )}
                         />
@@ -271,9 +270,9 @@ export default function Criar() {
                                             </div>
                                         ))}
                                     </div>
-                                    <FormControl>
+                                    <FormControl className={`${step >= 4 ? null : "cursor-not-allowed opacity-50"}`}>
                                         <FormControl>
-                                            <CommandDemo onTagClick={handleTags} setTags={handleInputTag} value={inputTag} />
+                                            <CommandDemo step={step} onTagClick={handleTags} setTags={handleInputTag} value={inputTag} />
                                         </FormControl>
 
                                     </FormControl>
