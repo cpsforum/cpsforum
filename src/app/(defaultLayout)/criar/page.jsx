@@ -1,7 +1,6 @@
 'use client'
 import React, { useEffect } from 'react';
 import {
-    useFormField,
     Form,
     FormItem,
     FormLabel,
@@ -15,7 +14,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import styled, { useTheme } from 'styled-components';
+import styled from 'styled-components';
 import {
     Select,
     SelectContent,
@@ -29,7 +28,7 @@ import { sectionlinks } from '@/components/data/section-data';
 import Editor from '@/components/editor/editor';
 import { toast } from 'sonner';
 import Footer from '@/components/footer/footer';
-import { XIcon } from 'lucide-react';
+import { XIcon, CheckCircle } from 'lucide-react';
 import {
     Command,
     CommandEmpty,
@@ -37,8 +36,6 @@ import {
     CommandInput,
     CommandItem,
     CommandList,
-    CommandSeparator,
-    CommandShortcut,
 } from "@/components/ui/command";
 
 import { tags } from '@/components/data/tags';
@@ -50,16 +47,14 @@ const Main = styled.main`
     align-items: center;
 `;
 
-let text = [];
-
-export const CommandDemo = ({ onTagClick, step}) => {
+export const CommandDemo = ({ onTagClick, step }) => {
     return (
         <Command className="rounded-lg border shadow-md">
             <CommandInput
                 placeholder="Escreva sua tag ou pesquise"
                 className={`
                     ${step >= 4 ? null : "cursor-not-allowed opacity-50 input-disabled"}`}
-                
+
             />
             <CommandList>
                 <CommandEmpty>Sem resultados.</CommandEmpty>
@@ -69,9 +64,9 @@ export const CommandDemo = ({ onTagClick, step}) => {
                             {tag.tags.map((tag, index) => {
                                 return (
                                     <CommandItem className={`cursor-pointer${step >= 4 ? null : "cursor-not-allowed opacity-50"}`} key={index}>
-                                        <span 
-                                        className={` w-full h-full ${step >= 4 ? null : "cursor-not-allowed opacity-50"}`}
-                                        onClick={() => {if(step >= 4){onTagClick(tag)}}}>
+                                        <span
+                                            className={` w-full h-full ${step >= 4 ? null : "cursor-not-allowed opacity-50"}`}
+                                            onClick={() => { if (step >= 4) { onTagClick(tag) } }}>
                                             {tag}
                                         </span>
                                     </CommandItem>
@@ -85,6 +80,22 @@ export const CommandDemo = ({ onTagClick, step}) => {
     );
 }
 
+export const TitleErrorMessage = ({ text }) => {
+    const trimmedText = text.trim();
+    if (trimmedText.length >= 10) {
+        return (
+            <p className='text-sm font-medium text-primary flex mb-2 mt-2'>
+                Parece bom!<CheckCircle className='ml-2 w-5 h-5'/>
+            </p>
+        );
+    }
+    return (
+        <p className='text-sm font-medium text-destructive'>
+            São necessários mais {10 - trimmedText.length} caracteres no seu título.
+        </p>
+    );
+}
+
 export default function Criar() {
 
     //State para etapas
@@ -93,6 +104,19 @@ export default function Criar() {
     const [inputTag, setInputTag] = React.useState('');
 
     const [title, setTitle] = React.useState('');
+    const [isClicked, setIsClicked] = React.useState(false);
+
+    const validateTitle = (text) => {
+        if (text.trim().length >= 10) {
+            return '';
+        }
+        return "input-disabled cursor-not-allowed opacity-50";
+    }
+
+    const handleInputTitle = (e) => {
+        setTitle(e.target.value)
+        validateTitle(e.target.value)
+    }
 
     const handleInputTag = (tag, isEnter) => {
         setInputTag(tag)
@@ -100,10 +124,15 @@ export default function Criar() {
             handleTags(tag)
         }
     }
+
+    const handleInputClick = () => {
+        setIsClicked(true);
+    }
+
     //Schema para o form
     const formSchema = z.object({
-        title: z.string()
-            .min(15, {
+        title: z.string({ required_error: "O titulo do tópico é necessário." })
+            .min(0, {
                 message: "O título deve ter no mínimo 15 caracteres.",
             })
             .max(150, {
@@ -147,7 +176,6 @@ export default function Criar() {
         if (tag.trim() !== '' && !tags.includes(tag) && tags.length < 6) {
             setTags([...tags, tag.trim()]);
         }
-        text = []
         setInputTag("")
     };
 
@@ -165,7 +193,6 @@ export default function Criar() {
                 <Form {...form}>
                     <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-3">
                         <FormField
-                            control={form.control}
                             name="title"
                             render={({ field }) => (
                                 <FormItem className={`p-4 bg-muted rounded-md border`}>
@@ -174,27 +201,32 @@ export default function Criar() {
                                         Seja conciso e tente resumir seu tópico em uma linha.
                                     </FormDescription>
                                     <FormControl>
-                                        <Input placeholder="Como resolver essa equação?"
-                                        onChange={(e) => setTitle(e.target.value)}
+                                        <Input
+                                            placeholder="Como resolver essa equação?"
+                                            value={title}
+                                            onChange={(e) => handleInputTitle(e)}
+                                            onClick={() => handleInputClick()}
                                         />
                                     </FormControl>
-                                    <FormMessage />
-                                    {step == 1 ? 
-                                    <Button 
-                                    className={`${title.length >= 1 ? "" : "input-disabled cursor-not-allowed opacity-50"}`}
-                                    size={"sm"} 
-                                    onClick={() => setStep(step + 1)} 
-                                    type="button" 
-                                    id={"next"}>
-                                        Próximo
-                                    </Button>
-                                    : null}
+                                    {isClicked ? <TitleErrorMessage text={title} /> : ''}
+                                    
+                                    {step == 1 ?
+                                        <Button
+                                            className={`${validateTitle(title)}`}
+                                            size={"sm"}
+                                            onClick={() => setStep(step + 1)}
+                                            type="button"
+                                            id={"next"}>
+                                            Próximo
+                                        </Button>
+                                        : null}
                                 </FormItem>
                             )}
                         />
 
+
                         <FormField
-                            control={form.control}
+
                             name="privacy"
                             render={({ field }) => (
                                 <FormItem className={`p-4 bg-muted rounded-md border ${step >= 2 ? null : "cursor-not-allowed opacity-50"}`}>
@@ -221,7 +253,7 @@ export default function Criar() {
                         />
 
                         <FormField
-                            control={form.control}
+
                             name="section"
                             render={({ field }) => (
                                 <FormItem className={`p-4 rounded-md bg-muted border ${step >= 3 ? null : "cursor-not-allowed opacity-50"}`}>
@@ -252,7 +284,7 @@ export default function Criar() {
                             )}
                         />
                         <FormField
-                            control={form.control}
+
                             name="tags"
                             render={({ field }) => (
                                 <FormItem className={`p-4 bg-muted rounded-md border ${step >= 4 ? null : "cursor-not-allowed opacity-50"}`}>
@@ -277,16 +309,16 @@ export default function Criar() {
 
                                     </FormControl>
                                     <FormMessage className="m-1" />
-                                        <Button className="mr-8 ml-1" size={'sm'} type="button" id={"tagbutton"} onClick={() => handleTags(inputTag)}>Adicionar tag</Button>
+                                    <Button className="mr-8 ml-1" size={'sm'} type="button" id={"tagbutton"} onClick={() => handleTags(inputTag)}>Adicionar tag</Button>
 
-                                        {step == 4 && <Button size={"sm"} onClick={() => setStep(step + 1)} type="button" id={"next"}>Próximo</Button>}
+                                    {step == 4 && <Button size={"sm"} onClick={() => setStep(step + 1)} type="button" id={"next"}>Próximo</Button>}
 
-                                    
+
                                 </FormItem>
                             )}
                         />
                         <FormField
-                            control={form.control}
+
                             name="body"
                             render={({ field }) => (
                                 <FormItem className={`p-4 rounded-md bg-muted border ${step >= 5 ? '' : "cursor-not-allowed opacity-50"}`}>
