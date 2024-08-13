@@ -288,9 +288,9 @@ export default function Criar() {
                             name="tags"
                             render={({ field }) => (
                                 <FormItem className={`p-4 bg-muted rounded-md border ${step >= 4 ? null : "cursor-not-allowed opacity-50"}`}>
-                                    <FormLabel>Tags</FormLabel>
+                                    <FormLabel>Tags (opcional)</FormLabel>
                                     <FormDescription className="!mt-0">
-                                        Digite as Tags de seu tópico.&nbsp; (Max: 6)
+                                        Selecione as Tags de seu tópico.&nbsp; (Max: 6)
                                     </FormDescription>
                                     <div className='tag-row'>
                                         {tags.map((tag, key) => (
