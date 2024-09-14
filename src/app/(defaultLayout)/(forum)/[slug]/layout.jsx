@@ -13,6 +13,20 @@ export async function generateMetadata({ params }) {
     return {
         title: section.title + " - Fórum Centro Paula Souza",
         description: 'Veja perguntas sobre ' + section.title + ' no Fórum Centro Paula Souza.',
+        icons: {
+            icon: [
+                {
+                    media: '(prefers-color-scheme: light)',
+                    url: '/favicon-black.svg',
+                    href: '/favicon-black.svg',
+                },
+                {
+                    media: '(prefers-color-scheme: dark)',
+                    url: '/favicon-white.svg',
+                    href: '/favicon-white.svg',
+                },
+            ],
+        }
     }
 }
 
