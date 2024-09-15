@@ -41,7 +41,9 @@ export const Topic = ({ item }) => {
                 <Link href={`/perfil/${author.id}/${author.slug}`} className="text-xs font-medium">{author.name}</Link>
             </div>
             <div className="line-clamp-2 text-xs text-muted-foreground">
-                {filteredBody.substring(0, 300)}
+                <Link href={`/topico/${item.id}/${item.slug}`}>
+                    {filteredBody.substring(0, 300)}
+                </Link>
             </div>
             {item.labels.length ? (
                 <div className="flex items-center gap-2">

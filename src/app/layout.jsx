@@ -13,9 +13,6 @@ export default function RootLayout({ children }) {
   return (
     <SessionProvider>
       <html lang="pt-br" suppressHydrationWarning>
-        <head>
-          <link rel="icon" href="/favicon-black.svg" />
-        </head>
         <body className={`${GeistSans.className} ${GeistMono.variable}`}>
           <NextTopLoader color='hsl(var(--primary))' shadow={false} showSpinner={false} />
           <StyledComponentsRegistry>

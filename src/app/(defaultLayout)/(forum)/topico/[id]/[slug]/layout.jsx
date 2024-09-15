@@ -18,6 +18,20 @@ export async function generateMetadata({ params }) {
     return {
         title: topic.title + " - Fórum Centro Paula Souza",
         description: description,
+        icons: {
+            icon: [
+                {
+                    media: '(prefers-color-scheme: light)',
+                    url: '/favicon-black.svg',
+                    href: '/favicon-black.svg',
+                },
+                {
+                    media: '(prefers-color-scheme: dark)',
+                    url: '/favicon-white.svg',
+                    href: '/favicon-white.svg',
+                },
+            ],
+        }
     }
 }
 
