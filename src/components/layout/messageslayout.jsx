@@ -20,14 +20,13 @@ const MessagesLayout = ({ children }) => {
     return (
         <TooltipProvider delayDuration={0}>
             <ResizablePanelGroup
-                className={"!h-[calc(100vh-3.5rem)]"}
+                className={"max-h-[calc(100vh-3.5rem)]"}
                 direction="horizontal"
             >
                 <ResizablePanel className="max-h-full hidden lg:block top-0 left-0 sticky !overflow-y-auto no-scrollbar"
                     collapsible
                     collapsedSize={4}
                     minSize={4}
-                    maxSize={4}
                     defaultSize={4}>
                     <LeftSidebar isCollapsed={true} />
                 </ResizablePanel>
