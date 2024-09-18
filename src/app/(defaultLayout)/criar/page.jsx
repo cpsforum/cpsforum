@@ -1,5 +1,5 @@
 'use client'
-import React, { useEffect } from 'react';
+import React, { useState } from 'react';
 import {
     Form,
     FormItem,
@@ -47,45 +47,80 @@ const Main = styled.main`
     align-items: center;
 `;
 
+
 export const CommandDemo = ({ onTagClick, step }) => {
+    const [selectedIndex, setSelectedIndex] = useState(-1);
+    
+    // Flattening the tags to a single array for easier indexing
+    const flattenedTags = tags.flatMap((group, groupIndex) =>
+        group.tags.map((tag, tagIndex) => ({
+            title: group.title,
+            tag,
+            index: groupIndex > 1 ? groupIndex += 5 : groupIndex + tagIndex, // Just a unique index calculation
+        }))
+    );
+
+    const handleKeyDown = (event) => {
+        if (event.key === 'ArrowDown') {
+            setSelectedIndex((prevIndex) => Math.min(prevIndex + 1, flattenedTags.length - 1));
+            event.preventDefault();
+            }
+        if (event.key === 'ArrowUp') {
+            setSelectedIndex((prevIndex) => Math.max(prevIndex - 1, 0));
+            if(selectedIndex < -1){
+                setSelectedIndex(-1)
+            }    
+            event.preventDefault();
+        }
+        if (event.key === 'Enter' && selectedIndex >= 0) {
+            const selectedTag = flattenedTags[selectedIndex];
+            if (selectedTag) {
+                onTagClick(selectedTag.tag);
+            }
+        }
+        console.log(selectedIndex)
+    };
+
     return (
-        <Command className="rounded-lg border shadow-md">
+        <Command className="rounded-lg border shadow-md" onKeyDown={handleKeyDown}>
             <CommandInput
                 placeholder="Escreva sua tag ou pesquise"
-                className={`
-                    ${step >= 4 ? null : "cursor-not-allowed opacity-50 input-disabled"}`}
-
+                className={`${step >= 4 ? '' : "cursor-not-allowed opacity-50 input-disabled"}`}
             />
             <CommandList>
                 <CommandEmpty>Sem resultados.</CommandEmpty>
-                {tags.map((tag, index) => {
-                    return (
-                        <CommandGroup key={index} heading={tag.title}>
-                            {tag.tags.map((tag, index) => {
-                                return (
-                                    <CommandItem className={`cursor-pointer${step >= 4 ? null : "cursor-not-allowed opacity-50"}`} key={index}>
-                                        <span
-                                            className={` w-full h-full ${step >= 4 ? null : "cursor-not-allowed opacity-50"}`}
-                                            onClick={() => { if (step >= 4) { onTagClick(tag) } }}>
-                                            {tag}
-                                        </span>
-                                    </CommandItem>
-                                )
-                            })}
-                        </CommandGroup>
-                    )
-                })}
+                {tags.map((tagGroup, groupIndex) => (
+                    <CommandGroup key={groupIndex} heading={tagGroup.title}>
+                        {tagGroup.tags.map((tag, tagIndex) => {
+                            const isSelected = selectedIndex === tagIndex * groupIndex;
+                            return (
+                                <CommandItem
+                                    key={tagIndex}
+                                    className={`cursor-pointer ${step >= 4 ? '' : "cursor-not-allowed opacity-50"} ${isSelected ? 'bg-accent' : ''}`}
+                                >
+                                    <span
+                                        className={`w-full h-full ${step >= 4 ? '' : "cursor-not-allowed opacity-50"}`}
+                                        onClick={() => { if (step >= 4) { onTagClick(tag) }}}
+                                    >
+                                        {tag}
+                                    </span>
+                                </CommandItem>
+                            );
+                        })}
+                    </CommandGroup>
+                ))}
             </CommandList>
         </Command>
     );
-}
+};
+
 
 export const TitleErrorMessage = ({ text }) => {
     const trimmedText = text.trim();
     if (trimmedText.length >= 10) {
         return (
             <p className='text-sm font-medium text-primary flex mb-2 mt-2'>
-                Parece bom!<CheckCircle className='ml-2 w-5 h-5'/>
+                Parece bom!<CheckCircle className='ml-2 w-5 h-5' />
             </p>
         );
     }
@@ -166,9 +201,11 @@ export default function Criar() {
     // onSubmit
     function onSubmit(values) {
         values.tags = tags;
-        toast("Tópico criado com sucesso!", {
-            description: JSON.stringify(values),
-        });
+        toast.success("Tópico criado com sucesso!");
+        localStorage.clear();
+        setTimeout(() => {
+            window.location.href = '/'
+        }, 2000);
     }
 
     // Adicionar tag quando um span é clicado
@@ -209,7 +246,7 @@ export default function Criar() {
                                         />
                                     </FormControl>
                                     {isClicked ? <TitleErrorMessage text={title} /> : ''}
-                                    
+
                                     {step == 1 ?
                                         <Button
                                             className={`${validateTitle(title)}`}
@@ -271,7 +308,7 @@ export default function Criar() {
                                                     <SelectGroup key={i}>
                                                         <SelectLabel>{supersection.title}</SelectLabel>
                                                         {supersection.sections.map((section, si) =>
-                                                            <SelectItem key={si} value={section.slug}>{section.title}</SelectItem>
+                                                            <SelectItem className="cursor-pointer" key={si} value={section.slug}>{section.title}</SelectItem>
                                                         )}
                                                     </SelectGroup>
                                                 )}
@@ -304,7 +341,7 @@ export default function Criar() {
                                     </div>
                                     <FormControl className={`${step >= 4 ? null : "cursor-not-allowed opacity-50"}`}>
                                         <FormControl>
-                                            <CommandDemo step={step} onTagClick={handleTags} setTags={handleInputTag} value={inputTag} />
+                                            <CommandDemo tags={tags} step={step} onTagClick={handleTags} setTags={handleInputTag} value={inputTag} />
                                         </FormControl>
 
                                     </FormControl>
