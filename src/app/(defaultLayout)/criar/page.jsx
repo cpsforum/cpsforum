@@ -1,5 +1,5 @@
 'use client'
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import {
     Form,
     FormItem,
@@ -47,65 +47,79 @@ const Main = styled.main`
     align-items: center;
 `;
 
-
 export const CommandDemo = ({ onTagClick, step }) => {
     const [selectedIndex, setSelectedIndex] = useState(-1);
-    
-    // Flattening the tags to a single array for easier indexing
-    const flattenedTags = tags.flatMap((group, groupIndex) =>
-        group.tags.map((tag, tagIndex) => ({
-            title: group.title,
-            tag,
-            index: groupIndex > 1 ? groupIndex += 5 : groupIndex + tagIndex, // Just a unique index calculation
-        }))
-    );
+    const [inputValue, setInputValue] = useState('');
+
+    const inputRef = useRef(null);
+
+    const getVisibleTags = () => {
+        const searchTerm = inputValue.toLowerCase();
+        return tags.flatMap(group => group.tags).filter(tag => tag.toLowerCase().includes(searchTerm));
+    };
 
     const handleKeyDown = (event) => {
+        const visibleTags = getVisibleTags();
+
         if (event.key === 'ArrowDown') {
-            setSelectedIndex((prevIndex) => Math.min(prevIndex + 1, flattenedTags.length - 1));
+            setSelectedIndex((prevIndex) => {
+                if (visibleTags.length === 0) return -1;
+                return Math.min(prevIndex + 1, visibleTags.length - 1);
+            });
             event.preventDefault();
-            }
-        if (event.key === 'ArrowUp') {
-            setSelectedIndex((prevIndex) => Math.max(prevIndex - 1, 0));
-            if(selectedIndex < -1){
-                setSelectedIndex(-1)
-            }    
+        } else if (event.key === 'ArrowUp') {
+            setSelectedIndex((prevIndex) => Math.max(prevIndex - 1, -1));
             event.preventDefault();
-        }
-        if (event.key === 'Enter' && selectedIndex >= 0) {
-            const selectedTag = flattenedTags[selectedIndex];
+        } else if (event.key === 'Enter' && selectedIndex >= 0) {
+            const selectedTag = getVisibleTags()[selectedIndex];
             if (selectedTag) {
-                onTagClick(selectedTag.tag);
+                onTagClick(selectedTag);
+                setInputValue(''); // Limpa o input após a seleção
+                setSelectedIndex(-1); // Reseta a seleção
             }
+            event.preventDefault();
         }
-        console.log(selectedIndex)
+    };
+
+    const handleInputChange = (event) => {
+        setInputValue(event.target.value);
+        setSelectedIndex(-1); // Reseta a seleção ao digitar
     };
 
     return (
         <Command className="rounded-lg border shadow-md" onKeyDown={handleKeyDown}>
-            <CommandInput
-                placeholder="Escreva sua tag ou pesquise"
-                className={`${step >= 4 ? '' : "cursor-not-allowed opacity-50 input-disabled"}`}
-            />
+            <div className="flex items-center border-b px-3">
+                <input
+                    ref={inputRef}
+                    placeholder="Escreva sua tag ou pesquise"
+                    className={`flex h-11 w-full rounded-md bg-transparent py-3 text-sm outline-none placeholder:text-muted-foreground ${step >= 4 ? '' : 'cursor-not-allowed opacity-50'}`}
+                    onChange={handleInputChange}
+                    onFocus={() => setSelectedIndex(-1)} // Reseta seleção ao focar
+                />
+            </div>
             <CommandList>
                 <CommandEmpty>Sem resultados.</CommandEmpty>
                 {tags.map((tagGroup, groupIndex) => (
                     <CommandGroup key={groupIndex} heading={tagGroup.title}>
                         {tagGroup.tags.map((tag, tagIndex) => {
-                            const isSelected = selectedIndex === tagIndex * groupIndex;
-                            return (
-                                <CommandItem
-                                    key={tagIndex}
-                                    className={`cursor-pointer ${step >= 4 ? '' : "cursor-not-allowed opacity-50"} ${isSelected ? 'bg-accent' : ''}`}
-                                >
-                                    <span
-                                        className={`w-full h-full ${step >= 4 ? '' : "cursor-not-allowed opacity-50"}`}
-                                        onClick={() => { if (step >= 4) { onTagClick(tag) }}}
+                            const visibleTags = getVisibleTags();
+                            const isVisible = visibleTags.includes(tag);
+                            const index = visibleTags.indexOf(tag);
+                            const isSelected = selectedIndex === index;
+
+                            if (isVisible) {
+                                return (
+                                    <CommandItem
+                                        key={tagIndex}
+                                        className={`${step >= 4 ? '' : 'cursor-not-allowed opacity-50'} ${isSelected ? 'bg-accent' : ''}`}
+                                        onMouseEnter={() => setSelectedIndex(index)} // Destaque ao passar o mouse
+                                        onClick={() => { if (step >= 4) onTagClick(tag); }}
                                     >
                                         {tag}
-                                    </span>
-                                </CommandItem>
-                            );
+                                    </CommandItem>
+                                );
+                            }
+                            return null; // Não renderiza se não estiver visível
                         })}
                     </CommandGroup>
                 ))}
