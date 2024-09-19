@@ -22,10 +22,11 @@ export default function NotFound() {
             <Card className='grid py-16 px-8 rounded-[1rem] border-none text-white backdrop-blur-md bg-black/20 d-flex justify-items-around flex-col'>
                 <div className='flex justify-center content-start d-flex'>
                     <Image
-                        src="/favicon-white.png"
-                        width={100}
-                        height={100}
+                        src="/favicon-white.svg"
+                        width={75}
+                        height={75}
                         alt="cps error"
+                        className="my-8"
                     />
                 </div>
                 <h2 className='text-[1.5rem] mb-[1.5rem]'>

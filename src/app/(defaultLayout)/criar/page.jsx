@@ -1,5 +1,5 @@
 'use client'
-import React, { useEffect } from 'react';
+import React, { useState, useRef } from 'react';
 import {
     Form,
     FormItem,
@@ -48,44 +48,93 @@ const Main = styled.main`
 `;
 
 export const CommandDemo = ({ onTagClick, step }) => {
-    return (
-        <Command className="rounded-lg border shadow-md">
-            <CommandInput
-                placeholder="Escreva sua tag ou pesquise"
-                className={`
-                    ${step >= 4 ? null : "cursor-not-allowed opacity-50 input-disabled"}`}
+    const [selectedIndex, setSelectedIndex] = useState(-1);
+    const [inputValue, setInputValue] = useState('');
 
-            />
+    const inputRef = useRef(null);
+
+    const getVisibleTags = () => {
+        const searchTerm = inputValue.toLowerCase();
+        return tags.flatMap(group => group.tags).filter(tag => tag.toLowerCase().includes(searchTerm));
+    };
+
+    const handleKeyDown = (event) => {
+        const visibleTags = getVisibleTags();
+
+        if (event.key === 'ArrowDown') {
+            setSelectedIndex((prevIndex) => {
+                if (visibleTags.length === 0) return -1;
+                return Math.min(prevIndex + 1, visibleTags.length - 1);
+            });
+            event.preventDefault();
+        } else if (event.key === 'ArrowUp') {
+            setSelectedIndex((prevIndex) => Math.max(prevIndex - 1, -1));
+            event.preventDefault();
+        } else if (event.key === 'Enter' && selectedIndex >= 0) {
+            const selectedTag = getVisibleTags()[selectedIndex];
+            if (selectedTag) {
+                onTagClick(selectedTag);
+                setInputValue(''); // Limpa o input após a seleção
+                setSelectedIndex(-1); // Reseta a seleção
+            }
+            event.preventDefault();
+        }
+    };
+
+    const handleInputChange = (event) => {
+        setInputValue(event.target.value);
+        setSelectedIndex(-1); // Reseta a seleção ao digitar
+    };
+
+    return (
+        <Command className="rounded-lg border shadow-md" onKeyDown={handleKeyDown}>
+            <div className="flex items-center border-b px-3">
+                <input
+                    ref={inputRef}
+                    placeholder="Escreva sua tag ou pesquise"
+                    className={`flex h-11 w-full rounded-md bg-transparent py-3 text-sm outline-none placeholder:text-muted-foreground ${step >= 4 ? '' : 'cursor-not-allowed opacity-50'}`}
+                    onChange={handleInputChange}
+                    onFocus={() => setSelectedIndex(-1)} // Reseta seleção ao focar
+                />
+            </div>
             <CommandList>
                 <CommandEmpty>Sem resultados.</CommandEmpty>
-                {tags.map((tag, index) => {
-                    return (
-                        <CommandGroup key={index} heading={tag.title}>
-                            {tag.tags.map((tag, index) => {
+                {tags.map((tagGroup, groupIndex) => (
+                    <CommandGroup key={groupIndex} heading={tagGroup.title}>
+                        {tagGroup.tags.map((tag, tagIndex) => {
+                            const visibleTags = getVisibleTags();
+                            const isVisible = visibleTags.includes(tag);
+                            const index = visibleTags.indexOf(tag);
+                            const isSelected = selectedIndex === index;
+
+                            if (isVisible) {
                                 return (
-                                    <CommandItem className={`cursor-pointer${step >= 4 ? null : "cursor-not-allowed opacity-50"}`} key={index}>
-                                        <span
-                                            className={` w-full h-full ${step >= 4 ? null : "cursor-not-allowed opacity-50"}`}
-                                            onClick={() => { if (step >= 4) { onTagClick(tag) } }}>
-                                            {tag}
-                                        </span>
+                                    <CommandItem
+                                        key={tagIndex}
+                                        className={`${step >= 4 ? '' : 'cursor-not-allowed opacity-50'} ${isSelected ? 'bg-accent' : ''}`}
+                                        onMouseEnter={() => setSelectedIndex(index)} // Destaque ao passar o mouse
+                                        onClick={() => { if (step >= 4) onTagClick(tag); }}
+                                    >
+                                        {tag}
                                     </CommandItem>
-                                )
-                            })}
-                        </CommandGroup>
-                    )
-                })}
+                                );
+                            }
+                            return null; // Não renderiza se não estiver visível
+                        })}
+                    </CommandGroup>
+                ))}
             </CommandList>
         </Command>
     );
-}
+};
+
 
 export const TitleErrorMessage = ({ text }) => {
     const trimmedText = text.trim();
     if (trimmedText.length >= 10) {
         return (
             <p className='text-sm font-medium text-primary flex mb-2 mt-2'>
-                Parece bom!<CheckCircle className='ml-2 w-5 h-5'/>
+                Parece bom!<CheckCircle className='ml-2 w-5 h-5' />
             </p>
         );
     }
@@ -166,9 +215,11 @@ export default function Criar() {
     // onSubmit
     function onSubmit(values) {
         values.tags = tags;
-        toast("Tópico criado com sucesso!", {
-            description: JSON.stringify(values),
-        });
+        toast.success("Tópico criado com sucesso!");
+        localStorage.clear();
+        setTimeout(() => {
+            window.location.href = '/'
+        }, 2000);
     }
 
     // Adicionar tag quando um span é clicado
@@ -209,7 +260,7 @@ export default function Criar() {
                                         />
                                     </FormControl>
                                     {isClicked ? <TitleErrorMessage text={title} /> : ''}
-                                    
+
                                     {step == 1 ?
                                         <Button
                                             className={`${validateTitle(title)}`}
@@ -271,7 +322,7 @@ export default function Criar() {
                                                     <SelectGroup key={i}>
                                                         <SelectLabel>{supersection.title}</SelectLabel>
                                                         {supersection.sections.map((section, si) =>
-                                                            <SelectItem key={si} value={section.slug}>{section.title}</SelectItem>
+                                                            <SelectItem className="cursor-pointer" key={si} value={section.slug}>{section.title}</SelectItem>
                                                         )}
                                                     </SelectGroup>
                                                 )}
@@ -304,7 +355,7 @@ export default function Criar() {
                                     </div>
                                     <FormControl className={`${step >= 4 ? null : "cursor-not-allowed opacity-50"}`}>
                                         <FormControl>
-                                            <CommandDemo step={step} onTagClick={handleTags} setTags={handleInputTag} value={inputTag} />
+                                            <CommandDemo tags={tags} step={step} onTagClick={handleTags} setTags={handleInputTag} value={inputTag} />
                                         </FormControl>
 
                                     </FormControl>
