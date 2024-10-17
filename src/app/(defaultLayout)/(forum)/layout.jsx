@@ -1,5 +1,4 @@
 import MainLayout from "@/components/layout/mainlayout"
-import Header from "@/components/header/header"
 
 export const metadata = {
     title: 'Fórum Centro Paula Souza',

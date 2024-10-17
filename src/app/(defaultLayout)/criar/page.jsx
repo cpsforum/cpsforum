@@ -39,6 +39,8 @@ import {
 } from "@/components/ui/command";
 
 import { tags } from '@/components/data/tags';
+import { JsonWebTokenTypes } from '@azure/msal-browser';
+import { useSession } from 'next-auth/react';
 
 const Main = styled.main`
     padding: 2rem 1rem 2rem 1rem;
@@ -146,6 +148,7 @@ export const TitleErrorMessage = ({ text }) => {
 }
 
 export default function Criar() {
+    const session = useSession();
 
     //State para etapas
     const [step, setStep] = React.useState(1);
@@ -187,7 +190,7 @@ export default function Criar() {
             .max(150, {
                 message: "O título deve ter no máximo 150 caracteres.",
             }),
-        privacy: z.string({
+        privacy: z.coerce.number({
             required_error: "Selecione a privacidade do tópico."
         }),
         section: z.string({
@@ -213,13 +216,39 @@ export default function Criar() {
     });
 
     // onSubmit
-    function onSubmit(values) {
+    async function onSubmit(values) {
         values.tags = tags;
-        toast.success("Tópico criado com sucesso!");
+
+        const { title, privacy, section, body } = values;
+
+        const requestBody = {
+            // userId: session.data?.user?.userId,
+            userId: 2,
+            title: title,
+            privacy: privacy,
+            section: section,
+            body: body,
+            tag: "Feira de Ciências 2024"
+        }
+
+        const req = await fetch('/api/criar', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(requestBody),
+        })
+
+        const res = await req.json();
+
+        if (res.success){
+            toast.success('Tópico criado com sucesso!', JSON.stringify(res.message));
+        }else{
+            toast.error('Erro ao criar tópico.');
+        }
+
+        // toast.success(JSON.stringify(requestBody));
         localStorage.clear();
-        setTimeout(() => {
-            window.location.href = '/'
-        }, 2000);
     }
 
     // Adicionar tag quando um span é clicado
@@ -255,7 +284,12 @@ export default function Criar() {
                                         <Input
                                             placeholder="Como resolver essa equação?"
                                             value={title}
-                                            onChange={(e) => handleInputTitle(e)}
+                                            onChange={
+                                                (e) => {
+                                                    handleInputTitle(e)
+                                                    field.onChange(e)
+                                                }
+                                            }
                                             onClick={() => handleInputClick()}
                                         />
                                     </FormControl>
@@ -286,14 +320,14 @@ export default function Criar() {
                                         Selecione a visibilidade de seu tópico.
                                     </FormDescription>
                                     <FormControl>
-                                        <Select disabled={step >= 2 ? false : true} onValueChange={field.onChange} defaultValue={field.value} className="overflow-auto">
+                                        <Select disabled={step >= 2 ? false : true} onValueChange={field.onChange} defaultValue={field.value.toString()} className="overflow-auto">
                                             <SelectTrigger className="w-[300px]">
                                                 <SelectValue />
                                             </SelectTrigger>
                                             <SelectContent>
-                                                <SelectItem value="public">Público</SelectItem>
-                                                <SelectItem value="institution">Minha instituição</SelectItem>
-                                                <SelectItem value="private">Privado</SelectItem>
+                                                <SelectItem value="0">Público</SelectItem>
+                                                <SelectItem value="2">Minha instituição</SelectItem>
+                                                <SelectItem value="1">Privado</SelectItem>
                                             </SelectContent>
                                         </Select>
                                     </FormControl>
@@ -335,7 +369,6 @@ export default function Criar() {
                             )}
                         />
                         <FormField
-
                             name="tags"
                             render={({ field }) => (
                                 <FormItem className={`p-4 bg-muted rounded-md border ${step >= 4 ? null : "cursor-not-allowed opacity-50"}`}>
