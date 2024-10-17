@@ -210,7 +210,7 @@ export default function Criar() {
         resolver: zodResolver(formSchema),
         defaultValues: {
             title: "",
-            privacy: "public",
+            privacy: 0,
             body: editorAutoSavedValue,
         }
     });

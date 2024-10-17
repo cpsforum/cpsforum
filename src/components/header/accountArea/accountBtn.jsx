@@ -11,7 +11,6 @@ import { SignOut } from "@/lib/auth-action";
 
 export default function AccountButton() {
     const session = useSession();
-    console.log(session)
     return (
         <Popover>
             <PopoverTrigger asChild>
