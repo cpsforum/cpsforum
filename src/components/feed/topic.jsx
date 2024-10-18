@@ -8,10 +8,9 @@ import { useRouter } from "next/navigation"
 import { User } from "@/components/data/topic-data"
 
 export const Topic = ({ item }) => {
-    const router = useRouter();
     const regex = /[^\p{L}\p{N}\s.,!?()-[\]]/giu;
-    const filteredBody = item.text.replace(regex, '');
-    const author = User.find(user => user.id == item.userid);
+    const filteredBody = item.body.replace(regex, '');
+    const author = item.user;
     return (
         <button     
             key={item.id}
@@ -25,29 +24,29 @@ export const Topic = ({ item }) => {
                 className="flex items-center">
                     <div className="flex items-center gap-2">
                         <div className="font-semibold">{item.title}</div>
-                        {!item.read && (
+                        {/* {!item.read && (
                             <span className="flex h-2 w-2 rounded-full bg-blue-600" />
-                        )}
+                        )} */}
                     </div>
                     <div
-                        title={item.date}
+                        title={item.createdAt}
                         className={cn(
                             "text-muted-foreground ml-auto text-xs",
                         )}
                     >
-                        {dayjs(item.date).fromNow()}
+                        {dayjs(item.createdAt).fromNow()}
                     </div>
                 </Link>
-                <Link href={`/perfil/${author.id}/${author.slug}`} className="text-xs font-medium">{author.name}</Link>
+                <Link href={`/perfil/${author.id}/${author.slug}`} className="text-xs font-medium">{author.firstName}&nbsp;{author.lastName}</Link>
             </div>
             <div className="line-clamp-2 text-xs text-muted-foreground">
                 <Link href={`/topico/${item.id}/${item.slug}`}>
                     {filteredBody.substring(0, 300)}
                 </Link>
             </div>
-            {item.labels.length ? (
+            {item.tag? (
                 <div className="flex items-center gap-2">
-                    {item.labels.map((label, i) => (
+                    {[item.tag].map((label, i) => (
                         //PLACEHOLDER
                         <Badge key={i} variant={getBadgeVariantFromLabel(label)}>
                             <Link href={`/tag/${label}`}>

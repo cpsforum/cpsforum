@@ -43,7 +43,7 @@ export default function TopicView({ params }) {
     const [author, setAuthor] = React.useState()
 
     async function getTopico() {
-        const req = await fetch(`/api/topico/${id}/${params.slug}`)
+        const req = await fetch(`/api/topico/${id}/${params.slug}`, { cache: 'no-cache' })
         const { topic } = await req.json()
         console.log(topic)
         setTopic(topic)
@@ -69,7 +69,7 @@ export default function TopicView({ params }) {
                         <TopicSubtitle>
                             <div className="me-4">
                                 <span>Postado&nbsp;</span>
-                                <span className="font-medium" title={topic.created_at}>{dayjs(topic.created_at).fromNow()}</span>
+                                <span className="font-medium" title={topic.createdAt}>{dayjs(topic.createdAt).fromNow()}</span>
                             </div>
                             {/*
                             <div className="me-4">
@@ -125,7 +125,7 @@ export default function TopicView({ params }) {
                                     {author?.firstName?.charAt(0)}
                                 </AvatarFallback>
                             </Avatar>
-                            <span className="text-foreground">{author.firstName}</span>
+                            <span className="text-foreground">{author.firstName}&nbsp;{author.lastName}</span>
                         </Link>
                         :
                         <div className="flex items-start gap-1">

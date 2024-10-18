@@ -5,7 +5,7 @@ import Link from "next/link"
 import { User } from "@/components/data/topic-data"
 
 export default function RecentTopic({ item }) {
-    const author = User.find(user => user.id == item.userid);
+    const author = item.user
     return (
         <button
             href={`/topico/${item.id}/${item.slug}`}
@@ -19,14 +19,14 @@ export default function RecentTopic({ item }) {
                     <div className="font-semibold">{item.title}</div>
                 </div>
                 <div className="flex items-center">
-                <Link href={`/perfil/${author.id}/${author.slug}`} className="text-xs font-medium">{author.name}</Link>
+                <Link href={`/perfil/${author.id}/${author.slug}`} className="text-xs font-medium">{author.firstName}&nbsp;{author.lastName}</Link>
                     <div
-                        title={item.date}
+                        title={item.createdAt}
                         className={cn(
                             "text-muted-foreground ml-auto",
                         )}
                     >
-                        {dayjs(item.date).fromNow()}
+                        {dayjs(item.createdAt).fromNow()}
                     </div>
                 </div>
             </div>

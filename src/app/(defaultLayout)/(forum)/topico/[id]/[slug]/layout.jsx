@@ -5,7 +5,7 @@ export async function generateMetadata({ params }) {
     // read route params
     const id = params.id;
     const slug = params.slug;
-    const req = await fetch(`${process.env.NEXT_PUBLIC_HOSTNAME}/api/topico/${id}/${slug}`)
+    const req = await fetch(`${process.env.NEXT_PUBLIC_HOSTNAME}/api/topico/${id}/${slug}`, {cache: 'no-cache'})
     const { topic } = await req.json()
     const regex = /[^\p{L}\p{N}\s.,!?()-[\]]/giu;
     const filteredBody = topic.body.replace(regex, '');
@@ -13,9 +13,9 @@ export async function generateMetadata({ params }) {
     if(!topic){
         notFound();
     }
-    // if(slug != topic.slug){
-    //     redirect(`${topic.slug}`)
-    // }
+    if(slug != topic.slug){
+        redirect(`${topic.slug}`)
+    }
     return {
         title: topic.title + " - Fórum Centro Paula Souza",
         description: description,
