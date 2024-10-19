@@ -5,7 +5,7 @@ export async function generateMetadata({ params }) {
     // read route params
     const id = params.id;
     const slug = params.slug;
-    const req = await fetch(`${process.env.NEXT_PUBLIC_HOSTNAME}/api/topico/${id}/${slug})
+    const req = await fetch(`${process.env.NEXT_PUBLIC_HOSTNAME}/api/topico/${id}/${slug}`)
     const { topic } = await req.json()
     const regex = /[^\p{L}\p{N}\s.,!?()-[\]]/giu;
     const filteredBody = topic.body.replace(regex, '');
