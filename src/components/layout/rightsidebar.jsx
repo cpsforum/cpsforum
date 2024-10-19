@@ -10,7 +10,7 @@ export default function RightSidebar() {
     const [recentTopics, setRecentTopics] = useState();
 
     async function getRecentTopics() {
-        const req = await fetch(`/api/?sort=createdAt,desc`, { cache: 'no-cache' })
+        const req = await fetch(`/api/?sort=createdAt,desc`)
         const { topics } = await req.json()
         setRecentTopics(topics)
     }

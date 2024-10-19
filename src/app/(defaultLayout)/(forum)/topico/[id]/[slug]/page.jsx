@@ -43,9 +43,8 @@ export default function TopicView({ params }) {
     const [author, setAuthor] = React.useState()
 
     async function getTopico() {
-        const req = await fetch(`/api/topico/${id}/${params.slug}`, { cache: 'no-cache' })
+        const req = await fetch(`/api/topico/${id}/${params.slug}`)
         const { topic } = await req.json()
-        console.log(topic)
         setTopic(topic)
         setAuthor(topic.user)
     }

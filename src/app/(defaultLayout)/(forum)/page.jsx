@@ -17,13 +17,13 @@ export default function Home() {
     const forumMessagesTopics = Topic.filter(topic => topic.section === 1);
 
     async function getTopics() {
-        const req = await fetch(`/api/`, { cache: 'no-cache' })
+        const req = await fetch(`/api/`)
         const { topics } = await req.json()
         setTopics(topics)
     }
 
     async function getRecentTopics() {
-        const req = await fetch(`/api/?sort=createdAt,desc`, { cache: 'no-cache' })
+        const req = await fetch(`/api/?sort=createdAt,desc`)
         const { topics } = await req.json()
         setRecentTopics(topics)
     }
