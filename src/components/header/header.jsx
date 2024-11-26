@@ -21,11 +21,11 @@ import Link from "next/link";
 import { useTheme } from "next-themes"
 import MobileSidebar from "@/components/layout/mobilesidebar";
 
-export const Logo = ({...props}) => {
+export const Logo = ({ ...props }) => {
     const { systemTheme } = useTheme()
     const themes = {
         "dark": '/logo-white.svg',
-        "light": '/logo-black.svg', 
+        "light": '/logo-black.svg',
     }
     return (
         <Link href="/">
@@ -112,7 +112,7 @@ const MoreButton = styled.div`
     color: hsl(var(--muted-foreground));
 `
 
-function Header() {
+export default function Header() {
     const pathname = usePathname()
 
     return (
@@ -281,5 +281,3 @@ function Header() {
         </ShadowHeader>
     )
 }
-
-export default Header

@@ -6,6 +6,7 @@ import { cva } from "class-variance-authority"
 import { ChevronDown } from "lucide-react"
 
 import { cn } from "@/lib/utils"
+import Link from "next/link"
 
 const NavigationMenu = React.forwardRef(({ className, children, ...props }, ref) => (
   <NavigationMenuPrimitive.Root
@@ -62,7 +63,12 @@ const NavigationMenuContent = React.forwardRef(({ className, ...props }, ref) =>
 ))
 NavigationMenuContent.displayName = NavigationMenuPrimitive.Content.displayName
 
-const NavigationMenuLink = NavigationMenuPrimitive.Link
+const NavigationMenuLink =  React.forwardRef(({ href, children, ...props }, ref) => (
+  <NavigationMenuPrimitive.Link asChild {...props}>
+    <Link href={href}>{children}</Link>
+  </NavigationMenuPrimitive.Link>
+))
+
 
 const NavigationMenuViewport = React.forwardRef(({ className, ...props }, ref) => (
   <div className={cn("absolute left-0 top-full flex justify-center")}>
