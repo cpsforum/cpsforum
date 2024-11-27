@@ -9,29 +9,29 @@ import NewTopicButton from "@/components/general/newtopic"
 import { auth } from "@/../auth"
 import { useEffect, useState } from "react"
 import { Skeleton } from "@/components/ui/skeleton"
-import { useQuery } from "@tanstack/react-query"
-import { useSession } from "next-auth/react"
 
 
 export default function Home() {
-    const { data: session } = useSession()
-    const { isPending: isTopicsPending, error: errorTopics, data: topics } = useQuery({
-        queryKey: ['topics'],
-        queryFn: () =>
-            fetch(`${process.env.NEXT_PUBLIC_HOSTNAME}/api/`, { headers: { "Bearer": session.accessToken } }).then((res) =>
-                res.json(),
-            ),
-    })
-
-    const { isPending: isRecentTopicsPending, error: errorRecentTopics, data: recentTopics } = useQuery({
-        queryKey: ['recentTopics'],
-        queryFn: () =>
-            fetch(`${process.env.NEXT_PUBLIC_HOSTNAME}/api/?sort=createdAt,desc`, { headers: { "Bearer": session.accessToken } }).then((res) =>
-                res.json(),
-            ),
-    })
-
+    const [topics, setTopics] = useState();
+    const [recentTopics, setRecentTopics] = useState();
     const forumMessagesTopics = Topic.filter(topic => topic.section === 1);
+
+    async function getTopics() {
+        const req = await fetch(`/api/`)
+        const { topics } = await req.json()
+        setTopics(topics)
+    }
+
+    async function getRecentTopics() {
+        const req = await fetch(`/api/?sort=createdAt,desc`)
+        const { topics } = await req.json()
+        setRecentTopics(topics)
+    }
+
+    useEffect(() => {
+        getTopics()
+        getRecentTopics()
+    }, []);
 
     return (
         <>
@@ -46,8 +46,8 @@ export default function Home() {
                     <NewTopicButton />
                 </div>
                 <TabsContent value="relevant">
-                    {!isTopicsPending ?
-                        <Feed items={topics.topics} />
+                    {topics ?
+                        <Feed items={topics} />
                         :
                         <div className="gap-2 mt-4 flex flex-col">
                             {
@@ -59,8 +59,8 @@ export default function Home() {
                     }
                 </TabsContent>
                 <TabsContent value="recent">
-                    {!isRecentTopicsPending ?
-                        <Feed items={recentTopics.topics} />
+                    {recentTopics ?
+                        <Feed items={recentTopics} />
                         :
                         <div className="gap-2 mt-4 flex flex-col">
                             {

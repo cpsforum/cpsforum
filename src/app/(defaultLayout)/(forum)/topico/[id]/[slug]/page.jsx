@@ -16,7 +16,6 @@ import Votecell from "@/components/general/votecell";
 import Link from "next/link";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Skeleton } from "@/components/ui/skeleton";
-import { useQuery } from "@tanstack/react-query";
 
 
 const TopicTitle = styled.h1`
@@ -40,41 +39,43 @@ const Mainbar = styled.div`
 
 export default function TopicView({ params }) {
     const id = params.id;
+    const [topic, setTopic] = React.useState()
     const [author, setAuthor] = React.useState()
 
-    const { isPending: isTopicPending, error: errorTopic, data: topic } = useQuery({
-        queryKey: ['topic'],
-        queryFn: () =>
-            fetch(`${process.env.NEXT_PUBLIC_HOSTNAME}/api/topico/${id}`).then((res) => 
-                res.json()
-            )
-    })
+    async function getTopico() {
+        const req = await fetch(`/api/topico/${id}/${params.slug}`)
+        const { topic } = await req.json()
+        setTopic(topic)
+        setAuthor(topic.user)
+    }
+
+    React.useEffect(() => {
+        getTopico()
+    }, []);
 
     React.useEffect(() => {
         renderMathInElement("mainbar");
-        setAuthor(topic.topic.user);
     }, [topic]);
 
     return (
         <div className="py-4">
-            
             <div className="flex">
-                {!isTopicPending ?
+                {topic ?
                     <div>
                         <TopicTitle>
-                            {topic.topic.title}
+                            {topic.title}
                         </TopicTitle>
                         <TopicSubtitle>
                             <div className="me-4">
                                 <span>Postado&nbsp;</span>
-                                <span className="font-medium" title={topic.topic.createdAt}>{dayjs(topic.topic.createdAt).fromNow()}</span>
+                                <span className="font-medium" title={topic.createdAt}>{dayjs(topic.createdAt).fromNow()}</span>
                             </div>
-                            
-                            {/* <div className="me-4">
+                            {/*
+                            <div className="me-4">
                                 <span>Visto&nbsp;</span>
-                                <span className="font-medium">{topic.topic.views}&nbsp;vezes</span>
-                            </div>  */}
-                           
+                                <span className="font-medium">{topic.views}&nbsp;vezes</span>
+                            </div> 
+                            */}
                         </TopicSubtitle>
                     </div>
                     :
@@ -105,7 +106,7 @@ export default function TopicView({ params }) {
                 <Votecell votesAmount={topic?.votes || 0} />
                 {topic ?
                     <Markdown remarkPlugins={[remarkGFM]} className="prose foreground prose-sm max-w-none dark:prose-invert">
-                        {topic.topic.body}
+                        {topic.body}
                     </Markdown>
                     :
                     <Skeleton className={"h-64 w-full"} />
