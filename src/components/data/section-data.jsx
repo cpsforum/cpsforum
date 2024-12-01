@@ -1,4 +1,4 @@
-import { HomeIcon, Users, Newspaper, MessageCircle } from "lucide-react";
+import { HomeIcon, Users, Newspaper, MessageCircle, Book} from "lucide-react";
 
 const Sections = [
     {
@@ -186,6 +186,7 @@ export const links = [
         icon: MessageCircle,
         slug: "mensagens"
     },
+    {title: "Materiais", icon: Book, slug: "materiais"}
 ]
 
 export const sectionlinks = [
