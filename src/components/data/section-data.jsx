@@ -1,15 +1,10 @@
-import { HomeIcon, Users, Newspaper, MessageCircle, Book} from "lucide-react";
+import { HomeIcon, Users, MessageCircle, Book} from "lucide-react";
 
 export const links = [
     {
         title: "Home",
         icon: HomeIcon,
         slug: "",
-    },
-    {
-        title: "Jornal",
-        icon: Newspaper,
-        slug: "jornal"
     },
     {
         title: "Grupos",

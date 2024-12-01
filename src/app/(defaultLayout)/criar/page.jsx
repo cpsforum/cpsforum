@@ -48,6 +48,8 @@ const Main = styled.main`
     flex-direction: column;
     align-items: center;
 `;
+import { redirect } from 'next/navigation';
+
 
 export const CommandDemo = ({ onTagClick, step }) => {
     const [selectedIndex, setSelectedIndex] = useState(-1);
@@ -147,9 +149,15 @@ export const TitleErrorMessage = ({ text }) => {
     );
 }
 
+import { useIsAuthenticated } from "@azure/msal-react";
+
 export default function Criar() {
     const session = useSession();
+    const isAuthenticated = useIsAuthenticated(); // Verificação de autenticação
 
+    if(!isAuthenticated){
+        redirect('/sign-in');
+    }
     //State para etapas
     const [step, setStep] = React.useState(1);
     const [tags, setTags] = React.useState([]);

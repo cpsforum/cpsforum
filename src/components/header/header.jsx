@@ -120,7 +120,7 @@ export default function Header() {
                 <LogoDiv>
                     <Logo />
                 </LogoDiv>
-                <NavigationMenu className={"hidden lg:flex"}>
+                <NavigationMenu className={"hidden lg:flex z-50"}>
                     <NavigationMenuList>
                         <NavigationMenuItem>
                             <NavigationMenuTrigger>Fórum</NavigationMenuTrigger>
