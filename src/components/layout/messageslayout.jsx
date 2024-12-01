@@ -8,7 +8,6 @@ import {
 import { TooltipProvider } from "../ui/tooltip";
 import { ScrollArea } from "@/components/ui/scroll-area"
 import { LeftSidebar } from "@/components/layout/leftsidebar";
-import RightSidebar from "./rightsidebar";
 import React from "react";
 import PageTitle from "./pagetitle";
 import { useParams } from "next/navigation";

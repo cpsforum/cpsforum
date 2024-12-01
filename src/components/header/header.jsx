@@ -3,18 +3,16 @@
 import {
     NavigationMenu,
     NavigationMenuContent,
-    NavigationMenuIndicator,
     NavigationMenuItem,
     NavigationMenuLink,
     NavigationMenuList,
     NavigationMenuTrigger,
-    NavigationMenuViewport,
     navigationMenuTriggerStyle
 } from "@/components/ui/navigation-menu"
 import styled from 'styled-components'
 import AccountArea from "./accountArea/accountArea"
 import Image from "next/image";
-import React, { useState } from 'react';
+import React from 'react';
 import { usePathname } from 'next/navigation'
 import Link from "next/link";
 

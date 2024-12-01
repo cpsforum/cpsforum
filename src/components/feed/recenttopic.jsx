@@ -1,8 +1,6 @@
 import { dayjs } from "@/components/data/dayjs"
 import { cn } from "@/lib/utils"
-import { Badge } from "@/components/ui/badge"
 import Link from "next/link"
-import { User } from "@/components/data/topic-data"
 
 export default function RecentTopic({ item }) {
     const author = item.user

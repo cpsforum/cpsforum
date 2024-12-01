@@ -4,8 +4,6 @@ import { dayjs } from "@/components/data/dayjs"
 import { cn } from "@/lib/utils"
 import { Badge } from "@/components/ui/badge"
 import Link from "next/link"
-import { useRouter } from "next/navigation"
-import { User } from "@/components/data/topic-data"
 
 export const Topic = ({ item }) => {
     const regex = /[^\p{L}\p{N}\s.,!?()-[\]]/giu;
