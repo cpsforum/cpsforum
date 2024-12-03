@@ -16,6 +16,19 @@ import Votecell from "@/components/general/votecell";
 import Link from "next/link";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Skeleton } from "@/components/ui/skeleton";
+import { redirect } from "next/navigation";
+import { toast } from "sonner";
+import {
+    AlertDialog,
+    AlertDialogAction,
+    AlertDialogCancel,
+    AlertDialogContent,
+    AlertDialogDescription,
+    AlertDialogFooter,
+    AlertDialogHeader,
+    AlertDialogTitle,
+    AlertDialogTrigger,
+  } from "@/components/ui/alert-dialog"
 
 
 const TopicTitle = styled.h1`
@@ -41,6 +54,22 @@ export default function TopicView({ params }) {
     const id = params.id;
     const [topic, setTopic] = React.useState()
     const [author, setAuthor] = React.useState()
+
+    async function handleDelete() {
+        try {
+            const req = await fetch(`/api/topico/${id}/${params.slug}`, {
+                method: "DELETE",
+                cache: "no-cache",
+            }).then(() => {
+                if (req.status === 200) {
+                    toast.success("Tópico excluído com sucesso")
+                    redirect("/")
+                }
+            })
+        } catch (e) {
+            console.error(e)
+        }
+    }
 
     async function getTopico() {
         const req = await fetch(`/api/topico/${id}/${params.slug}`)
@@ -94,10 +123,21 @@ export default function TopicView({ params }) {
                             <FlagIcon size={15} />
                             <Label>Reportar</Label>
                         </div>
-                        <div className="flex gap-2">
-                            <Trash2Icon size={15} />
-                            <Label>Excluir</Label>
-                        </div>
+                        <AlertDialog>
+                            <AlertDialogTrigger className="flex gap-2 text-sm leading-none font-medium"><Trash2Icon size={15} />Excluir</AlertDialogTrigger>
+                            <AlertDialogContent>
+                                <AlertDialogHeader>
+                                    <AlertDialogTitle>Você tem certeza?</AlertDialogTitle>
+                                    <AlertDialogDescription>
+                                        Essa ação não pode ser desfeita.
+                                    </AlertDialogDescription>
+                                </AlertDialogHeader>
+                                <AlertDialogFooter>
+                                    <AlertDialogCancel>Cancelar</AlertDialogCancel>
+                                    <AlertDialogAction onClick={() => handleDelete()}>Deletar</AlertDialogAction>
+                                </AlertDialogFooter>
+                            </AlertDialogContent>
+                        </AlertDialog>
                     </More>
                 </div>
             </div>
