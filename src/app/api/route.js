@@ -18,12 +18,12 @@ export async function GET(request) {
     }
 
     const timestamps = requestTracker.get(ip).filter((timestamp) => now - timestamp < rateLimitWindow);
-    if (timestamps.length >= rateLimitRequests) {
-      return new Response(
-        JSON.stringify({ success: false, error: 'Too many requests. Please try again later.' }),
-        { status: 429 }
-      );
-    }
+    // if (timestamps.length >= rateLimitRequests) {
+    //   return new Response(
+    //     JSON.stringify({ success: false, error: 'Too many requests. Please try again later.' }),
+    //     { status: 429 }
+    //   );
+    // }
 
     timestamps.push(now);
     requestTracker.set(ip, timestamps);
@@ -33,7 +33,8 @@ export async function GET(request) {
       const cachedData = cache.get(cacheKey);
       if (now - cachedData.timestamp < ttl) {
         console.log('Cache hit:', cacheKey);
-        return new Response(JSON.stringify({ success: true, topics: cachedData.data }));
+        console.log(now - cachedData.timestamp)
+        return Response.json({ success: true, topics: cachedData.data });
       }
       // Remove o cache expirado
       cache.delete(cacheKey);
@@ -42,7 +43,7 @@ export async function GET(request) {
     console.log('Cache miss, fetching:', cacheKey);
 
     // Realiza a requisição à API externa
-    const res = await fetch(`https://cps-forum-api.azurewebsites.net/topicos${sort ? `?sort=${sort}` : ''}`);
+    const res = await fetch(`https://cps-forum-api.azurewebsites.net/topicos${sort ? `?sort=${sort}` : ''}`, {cache: "no-cache"});
 
     if (!res.ok) {
       throw new Error(`API responded with status ${res.status}`);
@@ -53,14 +54,11 @@ export async function GET(request) {
     // Armazena os dados no cache
     cache.set(cacheKey, { timestamp: now, data: data.content });
 
-    return new Response(JSON.stringify({ success: true, topics: data.content }));
+    return Response.json({ success: true, topics: data.content });
   } catch (error) {
     console.error('Error fetching topics:', error);
 
     // Responde com erro
-    return new Response(
-      JSON.stringify({ success: false, error: error.message || 'Unexpected error occurred.' }),
-      { status: 500 }
-    );
+    return Response.json({ success: false, status: 500, error: error.message || 'Unexpected error occurred.' })
   }
 }

@@ -36,7 +36,7 @@ export const Topic = ({ item }) => {
                             {dayjs(item.createdAt).fromNow()}
                         </div>
                     </div>
-                    <Link href={`/perfil/${author.id}/${author.slug}`} className="z-10 text-xs font-medium hover:text-muted-foreground w-fit">{author.firstName}&nbsp;{author.lastName}</Link>
+                    <Link href={`/perfil/${author.id}/${author.slug}`} className="z-10 text-xs font-medium hover:text-muted-foreground w-fit">{author.name}</Link>
                 </div>
                 <div className="line-clamp-2 text-xs text-muted-foreground">
                     {filteredBody.substring(0, 300)}

@@ -39,8 +39,6 @@ import {
 } from "@/components/ui/command";
 
 import { tags } from '@/components/data/tags';
-import { JsonWebTokenTypes } from '@azure/msal-browser';
-import { useSession } from 'next-auth/react';
 
 const Main = styled.main`
     padding: 2rem 1rem 2rem 1rem;
@@ -135,7 +133,7 @@ export const CommandDemo = ({ onTagClick, step }) => {
 
 export const TitleErrorMessage = ({ text }) => {
     const trimmedText = text.trim();
-    if (trimmedText.length >= 10) {
+    if (trimmedText.length >= 15) {
         return (
             <p className='text-sm font-medium text-primary flex mb-2 mt-2'>
                 Parece bom!<CheckCircle className='ml-2 w-5 h-5' />
@@ -144,20 +142,12 @@ export const TitleErrorMessage = ({ text }) => {
     }
     return (
         <p className='text-sm font-medium text-destructive'>
-            São necessários mais {10 - trimmedText.length} caracteres no seu título.
+            São necessários mais {15 - trimmedText.length} caracteres no seu título.
         </p>
     );
 }
 
-import { useIsAuthenticated } from "@azure/msal-react";
-
 export default function Criar() {
-    const session = useSession();
-    const isAuthenticated = useIsAuthenticated(); // Verificação de autenticação
-
-    if(!isAuthenticated){
-        redirect('/sign-in');
-    }
     //State para etapas
     const [step, setStep] = React.useState(1);
     const [tags, setTags] = React.useState([]);
@@ -231,12 +221,12 @@ export default function Criar() {
 
         const requestBody = {
             // userId: session.data?.user?.userId,
-            userId: 2,
+            userId: 4,
             title: title,
             privacy: privacy,
             section: section,
             body: body,
-            tag: "Feira de Ciências 2024"
+            tag: "Apresentação TCC"
         }
 
         const req = await fetch('/api/criar', {
@@ -246,6 +236,8 @@ export default function Criar() {
             },
             body: JSON.stringify(requestBody),
         })
+
+        console.log(JSON.stringify(requestBody));
 
         const res = await req.json();
 
