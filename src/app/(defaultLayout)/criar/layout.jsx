@@ -1,3 +1,6 @@
+import { redirect } from "next/navigation"
+import { auth } from "../../../../auth"
+
 export const metadata = {
     title: "Criar um tópico",
     description: "Crie um tópico no Fórum Centro Paula Souza",
@@ -17,7 +20,11 @@ export const metadata = {
     }
 }
 
-export default function CriarLayout({ children }) {
+export default async function CriarLayout({ children }) {
+    const session = await auth()
+    if (!session){
+        redirect('/sign-in')
+    }
     return (
         children
     )

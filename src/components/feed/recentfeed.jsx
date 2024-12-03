@@ -1,5 +1,4 @@
 import RecentTopic from "@/components/feed/recenttopic";
-import dayjs from "dayjs";
 
 export default function RecentFeed({ items }){
     return (

@@ -5,43 +5,54 @@ import { buttonVariants } from "@/components/ui/button";
 import Link from "next/link";
 import { useState, useEffect } from "react";
 import { Skeleton } from "../ui/skeleton";
+import { useIsAuthenticated } from "@azure/msal-react";
 
 export default function RightSidebar() {
     const [recentTopics, setRecentTopics] = useState();
+    const isAuthenticated = useIsAuthenticated(); // Verificação de autenticação
 
     async function getRecentTopics() {
-        const req = await fetch(`/api/?sort=createdAt,desc`)
-        const { topics } = await req.json()
-        setRecentTopics(topics)
+        const req = await fetch(`/api/?sort=createdAt,desc`);
+        const { topics } = await req.json();
+        setRecentTopics(topics);
     }
 
     useEffect(() => {
-        getRecentTopics()
-    }, [])
+        getRecentTopics();
+    }, []);
+
     return (
         <>
-            <div >
-                <PageTitle title='Seções seguidas' />
-                <div className="my-4 flex items-center justify-between border rounded-lg text-xs font-semibold p-3" >
-                    <h2>Entre para ver suas seções seguidas</h2>
-                    <Link className={`${cn(buttonVariants())} text-xs h-6`} href="/sign-in" >Entrar</Link>
+            <div>
+                <PageTitle title="Seções seguidas" />
+                <div className="my-4 flex items-center justify-between border rounded-lg text-xs font-semibold p-3">
+                    {isAuthenticated ? (
+                        <h2>Você ainda não segue nenhuma seção</h2>
+                    ) : (
+                        <>
+                            <h2>Entre para ver suas seções seguidas</h2>
+                            <Link
+                                className={`${cn(buttonVariants())} text-xs h-6`}
+                                href="/sign-in"
+                            >
+                                Entrar
+                            </Link>
+                        </>
+                    )}
                 </div>
             </div>
             <div>
-                <PageTitle title='Tópicos mais recentes' />
-                {
-                    recentTopics ?
-                        <RecentFeed items={recentTopics} />
-                        :
-                        <div className="gap-2 mt-4 flex flex-col">
-                            {
-                                [...Array(10)].map((_, i) => (
-                                    <Skeleton key={i} className="h-16 w-full rounded-lg" />
-                                ))
-                            }
-                        </div>
-                }
+                <PageTitle title="Tópicos mais recentes" />
+                {recentTopics ? (
+                    <RecentFeed items={recentTopics} />
+                ) : (
+                    <div className="gap-2 mt-4 flex flex-col">
+                        {[...Array(10)].map((_, i) => (
+                            <Skeleton key={i} className="h-16 w-full rounded-lg" />
+                        ))}
+                    </div>
+                )}
             </div>
         </>
-    )
+    );
 }

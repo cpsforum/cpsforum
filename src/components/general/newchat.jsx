@@ -1,19 +1,11 @@
 import * as React from "react"
-import { Check, Plus, Send } from "lucide-react"
-
-import { cn } from "@/lib/utils"
+import { Check, Plus } from "lucide-react"
 import {
     Avatar,
     AvatarFallback,
     AvatarImage,
 } from "@/components/ui/avatar"
 import { Button } from "@/components/ui/button"
-import {
-    Card,
-    CardContent,
-    CardFooter,
-    CardHeader,
-} from "@/components/ui/card"
 import {
     Command,
     CommandEmpty,
@@ -30,7 +22,6 @@ import {
     DialogHeader,
     DialogTitle,
 } from "@/components/ui/dialog"
-import { Input } from "@/components/ui/input"
 import {
     Tooltip,
     TooltipContent,
