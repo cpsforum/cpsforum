@@ -13,7 +13,9 @@ export default function SectionPage() {
   // Definindo variáveis para usar fora do escopo
   const [topics, setTopics] = useState([]);
   const [recentTopics, setRecentTopics] = useState([]);
-  const forumMessagesTopics = Topic.filter(topic => topic.section === 1);
+
+  const supersection = sectionlinks.find(supersection => supersection.sections.some(section => section.slug === slug));
+  const section = (supersection?.sections || []).find(section => section.slug === slug);
 
   async function getTopics() {
     const req = await fetch(`/api/${slug}`)
@@ -34,7 +36,7 @@ export default function SectionPage() {
 
   return (
     <>
-      <PageTitle ntb title={"aaa"} subtitle={"aaa"} className="flex justify-between" />
+      <PageTitle ntb title={section.title} subtitle={supersection.title} className="flex justify-between" />
       <Tabs defaultValue="recent" className="mt-3 w-full">
         <div className="flex items-center justify-between">
           <div>

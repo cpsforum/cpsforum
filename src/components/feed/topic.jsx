@@ -14,7 +14,7 @@ export const Topic = ({ item }) => {
             <div
                 key={item.id}
                 className={cn(
-                    "flex flex-col items-start gap-2 rounded-lg border p-3 text-left text-sm "
+                    "flex flex-col items-start gap-2 rounded-lg border p-3 text-left"
                 )}
             >
                 <div className="flex w-full flex-col gap-1">
@@ -46,7 +46,7 @@ export const Topic = ({ item }) => {
                         {[item.tag].map((label, i) => (
                             //PLACEHOLDER
                             <Badge key={i} variant={getBadgeVariantFromLabel(label)}>
-                                <Link className="z-10 hover:text-muted-foreground" href={`/tag/${label}`}>
+                                <Link className="z-10 hover:text-muted-foreground text-xs" href={`/tag/${label}`}>
                                     {label}
                                 </Link>
                             </Badge>

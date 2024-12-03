@@ -3,8 +3,7 @@ export const Topic = [
         id: 1,
         user: {
             id: 1,
-            firstName: "Arthur",
-            lastName: "Martins Pereira",
+            name: "ARTHUR MARTINS PEREIRA",
             slug: "admin-dev"
         },
         title: "Sejam bem-vindos ao Fórum Centro Paula Souza!",

@@ -161,10 +161,10 @@ export default function TopicView({ params }) {
                             <Avatar className="rounded-md">
                                 <AvatarImage src={author?.pic} />
                                 <AvatarFallback className="rounded-md">
-                                    {author?.firstName?.charAt(0)}
+                                    {author?.name?.charAt(0)}
                                 </AvatarFallback>
                             </Avatar>
-                            <span className="text-foreground">{author.firstName}&nbsp;{author.lastName}</span>
+                            <span className="text-foreground">{author.name}</span>
                         </Link>
                         :
                         <div className="flex items-start gap-1">
